@@ -43,6 +43,7 @@ export interface Menu {
   whatsapp: string
   webhook: string
   aviso_envio: string
+  limite_consumidor_final: number // sobre este total, la factura debe llevar datos (SRI)
   pagos: string[]
   zonas: Zona[]
   categorias: Categoria[]

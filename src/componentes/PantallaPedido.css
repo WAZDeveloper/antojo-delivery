@@ -126,10 +126,6 @@
   font-weight: 600;
 }
 
-.campo label.campo__titulo {
-  font-size: 19px;
-}
-
 .campo input,
 .campo select,
 .campo textarea {
@@ -345,4 +341,97 @@
   padding: 40px 20px;
   text-align: center;
   color: var(--texto-suave);
+}
+
+/* Secciones con campos uno debajo de otro */
+.pedido__seccion--apilada,
+.factura {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+/* Factura: recuadro con borde */
+.factura {
+    margin: 16px;
+    padding: 18px;
+    border: 1.5px solid var(--borde);
+    border-radius: 22px;
+}
+
+/* Botones "Consumidor final | Con mis datos" */
+.segmentos {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px;
+    padding: 4px;
+    border-radius: 14px;
+    background: #eef1ed;
+}
+
+.segmento {
+    position: relative;
+    min-height: 44px;
+    padding: 0 8px;
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--tinta);
+    cursor: pointer;
+}
+
+/* El círculo del radio no se ve, pero sigue funcionando con el teclado y los lectores de pantalla */
+
+.segmento input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.segmento--activo {
+    background: var(--verde);
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.segmento-bloqueado {
+    color: #6b7a70;
+    cursor: not-allowed;
+}
+
+.aviso-sri {
+    margin: 0;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: #fff6e0;
+    font-size: 13px;
+    line-height: 1.45;
+}
+
+/* Tipo de documento + número */
+
+.campos-id {
+    display: grid;
+    grid-template-columns: 130px minmax(0, 1fr);
+    gap: 10px;
+}
+
+.casilla {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.casilla input {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    accent-color: var(--verde);
 }

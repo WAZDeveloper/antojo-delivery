@@ -6,6 +6,7 @@
   "whatsapp": "",
   "webhook": "https://itantojomanabita.app.n8n.cloud/webhook/delivery-pedido",
   "aviso_envio": "El recargo por envío depende de la ruta hasta su dirección.",
+  "limite_consumidor_final": 50,
 
   "pagos": [
     "Transferencia bancaria",
