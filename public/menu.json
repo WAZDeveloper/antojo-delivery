@@ -44,7 +44,33 @@
     {
       "nombre": "Platos fuertes",
       "platos": [
-        { "id": "fue-01", "nombre": "Seco de gallina criolla", "detalle": "Con arroz amarillo, maduro y ensalada.",                  "precio": 8.75, "foto": "", "disponible": true },
+        { "id": "fue-01", 
+          "nombre": "Seco de gallina criolla", 
+          "detalle": "Con arroz amarillo, maduro y ensalada.",                  
+          "precio": 8.75, "foto": "", 
+          "disponible": true, 
+          "opciones": [
+            {
+              "nombre":"Guarnición",
+              "obligatorio": true,
+              "maximo": 1,
+              "valores": [
+                { "nombre": "Patacón", "precio": 0 },
+                { "nombre": "Arroz Amarrillo", "precio": 0 },
+                { "nombre": "Maduro Frito", "precio": 0}
+              ]
+            },
+            {
+              "nombre": "Extras",
+              "obligatorio": false,
+              "maximo": 2,
+              "valores": [
+                { "nombre": "Huevo Frito", "precio": 0.75 },
+                { "nombre": "Porción de aguacate", "precio": 1.00 }
+              ]
+            } 
+          ] 
+          },
         { "id": "fue-02", "nombre": "Corviche (2)",            "detalle": "Masa de verde rellena de pescado, con salsa de maní.",     "precio": 5.50, "foto": "", "disponible": true }
       ]
     },

@@ -82,6 +82,11 @@
   font-weight: 600;
 }
 
+.linea__extra {
+  font-size: 13px;
+  color: var(--texto-suave);
+}
+
 .linea__unitario {
   font-size: 14px;
   color: var(--texto-suave);

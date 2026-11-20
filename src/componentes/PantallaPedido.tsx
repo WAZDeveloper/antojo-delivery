@@ -21,8 +21,8 @@ interface Props {
   lineas: LineaPedido[]
   totalPlatos: number
   subtotal: number
-  onAgregar: (id: string) => void
-  onQuitar: (id: string) => void
+  onAgregar: (clave: string) => void
+  onQuitar: (clave: string) => void
   onVolver: () => void
   onEnviar: (entrega: DatosEntrega, envio: number | null, total: number) => void
 }
@@ -119,16 +119,18 @@ export function PantallaPedido({
         <section className="pedido__seccion" aria-labelledby="titulo-platos">
           <h2 id="titulo-platos">Platos</h2>
           {lineas.map((linea) => (
-            <div key={linea.plato.id} className="linea">
+            <div key={linea.clave} className="linea">
               <div className="linea__info">
                 <span className="linea__nombre">{linea.plato.nombre}</span>
-                <span className="linea__unitario">{precio(linea.plato.precio)} c/u</span>
+                {linea.detalle && <span className="linea__extra">{linea.detalle}</span>}
+                {linea.nota && <span className="linea__extra">Nota: {linea.nota}</span>}
+                <span className="linea__unitario">{precio(linea.unitario)} c/u</span>
               </div>
               <Contador
                 nombre={linea.plato.nombre}
                 cantidad={linea.cantidad}
-                onAgregar={() => onAgregar(linea.plato.id)}
-                onQuitar={() => onQuitar(linea.plato.id)}
+                onAgregar={() => onAgregar(linea.clave)}
+                onQuitar={() => onQuitar(linea.clave)}
               />
               <span className="linea__subtotal">{precio(linea.subtotal)}</span>
             </div>

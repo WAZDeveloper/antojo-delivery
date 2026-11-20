@@ -1,77 +1,127 @@
 import { useEffect, useState } from 'react'
 import type { Menu, Plato } from './tipos'
 
-// Cuántos hay de cada plato: { "ent-01": 1, "mar-01": 2 }
-export type Cantidades = Record<string, number>
+// Lo que el cliente eligió en cada grupo: { "Guarnición": ["Patacón"], "Extras": ["Huevo frito"] }
+export type Elegidas = Record<string, string[]>
 
-const CLAVE = 'antojo-carrito'
+// Una línea del carrito. El mismo plato con otra guarnición o nota es otra línea.
+export interface ItemCarrito {
+  clave: string
+  platoId: string
+  elegidas: Elegidas
+  nota: string
+  cantidad: number
+}
 
-// Recupera el pedido si el cliente recargó la página
-function leerGuardado(): Cantidades {
+// v2: cambió la forma de guardar. Así no se mezcla con lo guardado por la versión anterior.
+const CLAVE = 'antojo-carrito-v2'
+
+function leerGuardado(): ItemCarrito[] {
   try {
     const texto = localStorage.getItem(CLAVE)
-    return texto ? (JSON.parse(texto) as Cantidades) : {}
+    const datos: unknown = texto ? JSON.parse(texto) : []
+    return Array.isArray(datos) ? (datos as ItemCarrito[]) : []
   } catch {
-    return {}
+    return []
   }
 }
 
-export function useCarrito() {
-  const [cantidades, setCantidades] = useState<Cantidades>(leerGuardado)
+// Misma receta (plato + opciones + nota) = misma clave = se suman las cantidades
+const crearClave = (platoId: string, elegidas: Elegidas, nota: string) =>
+  JSON.stringify([platoId, elegidas, nota.trim().toLowerCase()])
 
-  // Cada vez que cambia el pedido, se guarda en el navegador
+export function useCarrito() {
+  const [items, setItems] = useState<ItemCarrito[]>(leerGuardado)
+
   useEffect(() => {
     try {
-      localStorage.setItem(CLAVE, JSON.stringify(cantidades))
+      localStorage.setItem(CLAVE, JSON.stringify(items))
     } catch {
-      // Navegador sin almacenamiento (modo privado): el pedido funciona igual, solo no se recuerda
+      // Navegador sin almacenamiento: el pedido funciona igual, solo no se recuerda
     }
-  }, [cantidades])
+  }, [items])
 
-  const agregar = (id: string) =>
-    setCantidades((antes) => ({ ...antes, [id]: (antes[id] ?? 0) + 1 }))
-
-  const quitar = (id: string) =>
-    setCantidades((antes) => {
-      const copia = { ...antes }
-      const nueva = (copia[id] ?? 0) - 1
-      if (nueva <= 0) {
-        delete copia[id]
-      } else {
-        copia[id] = nueva
+  const agregar = (platoId: string, elegidas: Elegidas, nota: string, cantidad: number) =>
+    setItems((antes) => {
+      const clave = crearClave(platoId, elegidas, nota)
+      const existe = antes.some((item) => item.clave === clave)
+      if (existe) {
+        return antes.map((item) => (item.clave === clave ? { ...item, cantidad: item.cantidad + cantidad } : item))
       }
-      return copia
+      return [...antes, { clave, platoId, elegidas, nota: nota.trim(), cantidad }]
     })
 
-  const vaciar = () => setCantidades({})
+  const sumar = (clave: string) =>
+    setItems((antes) => antes.map((item) => (item.clave === clave ? { ...item, cantidad: item.cantidad + 1 } : item)))
 
-  return { cantidades, agregar, quitar, vaciar }
+  const restar = (clave: string) =>
+    setItems((antes) =>
+      antes
+        .map((item) => (item.clave === clave ? { ...item, cantidad: item.cantidad - 1 } : item))
+        .filter((item) => item.cantidad > 0),
+    )
+
+  const vaciar = () => setItems([])
+
+  return { items, agregar, sumar, restar, vaciar }
 }
 
+// ---------- Cálculos ----------
+
+const centavos = (valor: number) => Math.round(valor * 100) / 100
+
+// Precio de un plato con sus extras: base + lo que sumen las opciones elegidas
+export function precioUnitario(plato: Plato, elegidas: Elegidas) {
+  let total = plato.precio
+  for (const grupo of plato.opciones ?? []) {
+    for (const valor of grupo.valores) {
+      if (elegidas[grupo.nombre]?.includes(valor.nombre)) total += valor.precio
+    }
+  }
+  return centavos(total)
+}
+
+// "Patacón · Huevo frito"
+export const textoOpciones = (elegidas: Elegidas) => Object.values(elegidas).flat().join(' · ')
+
 export interface LineaPedido {
+  clave: string
   plato: Plato
+  elegidas: Elegidas
+  detalle: string
+  nota: string
   cantidad: number
+  unitario: number
   subtotal: number
 }
 
-// Redondea a centavos para evitar cosas como 24.299999
-const centavos = (valor: number) => Math.round(valor * 100) / 100
+export function resumirPedido(menu: Menu, items: ItemCarrito[]) {
+  // Buscar un plato por su id rápidamente
+  const platos = new Map(menu.categorias.flatMap((c) => c.platos).map((p) => [p.id, p]))
 
-// Convierte las cantidades en líneas del pedido con sus totales
-export function resumirPedido(menu: Menu, cantidades: Cantidades) {
   const lineas: LineaPedido[] = []
+  const cantidadPorPlato: Record<string, number> = {}
 
-  for (const categoria of menu.categorias) {
-    for (const plato of categoria.platos) {
-      const cantidad = cantidades[plato.id] ?? 0
-      if (cantidad > 0 && plato.disponible) {
-        lineas.push({ plato, cantidad, subtotal: centavos(plato.precio * cantidad) })
-      }
-    }
+  for (const item of items) {
+    const plato = platos.get(item.platoId)
+    if (!plato || !plato.disponible) continue // si lo quitaron del menú o se agotó, sale del pedido
+
+    const unitario = precioUnitario(plato, item.elegidas)
+    lineas.push({
+      clave: item.clave,
+      plato,
+      elegidas: item.elegidas,
+      detalle: textoOpciones(item.elegidas),
+      nota: item.nota,
+      cantidad: item.cantidad,
+      unitario,
+      subtotal: centavos(unitario * item.cantidad),
+    })
+    cantidadPorPlato[plato.id] = (cantidadPorPlato[plato.id] ?? 0) + item.cantidad
   }
 
   const totalPlatos = lineas.reduce((suma, linea) => suma + linea.cantidad, 0)
   const subtotal = centavos(lineas.reduce((suma, linea) => suma + linea.subtotal, 0))
 
-  return { lineas, totalPlatos, subtotal }
+  return { lineas, totalPlatos, subtotal, cantidadPorPlato }
 }

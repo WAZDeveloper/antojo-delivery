@@ -8,14 +8,17 @@ import { BarraPedido } from './componentes/BarraPedido'
 import { resumirPedido, useCarrito } from './useCarrito'
 import { PantallaPedido } from './componentes/PantallaPedido'
 import { useVista } from './useVista'
+import { DetallePlato } from './componentes/DetallePlato'
+import type { Plato } from './tipos'
 
 function App() {
   const datos = useMenu()
   const [activa, setActiva] = useState('')
-    const carrito = useCarrito()
+  const [platoAbierto, setPlatoAbierto] = useState<Plato | null>(null)
+  const carrito = useCarrito()
 
   // El resumen del pedido (solo cuando el menú ya cargó)
-  const pedido = datos.estado === 'listo' ? resumirPedido(datos.menu, carrito.cantidades) : null
+    const pedido = datos.estado === 'listo' ? resumirPedido(datos.menu, carrito.items) : null
 
     const { vista, abrirPedido, volverAlMenu } = useVista()
 
@@ -27,8 +30,8 @@ function App() {
         lineas={pedido.lineas}
         totalPlatos={pedido.totalPlatos}
         subtotal={pedido.subtotal}
-        onAgregar={carrito.agregar}
-        onQuitar={carrito.quitar}
+        onAgregar={carrito.sumar}
+        onQuitar={carrito.restar}
         onVolver={volverAlMenu}
         onEnviar={(entrega, envio, total) =>
           console.log('Pedido listo para enviar (paso 8)', { lineas: pedido.lineas, entrega, envio, total })
@@ -89,9 +92,8 @@ function App() {
                     <PlatoFila
                       key={plato.id}
                       plato={plato}
-                      cantidad={carrito.cantidades[plato.id] ?? 0}
-                      onAgregar={() => carrito.agregar(plato.id)}
-                      onQuitar={() => carrito.quitar(plato.id)}
+                      enPedido={pedido?.cantidadPorPlato[plato.id] ?? 0}
+                      onElegir={() => setPlatoAbierto(plato)}
                     />
                   ))}
                 </div>
@@ -105,6 +107,17 @@ function App() {
                 totalPlatos={pedido.totalPlatos}
                 subtotal={pedido.subtotal}
                 onAbrir={abrirPedido}
+              />
+            )}
+            {platoAbierto && (
+              <DetallePlato
+                key={platoAbierto.id}
+                plato={platoAbierto}
+                onCerrar={() => setPlatoAbierto(null)}
+                onAgregar={(elegidas, nota, cantidad) => {
+                  carrito.agregar(platoAbierto.id, elegidas, nota, cantidad)
+                  setPlatoAbierto(null)
+                }}
               />
             )}
     </>

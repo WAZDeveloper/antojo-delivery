@@ -1,17 +1,15 @@
 import type { Plato } from '../tipos'
 import { precio } from '../utilidades'
-import './PlatoFila.css'
-import { Contador } from './Contador'
 import { IconoFoto, IconoMas } from './Iconos'
+import './PlatoFila.css'
 
 interface Props {
   plato: Plato
-  cantidad: number
-  onAgregar: () => void
-  onQuitar: () => void
+  enPedido: number // cuántos de este plato hay ya en el pedido (sumando todas sus variantes)
+  onElegir: () => void // abre el detalle del plato
 }
 
-export function PlatoFila({ plato, cantidad, onAgregar, onQuitar }: Props) {
+export function PlatoFila({ plato, enPedido, onElegir }: Props) {
   const agotado = !plato.disponible
 
   return (
@@ -19,18 +17,17 @@ export function PlatoFila({ plato, cantidad, onAgregar, onQuitar }: Props) {
       <div className="plato__info">
         <h3 className="plato__nombre">{plato.nombre}</h3>
         {plato.detalle && <p className="plato__detalle">{plato.detalle}</p>}
+        {enPedido > 0 && <span className="plato__en-pedido">{enPedido} en su pedido</span>}
 
         <div className="plato__pie">
           <span className="plato__precio">{precio(plato.precio)}</span>
 
           {agotado ? (
             <span className="plato__agotado">Agotado hoy</span>
-          ) : cantidad === 0 ? (
-            <button type="button" className="boton-agregar" onClick={onAgregar}>
+          ) : (
+            <button type="button" className="boton-agregar" onClick={onElegir} aria-label={`Agregar ${plato.nombre}`}>
               <IconoMas /> Agregar
             </button>
-          ) : (
-          <Contador nombre={plato.nombre} cantidad={cantidad} onAgregar={onAgregar} onQuitar={onQuitar} />
           )}
         </div>
       </div>

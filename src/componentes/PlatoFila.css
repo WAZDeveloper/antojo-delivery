@@ -76,6 +76,17 @@
   color: var(--verde);
 }
 
+/* "2 en su pedido" */
+.plato__en-pedido {
+    align-self: flex-start;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--verde);
+    background: var(--fondo-suave);
+    padding: 3px 10px;
+    border-radius: 999px;
+}
+
 /* Botón "Agregar" (cuando todavía no hay ninguno en el pedido) */
 .boton-agregar {
   height: 44px;
