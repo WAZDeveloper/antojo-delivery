@@ -33,9 +33,7 @@ function App() {
         onAgregar={carrito.sumar}
         onQuitar={carrito.restar}
         onVolver={volverAlMenu}
-        onEnviar={(entrega, envio, total) =>
-          console.log('Pedido listo para enviar (paso 8)', { lineas: pedido.lineas, entrega, envio, total })
-        }
+        onEnviar={(datosPedido) => console.log('Pedido listo para enviar (paso 8)', { lineas: pedido.lineas, ...datosPedido })}
       />
     )
   }

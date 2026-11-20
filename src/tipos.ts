@@ -29,12 +29,19 @@ export interface Categoria {
   platos: Plato[]
 }
 
-export interface Zona {
-  nombre: string
-  local: string
-  envio: number | null // null = el local confirma el recargo según la ruta
+// Un local que hace entregas: su ubicación y hasta cuántos km llega
+export interface Local {
+    nombre: string
+    lat: number
+    lng: number
+    radio_km: number
 }
 
+// Precio del envío según la distancia: "hasta 3 km → $1.50"
+export interface TarifaEnvio {
+    hasta_km: number
+    precio: number
+}
 export interface Menu {
   ejemplo: boolean
   negocio: string
@@ -45,6 +52,7 @@ export interface Menu {
   aviso_envio: string
   limite_consumidor_final: number // sobre este total, la factura debe llevar datos (SRI)
   pagos: string[]
-  zonas: Zona[]
+  locales: Local[]
+  tarifas_envio: TarifaEnvio[]
   categorias: Categoria[]
 }

@@ -1,12 +1,12 @@
 import { ERROR_IDENTIFICACION, identificacionValida, type TipoIdentificacion } from './identificacion'
-import type { Zona } from './tipos'
 
 export type TipoFactura = 'consumidor' | 'datos'
 
 // Lo que el cliente escribe en "Su pedido"
 export interface DatosEntrega {
   // Entrega
-  zona: string // nombre de la zona elegida (en el paso 7b lo reemplaza el mapa)
+  lat: number | null // ubicación del pin en el mapa (null = todavía no marcó)
+  lng: number | null
   direccion: string
   referencia: string
   // Sus datos
@@ -25,7 +25,8 @@ export interface DatosEntrega {
 }
 
 export const entregaVacia: DatosEntrega = {
-  zona: '',
+  lat: null,
+  lng: null,
   direccion: '',
   referencia: '',
   nombre: '',
@@ -45,10 +46,14 @@ export type Errores = Partial<Record<keyof DatosEntrega, string>>
 
 const correoValido = (correo: string) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(correo.trim())
 
-export function validarEntrega(datos: DatosEntrega, facturaObligatoria: boolean): Errores {
+export function validarEntrega(datos: DatosEntrega, facturaObligatoria: boolean, enRango: boolean): Errores {
   const errores: Errores = {}
 
-  if (!datos.zona) errores.zona = 'Elija la zona de entrega.'
+  if (datos.lat === null || datos.lng === null) {
+    errores.lat = 'Marque en el mapa dónde entregamos su pedido.'
+  } else if (!enRango) {
+    errores.lat = 'Su dirección está fuera de rango de entrega.'
+  }
   if (datos.direccion.trim().length < 5) errores.direccion = 'Escriba la dirección de entrega.'
   if (!datos.nombre.trim()) errores.nombre = 'Escriba su nombre.'
   if (!datos.apellido.trim()) errores.apellido = 'Escriba su apellido.'
@@ -75,4 +80,11 @@ export function validarEntrega(datos: DatosEntrega, facturaObligatoria: boolean)
   return errores
 }
 
-export const buscarZona = (zonas: Zona[], nombre: string) => zonas.find((zona) => zona.nombre === nombre)
+// Lo que sale de "Su pedido" cuando todo está correcto (en el paso 8 se envía a n8n)
+export interface PedidoListo {
+  entrega: DatosEntrega
+  local: string
+  distanciaKm: number
+  envio: number
+  total: number
+}

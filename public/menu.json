@@ -15,16 +15,16 @@
     "DeUna / Payphone"
   ],
 
-  "zonas": [
-    { "nombre": "Cumbayá centro",                   "local": "Cumbayá",              "envio": 1.50 },
-    { "nombre": "Tumbaco",                          "local": "Cumbayá",              "envio": 2.50 },
-    { "nombre": "Otro sector cerca de Cumbayá",     "local": "Cumbayá",              "envio": null },
-    { "nombre": "San Rafael",                       "local": "Valle de los Chillos", "envio": 1.50 },
-    { "nombre": "Conocoto",                         "local": "Valle de los Chillos", "envio": 2.50 },
-    { "nombre": "Otro sector del Valle",            "local": "Valle de los Chillos", "envio": null },
-    { "nombre": "Polonia y alrededores",            "local": "Polonia",              "envio": 1.50 },
-    { "nombre": "Otro sector cerca de Polonia",     "local": "Polonia",              "envio": null }
-  ],
+ "locales": [
+  { "nombre": "Valle de los Chillos", "lat": -0.3010565, "lng": -78.4481827, "radio_km": 8 },
+  { "nombre": "Polonia", "lat": -0.191499, "lng": -78.489912, "radio_km": 8 }
+],
+
+"tarifas_envio": [
+  { "hasta_km": 3, "precio": 1.50 },
+  { "hasta_km": 6, "precio": 2.50 },
+  { "hasta_km": 8, "precio": 3.50 }
+],
 
   "categorias": [
     {

@@ -1,6 +1,7 @@
-import { useState, type FormEvent } from 'react'
+import { useRef, useState, type FormEvent } from 'react'
 import { NOMBRES_IDENTIFICACION, type TipoIdentificacion } from '../identificacion'
-import { buscarZona, entregaVacia, validarEntrega, type DatosEntrega, type Errores } from '../pedido'
+import { calcularEntrega, textoKm, type Punto } from '../entrega'
+import { entregaVacia, validarEntrega, type DatosEntrega, type PedidoListo } from '../pedido'
 import type { Menu } from '../tipos'
 import type { LineaPedido } from '../useCarrito'
 import { precio } from '../utilidades'
@@ -15,6 +16,7 @@ import {
   IconoTarjeta,
   IconoUbicacion,
 } from './Iconos'
+import { MapaEntrega } from './MapaEntrega'
 import './PantallaPedido.css'
 
 interface Props {
@@ -25,12 +27,12 @@ interface Props {
   onAgregar: (clave: string) => void
   onQuitar: (clave: string) => void
   onVolver: () => void
-  onEnviar: (entrega: DatosEntrega, envio: number | null, total: number) => void
+  onEnviar: (pedido: PedidoListo) => void
 }
 
 // Orden en que revisamos los campos para llevar al cliente al primer error
 const ORDEN_CAMPOS: (keyof DatosEntrega)[] = [
-  'zona',
+  'lat',
   'direccion',
   'nombre',
   'apellido',
@@ -69,24 +71,36 @@ export function PantallaPedido({
   onEnviar,
 }: Props) {
   const [entrega, setEntrega] = useState<DatosEntrega>(entregaVacia)
-  const [errores, setErrores] = useState<Errores>({})
   const [intentoEnviar, setIntentoEnviar] = useState(false)
+  const direccionAuto = useRef('') // última dirección que escribió el mapa (no el cliente)
 
-  const zona = buscarZona(menu.zonas, entrega.zona)
-  const envio = zona ? zona.envio : null
-  const total = Math.round((subtotal + (envio ?? 0)) * 100) / 100
-  const locales = [...new Set(menu.zonas.map((z) => z.local))]
+  // Local, distancia y envío según el pin del mapa
+  const punto: Punto | null = entrega.lat !== null && entrega.lng !== null ? { lat: entrega.lat, lng: entrega.lng } : null
+  const resultado = punto ? calcularEntrega(menu, punto) : null
+  const enRango = resultado?.enRango ?? false
+  const envio = resultado?.enRango ? resultado.envio : 0
+  const total = Math.round((subtotal + envio) * 100) / 100
 
   // Regla del SRI: sobre el límite, la factura debe llevar los datos del cliente
   const facturaObligatoria = total > menu.limite_consumidor_final
   const conDatos = facturaObligatoria || entrega.factura === 'datos'
 
+  // Los errores se calculan solos en cada cambio, pero solo se muestran después del primer intento
+  const errores = intentoEnviar ? validarEntrega(entrega, facturaObligatoria, enRango) : {}
+
   // <K extends keyof DatosEntrega>: "campo" es uno de los nombres y "valor" tiene el tipo de ese campo
-  const cambiar = <K extends keyof DatosEntrega>(campo: K, valor: DatosEntrega[K]) => {
-    const nuevos = { ...entrega, [campo]: valor }
-    setEntrega(nuevos)
-    if (intentoEnviar) setErrores(validarEntrega(nuevos, facturaObligatoria))
-  }
+  const cambiar = <K extends keyof DatosEntrega>(campo: K, valor: DatosEntrega[K]) =>
+    setEntrega((antes) => ({ ...antes, [campo]: valor }))
+
+  const ponerUbicacion = (nuevo: Punto) => setEntrega((antes) => ({ ...antes, lat: nuevo.lat, lng: nuevo.lng }))
+
+  // El mapa sugiere la dirección, pero no borra lo que el cliente ya escribió
+  const sugerirDireccion = (texto: string) =>
+    setEntrega((antes) => {
+      if (antes.direccion && antes.direccion !== direccionAuto.current) return antes
+      direccionAuto.current = texto
+      return { ...antes, direccion: texto }
+    })
 
   // Atajo para los campos de texto: conecta value, onChange y los avisos de error
   const propsCampo = (campo: keyof DatosEntrega) => ({
@@ -106,16 +120,22 @@ export function PantallaPedido({
 
   const enviar = (evento: FormEvent<HTMLFormElement>) => {
     evento.preventDefault()
-    const encontrados = validarEntrega(entrega, facturaObligatoria)
-    setErrores(encontrados)
     setIntentoEnviar(true)
+    const encontrados = validarEntrega(entrega, facturaObligatoria, enRango)
 
     const primero = ORDEN_CAMPOS.find((campo) => encontrados[campo])
-    if (primero) {
-      document.getElementById(primero === 'pago' ? 'pago-0' : `campo-${primero}`)?.focus()
+    if (primero || !resultado?.enRango) {
+      const id = primero === 'pago' ? 'pago-0' : `campo-${primero ?? 'lat'}`
+      document.getElementById(id)?.focus()
       return
     }
-    onEnviar({ ...entrega, factura: conDatos ? 'datos' : 'consumidor' }, envio, total)
+    onEnviar({
+      entrega: { ...entrega, factura: conDatos ? 'datos' : 'consumidor' },
+      local: resultado.local.nombre,
+      distanciaKm: Math.round(resultado.distancia * 10) / 10,
+      envio: resultado.envio,
+      total,
+    })
   }
 
   const cabecera = (
@@ -146,40 +166,47 @@ export function PantallaPedido({
       {cabecera}
 
       <form onSubmit={enviar} noValidate>
-        {/* 1. Dirección de entrega (en el paso 7b se suma el mapa) */}
+        {/* 1. Dirección de entrega */}
         <section className="pedido__seccion pedido__seccion--suave" aria-labelledby="titulo-entrega">
           <h2 id="titulo-entrega">¿A dónde llevamos su pedido?</h2>
 
-          <div className="campo">
-            <label htmlFor="campo-zona">Zona de entrega</label>
-            <div className="campo__select">
-              <select {...propsCampo('zona')}>
-                <option value="">Elija su zona…</option>
-                {locales.map((local) => (
-                  <optgroup key={local} label={`Local ${local}`}>
-                    {menu.zonas
-                      .filter((z) => z.local === local)
-                      .map((z) => (
-                        <option key={z.nombre} value={z.nombre}>
-                          {z.nombre}
-                        </option>
-                      ))}
-                  </optgroup>
-                ))}
-              </select>
-              <IconoFlechaAbajo />
+          <MapaEntrega
+            posicion={punto}
+            locales={menu.locales}
+            onCambiar={ponerUbicacion}
+            onDireccion={sugerirDireccion}
+          />
+          {!punto && mensajeError('lat')}
+
+          {resultado?.enRango && (
+            <div className="local-asignado">
+              <span className="local-asignado__icono">
+                <IconoUbicacion tamano={22} />
+              </span>
+              <div className="local-asignado__texto">
+                <span>Su pedido lo prepara</span>
+                <strong>Local {resultado.local.nombre}</strong>
+                <span className="local-asignado__dato">
+                  A {textoKm(resultado.distancia)} · envío {precio(resultado.envio)}
+                </span>
+              </div>
             </div>
-            {mensajeError('zona')}
-            {zona && (
-              <p className="campo__envio">
-                <IconoUbicacion />
-                {envio === null
-                  ? `Local ${zona.local} · el recargo por envío se confirma según su ruta.`
-                  : `Local ${zona.local} · envío ${precio(envio)}`}
-              </p>
-            )}
-            {!zona && <p className="campo__ayuda">{menu.aviso_envio}</p>}
-          </div>
+          )}
+
+          {resultado && !resultado.enRango && (
+            <div className="fuera-rango" role="alert">
+              <strong>Fuera de rango de entrega</strong>
+              <span>
+                Su dirección está a {textoKm(resultado.distancia)} del local más cercano ({resultado.local.nombre}).
+                Por ahora entregamos hasta {resultado.local.radio_km} km.
+              </span>
+              {menu.whatsapp && (
+                <a href={`https://wa.me/${menu.whatsapp}`} target="_blank" rel="noreferrer">
+                  Consultar por WhatsApp
+                </a>
+              )}
+            </div>
+          )}
 
           <div className="campo">
             <label htmlFor="campo-direccion">Dirección</label>
@@ -375,22 +402,21 @@ export function PantallaPedido({
             <span>{precio(subtotal)}</span>
           </div>
           <div className="totales__fila">
-            <span>Envío{zona ? ` · ${zona.nombre}` : ''}</span>
-            <span>{!zona ? 'Elija su zona' : envio === null ? 'Por confirmar' : precio(envio)}</span>
+            <span>Envío{resultado?.enRango ? ` · ${textoKm(resultado.distancia)}` : ''}</span>
+            <span>{!resultado ? 'Marque su ubicación' : resultado.enRango ? precio(envio) : 'Fuera de rango'}</span>
           </div>
           <div className="totales__total">
             <span>Total</span>
             <span>{precio(total)}</span>
           </div>
-          {zona && envio === null && <p className="totales__nota">Más el recargo por envío que le confirme el local.</p>}
         </section>
 
         <div className="pedido__acciones">
-          <button type="submit" className="boton-principal">
+          <button type="submit" className="boton-principal" disabled={resultado !== null && !resultado.enRango}>
             Enviar pedido · {precio(total)}
           </button>
           <p>
-            {zona ? `El local ${zona.local}` : 'El local'} revisará su pedido y le escribirá por WhatsApp para
+            {resultado?.enRango ? `El local ${resultado.local.nombre}` : 'El local'} revisará su pedido y le escribirá por WhatsApp para
             confirmarlo.
           </p>
         </div>
