@@ -1,0 +1,59 @@
+{
+  "ejemplo": true,
+  "negocio": "Antojo Manabita",
+  "titulo": "¿Qué se le antoja hoy?",
+  "subtitulo": "Arme su pedido a domicilio y vea el total antes de enviarlo.",
+  "whatsapp": "",
+  "webhook": "https://itantojomanabita.app.n8n.cloud/webhook/delivery-pedido",
+  "aviso_envio": "El recargo por envío depende de la ruta hasta su dirección.",
+
+  "pagos": [
+    "Transferencia bancaria",
+    "Tarjeta de crédito/débito",
+    "Efectivo al recibir",
+    "DeUna / Payphone"
+  ],
+
+  "zonas": [
+    { "nombre": "Cumbayá centro",                   "local": "Cumbayá",              "envio": 1.50 },
+    { "nombre": "Tumbaco",                          "local": "Cumbayá",              "envio": 2.50 },
+    { "nombre": "Otro sector cerca de Cumbayá",     "local": "Cumbayá",              "envio": null },
+    { "nombre": "San Rafael",                       "local": "Valle de los Chillos", "envio": 1.50 },
+    { "nombre": "Conocoto",                         "local": "Valle de los Chillos", "envio": 2.50 },
+    { "nombre": "Otro sector del Valle",            "local": "Valle de los Chillos", "envio": null },
+    { "nombre": "Polonia y alrededores",            "local": "Polonia",              "envio": 1.50 },
+    { "nombre": "Otro sector cerca de Polonia",     "local": "Polonia",              "envio": null }
+  ],
+
+  "categorias": [
+    {
+      "nombre": "Entradas",
+      "platos": [
+        { "id": "ent-01", "nombre": "Bolón mixto",            "detalle": "Verde majado con queso y chicharrón. Incluye huevo frito.", "precio": 4.50, "foto": "", "disponible": true },
+        { "id": "ent-02", "nombre": "Empanadas de verde (3)", "detalle": "Rellenas de queso o de pollo, a elección en la nota.",      "precio": 3.75, "foto": "", "disponible": true }
+      ]
+    },
+    {
+      "nombre": "Mariscos",
+      "platos": [
+        { "id": "mar-01", "nombre": "Ceviche de camarón",     "detalle": "Con chifles y canguil. Porción personal.",                 "precio": 9.90,  "foto": "", "disponible": true },
+        { "id": "mar-02", "nombre": "Viche de pescado",       "detalle": "Sopa manabita de maní con verde, choclo y pescado.",       "precio": 10.50, "foto": "", "disponible": true },
+        { "id": "mar-03", "nombre": "Encocado de camarón",    "detalle": "En salsa de coco, con arroz y patacones.",                 "precio": 12.00, "foto": "", "disponible": false }
+      ]
+    },
+    {
+      "nombre": "Platos fuertes",
+      "platos": [
+        { "id": "fue-01", "nombre": "Seco de gallina criolla", "detalle": "Con arroz amarillo, maduro y ensalada.",                  "precio": 8.75, "foto": "", "disponible": true },
+        { "id": "fue-02", "nombre": "Corviche (2)",            "detalle": "Masa de verde rellena de pescado, con salsa de maní.",     "precio": 5.50, "foto": "", "disponible": true }
+      ]
+    },
+    {
+      "nombre": "Bebidas",
+      "platos": [
+        { "id": "beb-01", "nombre": "Jugo natural",           "detalle": "Naranjilla, maracuyá o mora. 500 ml.",                     "precio": 2.25, "foto": "", "disponible": true },
+        { "id": "beb-02", "nombre": "Cola personal",          "detalle": "500 ml.",                                                  "precio": 1.25, "foto": "", "disponible": true }
+      ]
+    }
+  ]
+}
