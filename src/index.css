@@ -1,0 +1,54 @@
+/* Colores y letras de Antojo Manabita: se cambian aquí y se actualizan en toda la página */
+:root {
+  --verde: #1e6b3c;
+  --verde-claro: #dcebdf;
+  --rojo: #d62828;
+  --mani: #f2b33d;
+  --tinta: #18281e;
+  --texto-suave: #4d5e53;
+  --fondo-suave: #eef4ec;
+  --borde: #e3ebe1;
+
+  --letra-titulos: 'Bricolage Grotesque', system-ui, sans-serif;
+  --letra-texto: 'Figtree', system-ui, sans-serif;
+
+  --ancho-max: 1160px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--letra-texto);
+  color: var(--tinta);
+  background: #ffffff;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--letra-titulos);
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 3px solid var(--mani);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

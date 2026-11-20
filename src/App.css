@@ -1,0 +1,83 @@
+/* Franja verde de bienvenida */
+.hero {
+  position: relative;
+  background: var(--verde);
+  color: #ffffff;
+}
+
+.hero__contenido {
+  max-width: var(--ancho-max);
+  margin: 0 auto;
+  padding: 22px 20px 56px;
+}
+
+.hero__barra {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.marca {
+  font-family: var(--letra-titulos);
+  font-weight: 800;
+  font-size: 19px;
+  letter-spacing: -0.01em;
+}
+
+.etiqueta {
+  font-size: 13px;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.16);
+  padding: 6px 12px;
+  border-radius: 999px;
+}
+
+.hero__texto {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 14px 48px;
+  margin-top: 30px;
+}
+
+.hero h1 {
+  font-weight: 800;
+  font-size: clamp(40px, 6vw, 72px);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  max-width: 640px;
+}
+
+.hero p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--verde-claro);
+  max-width: 380px;
+}
+
+.hero__onda {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100%;
+  height: 28px;
+  display: block;
+}
+
+/* De tablet en adelante, todo un poco más grande */
+@media (min-width: 768px) {
+  .hero__contenido {
+    padding: 28px 24px 80px;
+  }
+
+  .marca {
+    font-size: 22px;
+  }
+
+  .hero p {
+    font-size: 18px;
+  }
+}
