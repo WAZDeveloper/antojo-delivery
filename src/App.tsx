@@ -6,6 +6,8 @@ import { useMenu } from './useMenu'
 import { idCategoria } from './utilidades'
 import { BarraPedido } from './componentes/BarraPedido'
 import { resumirPedido, useCarrito } from './useCarrito'
+import { PantallaPedido } from './componentes/PantallaPedido'
+import { useVista } from './useVista'
 
 function App() {
   const datos = useMenu()
@@ -14,6 +16,26 @@ function App() {
 
   // El resumen del pedido (solo cuando el menú ya cargó)
   const pedido = datos.estado === 'listo' ? resumirPedido(datos.menu, carrito.cantidades) : null
+
+    const { vista, abrirPedido, volverAlMenu } = useVista()
+
+  // Pantalla "Su pedido"
+  if (vista === 'pedido' && datos.estado === 'listo' && pedido) {
+    return (
+      <PantallaPedido
+        menu={datos.menu}
+        lineas={pedido.lineas}
+        totalPlatos={pedido.totalPlatos}
+        subtotal={pedido.subtotal}
+        onAgregar={carrito.agregar}
+        onQuitar={carrito.quitar}
+        onVolver={volverAlMenu}
+        onEnviar={(entrega, envio, total) =>
+          console.log('Pedido listo para enviar (paso 8)', { lineas: pedido.lineas, entrega, envio, total })
+        }
+      />
+    )
+  }
 
   return (
     <>
@@ -82,7 +104,7 @@ function App() {
               <BarraPedido
                 totalPlatos={pedido.totalPlatos}
                 subtotal={pedido.subtotal}
-                onAbrir={() => console.log('Abrir el pedido (paso 7)', pedido)}
+                onAbrir={abrirPedido}
               />
             )}
     </>

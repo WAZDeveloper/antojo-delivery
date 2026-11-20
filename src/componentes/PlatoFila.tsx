@@ -1,7 +1,8 @@
 import type { Plato } from '../tipos'
 import { precio } from '../utilidades'
-import { IconoFoto, IconoMas, IconoMenos } from './Iconos'
 import './PlatoFila.css'
+import { Contador } from './Contador'
+import { IconoFoto, IconoMas } from './Iconos'
 
 interface Props {
   plato: Plato
@@ -29,15 +30,7 @@ export function PlatoFila({ plato, cantidad, onAgregar, onQuitar }: Props) {
               <IconoMas /> Agregar
             </button>
           ) : (
-            <div className="contador" role="group" aria-label={`Cantidad de ${plato.nombre}`}>
-              <button type="button" onClick={onQuitar} aria-label={`Quitar ${plato.nombre}`}>
-                <IconoMenos />
-              </button>
-              <span aria-live="polite">{cantidad}</span>
-              <button type="button" onClick={onAgregar} aria-label={`Agregar ${plato.nombre}`}>
-                <IconoMas />
-              </button>
-            </div>
+          <Contador nombre={plato.nombre} cantidad={cantidad} onAgregar={onAgregar} onQuitar={onQuitar} />
           )}
         </div>
       </div>
