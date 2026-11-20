@@ -1,38 +1,37 @@
+import { useState } from 'react'
 import './App.css'
+import { Categorias } from './componentes/Categorias'
+import { PlatoFila } from './componentes/PlatoFila'
 import { useMenu } from './useMenu'
-
-const precio = (valor: number) => `$${valor.toFixed(2)}`
+import { idCategoria } from './utilidades'
 
 function App() {
-
   const datos = useMenu()
+  const [activa, setActiva] = useState('')
+
   return (
     <>
-    <header className="hero">
-      <div className="hero__contenido">
-        <div className="hero__barra">
-          <span className="marca">Antojo Manabita</span>
-          <span className="etiqueta">A domicilio</span>
+      <header className="hero">
+        <div className="hero__contenido">
+          <div className="hero__barra">
+            <span className="marca">Antojo Manabita</span>
+            <span className="etiqueta">A domicilio</span>
+          </div>
+
+          <div className="hero__texto">
+            <h1>¿Qué se le antoja hoy?</h1>
+            <p>Elija sus platos y vea el total con envío antes de enviar el pedido.</p>
+          </div>
         </div>
 
-        <div className="hero__texto">
-          <h1>¿Qué se le antoja hoy?</h1>
-          <p>Elija sus platos y vea el total con envío antes de enviar el pedido</p>
-        </div>
-      </div>
-
-      <svg
-      className="hero__onda"
-      viewBox="0 0 1280 28"
-      preserveAspectRatio="none"
-      aria-hidden="true"
-      >
+        <svg className="hero__onda" viewBox="0 0 1280 28" preserveAspectRatio="none" aria-hidden="true">
           <path
             d="M0 28V14C107 2 213 2 320 14S533 26 640 14 853 2 960 14 1173 26 1280 14V28Z"
             fill="#ffffff"
           />
-      </svg>
-    </header>
+        </svg>
+      </header>
+
       <main className="contenido">
         {datos.estado === 'cargando' && <p className="aviso">Cargando el menú…</p>}
 
@@ -44,21 +43,30 @@ function App() {
 
         {datos.estado === 'listo' && (
           <>
+            <Categorias
+              categorias={datos.menu.categorias}
+              activa={activa || datos.menu.categorias[0]?.nombre || ''}
+              onElegir={setActiva}
+            />
+
             {datos.menu.ejemplo && (
               <p className="aviso">Menú de ejemplo: los platos y precios todavía no son los reales.</p>
             )}
 
             {datos.menu.categorias.map((categoria) => (
-              <section key={categoria.nombre}>
-                <h2>{categoria.nombre}</h2>
-                <ul>
+              <section key={categoria.nombre} id={idCategoria(categoria.nombre)} className="seccion">
+                <h2 className="seccion__titulo">{categoria.nombre}</h2>
+                <div className="seccion__platos">
                   {categoria.platos.map((plato) => (
-                    <li key={plato.id}>
-                      {plato.nombre} · {precio(plato.precio)}
-                      {!plato.disponible && ' (agotado hoy)'}
-                    </li>
+                    <PlatoFila
+                      key={plato.id}
+                      plato={plato}
+                      cantidad={2}
+                      onAgregar={() => console.log('Agregar', plato.nombre)}
+                      onQuitar={() => console.log('Quitar', plato.nombre)}
+                    />
                   ))}
-                </ul>
+                </div>
               </section>
             ))}
           </>

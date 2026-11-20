@@ -1,0 +1,36 @@
+/* Botones de categorías: se quedan pegados arriba al bajar por el menú */
+.categorias {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  gap: 8px;
+  margin: 0 -20px;
+  padding: 12px 20px;
+  background: #ffffff;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.categorias::-webkit-scrollbar {
+  display: none;
+}
+
+.chip {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: var(--fondo-suave);
+  color: var(--tinta);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.chip--activa {
+  background: var(--verde);
+  color: #ffffff;
+}

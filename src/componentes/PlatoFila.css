@@ -1,0 +1,165 @@
+/* Una fila del menú: datos del plato a la izquierda, foto a la derecha (en celular) */
+.plato {
+  display: flex;
+  gap: 14px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--borde);
+}
+
+.plato__info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.plato__nombre {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.plato__detalle {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--texto-suave);
+}
+
+.plato__pie {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 6px;
+}
+
+.plato__precio {
+  font-family: var(--letra-titulos);
+  font-weight: 800;
+  font-size: 16px;
+  background: var(--mani);
+  padding: 4px 10px;
+  border-radius: 8px;
+}
+
+.plato__foto {
+  flex: none;
+  width: 84px;
+  height: 84px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--fondo-suave);
+}
+
+.plato__foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.plato__sin-foto {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font-size: 11px;
+  color: var(--texto-suave);
+}
+
+.plato__sin-foto svg {
+  color: var(--verde);
+}
+
+/* Botón "Agregar" (cuando todavía no hay ninguno en el pedido) */
+.boton-agregar {
+  height: 44px;
+  padding: 0 16px 0 12px;
+  border: 1.5px solid var(--verde);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--verde);
+  font-size: 15px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.boton-agregar:hover {
+  background: var(--fondo-suave);
+}
+
+/* Contador − 1 + (cuando ya hay en el pedido) */
+.contador {
+  display: inline-flex;
+  align-items: center;
+  height: 44px;
+  border: 1.5px solid var(--verde);
+  border-radius: 999px;
+  color: var(--verde);
+}
+
+.contador button {
+  width: 44px;
+  height: 100%;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contador button:hover {
+  background: var(--fondo-suave);
+}
+
+.contador span {
+  min-width: 18px;
+  text-align: center;
+  font-weight: 700;
+  color: var(--tinta);
+}
+
+/* Plato agotado */
+.plato__agotado {
+  height: 44px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: #eef1ed;
+  color: var(--texto-suave);
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+}
+
+.plato--agotado .plato__nombre {
+  color: var(--texto-suave);
+}
+
+.plato--agotado .plato__precio {
+  background: #eef1ed;
+  color: var(--texto-suave);
+}
+
+/* En computadora la foto pasa a la izquierda y crece un poco */
+@media (min-width: 768px) {
+  .plato__foto {
+    order: -1;
+    width: 96px;
+    height: 96px;
+    border-radius: 18px;
+  }
+
+  .plato__nombre {
+    font-size: 19px;
+  }
+}
