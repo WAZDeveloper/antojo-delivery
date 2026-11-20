@@ -4,10 +4,16 @@ import { Categorias } from './componentes/Categorias'
 import { PlatoFila } from './componentes/PlatoFila'
 import { useMenu } from './useMenu'
 import { idCategoria } from './utilidades'
+import { BarraPedido } from './componentes/BarraPedido'
+import { resumirPedido, useCarrito } from './useCarrito'
 
 function App() {
   const datos = useMenu()
   const [activa, setActiva] = useState('')
+    const carrito = useCarrito()
+
+  // El resumen del pedido (solo cuando el menú ya cargó)
+  const pedido = datos.estado === 'listo' ? resumirPedido(datos.menu, carrito.cantidades) : null
 
   return (
     <>
@@ -61,9 +67,9 @@ function App() {
                     <PlatoFila
                       key={plato.id}
                       plato={plato}
-                      cantidad={2}
-                      onAgregar={() => console.log('Agregar', plato.nombre)}
-                      onQuitar={() => console.log('Quitar', plato.nombre)}
+                      cantidad={carrito.cantidades[plato.id] ?? 0}
+                      onAgregar={() => carrito.agregar(plato.id)}
+                      onQuitar={() => carrito.quitar(plato.id)}
                     />
                   ))}
                 </div>
@@ -71,7 +77,14 @@ function App() {
             ))}
           </>
         )}
-      </main>
+      </main> 
+            {pedido && (
+              <BarraPedido
+                totalPlatos={pedido.totalPlatos}
+                subtotal={pedido.subtotal}
+                onAbrir={() => console.log('Abrir el pedido (paso 7)', pedido)}
+              />
+            )}
     </>
   )
 }
