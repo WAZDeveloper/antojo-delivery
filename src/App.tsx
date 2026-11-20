@@ -1,6 +1,11 @@
 import './App.css'
+import { useMenu } from './useMenu'
+
+const precio = (valor: number) => `$${valor.toFixed(2)}`
 
 function App() {
+
+  const datos = useMenu()
   return (
     <>
     <header className="hero">
@@ -28,9 +33,37 @@ function App() {
           />
       </svg>
     </header>
-    <main className="contenido">
-      {/* Aquí irán las categorías y los platos (paso 5) */}
-    </main>
+      <main className="contenido">
+        {datos.estado === 'cargando' && <p className="aviso">Cargando el menú…</p>}
+
+        {datos.estado === 'error' && (
+          <p className="aviso aviso--error" role="alert">
+            <strong>No se pudo cargar el menú.</strong> {datos.mensaje}
+          </p>
+        )}
+
+        {datos.estado === 'listo' && (
+          <>
+            {datos.menu.ejemplo && (
+              <p className="aviso">Menú de ejemplo: los platos y precios todavía no son los reales.</p>
+            )}
+
+            {datos.menu.categorias.map((categoria) => (
+              <section key={categoria.nombre}>
+                <h2>{categoria.nombre}</h2>
+                <ul>
+                  {categoria.platos.map((plato) => (
+                    <li key={plato.id}>
+                      {plato.nombre} · {precio(plato.precio)}
+                      {!plato.disponible && ' (agotado hoy)'}
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ))}
+          </>
+        )}
+      </main>
     </>
   )
 }

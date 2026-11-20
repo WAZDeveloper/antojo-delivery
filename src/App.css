@@ -81,3 +81,25 @@
     font-size: 18px;
   }
 }
+
+/* Contenido debajo de la franja */
+.contenido {
+  max-width: var(--ancho-max);
+  margin: 0 auto;
+  padding: 8px 20px 120px;
+}
+
+.aviso {
+  margin: 16px 0;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: var(--fondo-suave);
+  color: var(--texto-suave);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.aviso--error {
+  background: #fdecec;
+  color: #8f1d1d;
+}
