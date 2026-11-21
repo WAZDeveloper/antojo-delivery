@@ -34,12 +34,32 @@ export interface Categoria {
   platos: Plato[]
 }
 
-// Un local que hace entregas: su ubicación y hasta cuántos km llega
+// Días de la semana (sin tildes, para usarlos como claves en menu.json)
+export type DiaSemana = 'lun' | 'mar' | 'mie' | 'jue' | 'vie' | 'sab' | 'dom'
+
+// Horario de cada día: ["08:30", "17:30"], o null si ese día no abre
+export type Horario = Partial<Record<DiaSemana, [string, string] | null>>
+
+// Un local que hace entregas: su ubicación, hasta cuántos km llega y sus datos de contacto
 export interface Local {
-    nombre: string
-    lat: number
-    lng: number
-    radio_km: number
+  nombre: string
+  lat: number
+  lng: number
+  radio_km: number
+  direccion?: string
+  telefono?: string
+  horario?: Horario
+}
+
+// Textos de la marca para el encabezado y el pie de página
+export interface Marca {
+  lema?: string // debajo del nombre: "Sabor manabita a domicilio"
+  logo?: string // ruta de la imagen en public/, por ejemplo "logo.png" (vacío = logo de muestra)
+  historia?: string // texto corto debajo del título
+  descripcion?: string // frase del pie de página
+  redes?: { instagram?: string; facebook?: string; tiktok?: string }
+  terminos?: string // enlace a los términos y condiciones
+  privacidad?: string // enlace a la política de privacidad
 }
 
 // Precio del envío según la distancia: "hasta 3 km → $1.50"
@@ -55,6 +75,8 @@ export interface Menu {
   whatsapp: string
   webhook: string
   aviso_envio: string
+  cierre_pedidos_min?: number // se dejan de tomar pedidos estos minutos antes del cierre
+  marca?: Marca
   limite_consumidor_final: number // sobre este total, la factura debe llevar datos (SRI)
   pagos: string[]
   locales: Local[]

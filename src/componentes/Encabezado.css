@@ -1,0 +1,124 @@
+/* Franja verde de arriba. El círculo claro de la derecha es un "sol" que hace juego con el logo. */
+.encabezado {
+  position: relative;
+  background:
+    radial-gradient(circle at 108% 30%, rgba(255, 255, 255, 0.08) 0 130px, transparent 131px),
+    var(--verde);
+  color: #ffffff;
+}
+
+.encabezado__contenido {
+  max-width: var(--ancho-max);
+  margin: 0 auto;
+  padding: 14px 20px 58px;
+}
+
+.encabezado__barra {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.encabezado__marca {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.encabezado__nombres {
+  display: flex;
+  flex-direction: column;
+}
+
+.encabezado__nombre {
+  font-family: var(--letra-titulos);
+  font-weight: 800;
+  font-size: 19px;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.encabezado__lema {
+  font-size: 12px;
+  color: var(--verde-claro);
+}
+
+/* Letrero "Abierto · pedidos hasta 17:00" */
+.estado {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin: 18px 0 0;
+  min-height: 30px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.estado__punto {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #7ee2a2; /* verde: abierto */
+}
+
+.estado--pronto .estado__punto {
+  background: var(--mani); /* dorado: cierra pronto */
+}
+
+.estado--cerrado .estado__punto {
+  background: #c9d3cc; /* gris: cerrado */
+}
+
+.encabezado h1 {
+  margin-top: 16px;
+  font-weight: 800;
+  font-size: clamp(40px, 6vw, 72px);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  max-width: 680px;
+}
+
+.encabezado__historia {
+  margin: 12px 0 0;
+  max-width: 560px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--verde-claro);
+}
+
+.encabezado__onda {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100%;
+  height: 28px;
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .encabezado {
+    background:
+      radial-gradient(circle at 94% 18%, rgba(255, 255, 255, 0.07) 0 220px, transparent 221px),
+      var(--verde);
+  }
+
+  .encabezado__contenido {
+    padding: 22px 24px 84px;
+  }
+
+  .encabezado__nombre {
+    font-size: 22px;
+  }
+
+  .encabezado__lema {
+    font-size: 13px;
+  }
+
+  .encabezado__historia {
+    font-size: 17px;
+  }
+}

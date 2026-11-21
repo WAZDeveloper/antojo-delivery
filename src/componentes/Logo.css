@@ -1,0 +1,15 @@
+/* Logo: círculo con la imagen de la marca (o el de muestra) */
+.logo {
+  flex: none;
+  border-radius: 999px;
+  object-fit: cover;
+}
+
+.logo--muestra {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--mani);
+  color: #123b24;
+  box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.35);
+}

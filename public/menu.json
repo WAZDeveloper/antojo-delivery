@@ -3,6 +3,16 @@
   "negocio": "Antojo Manabita",
   "titulo": "¿Qué se le antoja hoy?",
   "subtitulo": "Arme su pedido a domicilio y vea el total antes de enviarlo.",
+    "marca": {
+    "lema": "Sabor manabita a domicilio",
+    "logo": "",
+    "historia": "En Manabí la comida se hace con calma: verde recién majado, maní tostado y mariscos del día. Así cocinamos cada plato, al momento, para que llegue a su mesa con todo su sabor.",
+    "descripcion": "Comida manabita de verdad, preparada al momento y llevada hasta su puerta.",
+    "redes": { "instagram": "", "facebook": "", "tiktok": "" },
+    "terminos": "",
+    "privacidad": ""
+  },
+  "cierre_pedidos_min": 30,
   "whatsapp": "",
   "webhook": "https://itantojomanabita.app.n8n.cloud/webhook/delivery-pedido",
   "aviso_envio": "El recargo por envío depende de la ruta hasta su dirección.",
@@ -15,10 +25,28 @@
     "DeUna / Payphone"
   ],
 
- "locales": [
-  { "nombre": "Valle de los Chillos", "lat": -0.3010565, "lng": -78.4481827, "radio_km": 8 },
-  { "nombre": "Polonia", "lat": -0.191499, "lng": -78.489912, "radio_km": 8 }
-],
+  "locales": [
+    {
+      "nombre": "Valle de los Chillos",
+      "lat": -0.3010565, "lng": -78.4481827, "radio_km": 8,
+      "direccion": "San Juan de Dios S/N",
+      "telefono": "098 190 7986",
+      "horario": {
+        "lun": ["08:30", "17:30"], "mar": ["08:30", "17:30"], "mie": ["08:30", "17:30"], "jue": ["08:30", "17:30"],
+        "vie": ["08:30", "19:00"], "sab": ["07:30", "19:00"], "dom": ["07:30", "18:00"]
+      }
+    },
+    {
+      "nombre": "Polonia",
+      "lat": -0.191499, "lng": -78.489912, "radio_km": 8,
+      "direccion": "Polonia y N31-26, Quito",
+      "telefono": "02 252 1821",
+      "horario": {
+        "lun": ["08:30", "17:30"], "mar": ["08:30", "17:30"], "mie": ["08:30", "17:30"], "jue": ["08:30", "17:30"],
+        "vie": ["07:30", "17:30"], "sab": ["07:30", "17:30"], "dom": ["07:30", "17:30"]
+      }
+    }
+  ],
 
 "tarifas_envio": [
   { "hasta_km": 3, "precio": 1.50 },

@@ -1,0 +1,155 @@
+/* Pie de página: verde oscuro, con los datos de los locales */
+.pie {
+  margin-top: 40px;
+  background: #14432a;
+  color: #ffffff;
+  padding-bottom: 104px; /* espacio para que la barra roja no tape el final */
+}
+
+.pie__contenido {
+  max-width: var(--ancho-max);
+  margin: 0 auto;
+  padding: 34px 20px 8px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  gap: 28px 40px;
+}
+
+.pie__marca {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.pie__nombre {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--letra-titulos);
+  font-weight: 800;
+  font-size: 20px;
+}
+
+.pie p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: #cfe3d5;
+}
+
+.pie a {
+  color: #ffffff;
+}
+
+.pie__whatsapp {
+  align-self: flex-start;
+  min-height: 48px;
+  padding: 0 16px;
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.pie__seccion {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pie__seccion h2 {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.pie__columna {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.pie__local {
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #cfe3d5;
+}
+
+.pie__local strong {
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.pie__enlaces {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  margin-top: 4px;
+  font-weight: 700;
+}
+
+.pie__enlaces a {
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.pie__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pie__chip,
+.pie__red {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.pie__chip {
+  min-height: 32px;
+  padding: 0 12px;
+}
+
+.pie__red {
+  min-height: 44px;
+  padding: 0 14px;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.pie__legal {
+  max-width: var(--ancho-max);
+  margin: 26px auto 0;
+  padding: 18px 20px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 20px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #cfe3d5;
+}
+
+@media (min-width: 768px) {
+  .pie__contenido,
+  .pie__legal {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}

@@ -12,6 +12,10 @@ import { DetallePlato } from './componentes/DetallePlato'
 import { FiltrosEtiquetas } from './componentes/FiltrosEtiquetas'
 import { Buscador } from './componentes/Buscador'
 import { MasPedidos } from './componentes/MasPedidos'
+import { Encabezado } from './componentes/Encabezado'
+import { PiePagina } from './componentes/PiePagina'
+import { estadoGeneral } from './horario'
+import { useAhora } from './useAhora'
 import { ORDEN_ETIQUETAS, ETIQUETAS, tieneEtiqueta } from './etiquetas'
 import type { EtiquetaId, Plato } from './tipos'
 
@@ -22,12 +26,16 @@ function App() {
   const [filtro, setFiltro] = useState<EtiquetaId | null>(null)
   const [busqueda, setBusqueda] = useState('')
   const carrito = useCarrito()
+  const ahora = useAhora() // se actualiza cada minuto
 
   // El resumen del pedido (solo cuando el menú ya cargó)
     const pedido = datos.estado === 'listo' ? resumirPedido(datos.menu, carrito.items) : null
 
   // Etiquetas que usa al menos un plato (solo esas aparecen como filtro)
   const menu = datos.estado === 'listo' ? datos.menu : null
+
+  // Letrero del encabezado: Abierto / Cierra pronto / Cerrado
+  const estado = menu ? estadoGeneral(menu.locales, menu.cierre_pedidos_min ?? 30, ahora) : null
   const etiquetasUsadas = menu
     ? ORDEN_ETIQUETAS.filter((id) => menu.categorias.some((c) => c.platos.some((p) => tieneEtiqueta(p, id))))
     : []
@@ -78,28 +86,9 @@ function App() {
 
   return (
     <>
-      <header className="hero">
-        <div className="hero__contenido">
-          <div className="hero__barra">
-            <span className="marca">Antojo Manabita</span>
-            <span className="hero__etiqueta">A domicilio</span>
-          </div>
-
-          <div className="hero__texto">
-            <h1>¿Qué se le antoja hoy?</h1>
-            <p>Elija sus platos y vea el total con envío antes de enviar el pedido.</p>
-          </div>
-
-          <Buscador valor={busqueda} onCambiar={setBusqueda} />
-        </div>
-
-        <svg className="hero__onda" viewBox="0 0 1280 28" preserveAspectRatio="none" aria-hidden="true">
-          <path
-            d="M0 28V14C107 2 213 2 320 14S533 26 640 14 853 2 960 14 1173 26 1280 14V28Z"
-            fill="#ffffff"
-          />
-        </svg>
-      </header>
+      <Encabezado menu={menu} estado={estado}>
+        <Buscador valor={busqueda} onCambiar={setBusqueda} />
+      </Encabezado>
 
       <main className="contenido">
         {datos.estado === 'cargando' && <p className="aviso">Cargando el menú…</p>}
@@ -192,7 +181,9 @@ function App() {
             ))}
           </>
         )}
-      </main> 
+      </main>
+
+      {menu && <PiePagina menu={menu} />} 
             {pedido && (
               <BarraPedido
                 totalPlatos={pedido.totalPlatos}
