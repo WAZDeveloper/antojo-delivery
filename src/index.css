@@ -13,6 +13,19 @@
   --letra-texto: 'Figtree', system-ui, sans-serif;
 
   --ancho-max: 1160px;
+
+  
+  /* Etiquetas de los platos: fondo y texto de cada una */
+  --etq-mas-pedido-fondo: #fff1d1;
+  --etq-mas-pedido-texto: #6b4a00;
+  --etq-picante-fondo: #fdecec;
+  --etq-picante-texto: #9b1c1c;
+  --etq-compartir-fondo: #e3f1e6;
+  --etq-compartir-texto: #1e6b3c;
+  --etq-vegetariano-fondo: #edf5df;
+  --etq-vegetariano-texto: #3f6212;
+  --etq-nuevo-fondo: #18281e;
+  --etq-nuevo-texto: #ffffff;
 }
 
 *,

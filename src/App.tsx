@@ -9,16 +9,33 @@ import { resumirPedido, useCarrito } from './useCarrito'
 import { PantallaPedido } from './componentes/PantallaPedido'
 import { useVista } from './useVista'
 import { DetallePlato } from './componentes/DetallePlato'
-import type { Plato } from './tipos'
+import { FiltrosEtiquetas } from './componentes/FiltrosEtiquetas'
+import { ORDEN_ETIQUETAS, ETIQUETAS, tieneEtiqueta } from './etiquetas'
+import type { EtiquetaId, Plato } from './tipos'
 
 function App() {
   const datos = useMenu()
   const [activa, setActiva] = useState('')
   const [platoAbierto, setPlatoAbierto] = useState<Plato | null>(null)
+  const [filtro, setFiltro] = useState<EtiquetaId | null>(null)
   const carrito = useCarrito()
 
   // El resumen del pedido (solo cuando el menú ya cargó)
     const pedido = datos.estado === 'listo' ? resumirPedido(datos.menu, carrito.items) : null
+
+  // Etiquetas que usa al menos un plato (solo esas aparecen como filtro)
+  const menu = datos.estado === 'listo' ? datos.menu : null
+  const etiquetasUsadas = menu
+    ? ORDEN_ETIQUETAS.filter((id) => menu.categorias.some((c) => c.platos.some((p) => tieneEtiqueta(p, id))))
+    : []
+
+  // Las categorías con sus platos, ya filtradas (las que quedan vacías no se muestran)
+  const categoriasVisibles = (menu?.categorias ?? [])
+    .map((c) => ({ ...c, platos: filtro ? c.platos.filter((p) => tieneEtiqueta(p, filtro)) : c.platos }))
+    .filter((c) => c.platos.length > 0)
+  const platosVisibles = categoriasVisibles.reduce((suma, c) => suma + c.platos.length, 0)
+  // Si la categoría elegida quedó oculta por el filtro, se marca la primera que se ve
+  const categoriaActiva = categoriasVisibles.some((c) => c.nombre === activa) ? activa : (categoriasVisibles[0]?.nombre ?? '')
 
     const { vista, abrirPedido, volverAlMenu } = useVista()
 
@@ -72,9 +89,23 @@ function App() {
 
         {datos.estado === 'listo' && (
           <>
+            <FiltrosEtiquetas disponibles={etiquetasUsadas} activo={filtro} onCambiar={setFiltro} />
+
+            {filtro && (
+              <p className="aviso aviso--filtro" role="status">
+                <span>
+                  Mostrando <strong>{ETIQUETAS[filtro].filtro}</strong> · {platosVisibles}{' '}
+                  {platosVisibles === 1 ? 'plato' : 'platos'}
+                </span>
+                <button type="button" onClick={() => setFiltro(null)}>
+                  Quitar filtro
+                </button>
+              </p>
+            )}
+
             <Categorias
-              categorias={datos.menu.categorias}
-              activa={activa || datos.menu.categorias[0]?.nombre || ''}
+              categorias={categoriasVisibles}
+              activa={categoriaActiva}
               onElegir={setActiva}
             />
 
@@ -82,9 +113,19 @@ function App() {
               <p className="aviso">Menú de ejemplo: los platos y precios todavía no son los reales.</p>
             )}
 
-            {datos.menu.categorias.map((categoria) => (
+            {categoriasVisibles.map((categoria) => (
               <section key={categoria.nombre} id={idCategoria(categoria.nombre)} className="seccion">
-                <h2 className="seccion__titulo">{categoria.nombre}</h2>
+                <div className="seccion__cabecera">
+                  <h2 className="seccion__titulo">{categoria.nombre}</h2>
+                  <p className="seccion__detalle">
+                    {[
+                      categoria.descripcion,
+                      `${categoria.platos.length} ${categoria.platos.length === 1 ? 'plato' : 'platos'}`,
+                    ]
+                      .filter(Boolean)
+                      .join(' · ')}
+                  </p>
+                </div>
                 <div className="seccion__platos">
                   {categoria.platos.map((plato) => (
                     <PlatoFila

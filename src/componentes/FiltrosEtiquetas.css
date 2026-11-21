@@ -1,0 +1,59 @@
+/* Botones para filtrar por etiqueta */
+.filtros {
+    display: flex;
+    gap: 8px;
+    margin: 0 -20px;
+    padding: 14px 20px 2px;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.filtros::-webkit-scrollbar {
+    display: none;
+}
+
+.filtro {
+    flex: none;
+    height: 40px;
+    padding: 0 14px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--fondo-suave);
+    color: var(--tinta);
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.filtro--activo {
+    background: var(--verde);
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.filtro--activo .filtro__icono {
+    color: inherit;
+}
+
+.filtro__icono {
+    display: inline-flex;
+}
+
+.filtro__icono--mas-pedido {
+    color: #b07a00;
+}
+
+.filtro__icono--picante {
+    color: #c62828;
+}
+
+.filtro__icono--para-compartir,
+.filtro__icono--vegetariano {
+    color: var(--verde);
+}
+
+.filtro__icono--nuevo {
+    color: var(--tinta);
+}

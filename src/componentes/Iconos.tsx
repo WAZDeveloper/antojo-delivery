@@ -110,3 +110,49 @@ export function IconoCerrar({ tamano = 20 }: PropsIcono) {
     </svg>
   )
 }
+
+
+// ----- Íconos de las etiquetas -----
+
+export function IconoEstrella({ tamano = 12 }: PropsIcono) {
+  return (
+    <svg width={tamano} height={tamano} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z" />
+    </svg>
+  )
+}
+
+export function IconoPicante({ tamano = 12 }: PropsIcono) {
+  return (
+    <svg width={tamano} height={tamano} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12 3c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-2.2 1.2-3.6 2.3-4.6.3 1.6 1.2 2.6 2.2 2.6 0-3 .5-5.5.5-8z" />
+    </svg>
+  )
+}
+
+export function IconoGrupo({ tamano = 12 }: PropsIcono) {
+  return (
+    <svg width={tamano} height={tamano} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" aria-hidden="true">
+      <circle cx="9" cy="8" r="3.2" />
+      <path d="M3.5 19c.6-3 2.8-4.6 5.5-4.6s4.9 1.6 5.5 4.6" />
+      <path d="M16 5.2a3 3 0 0 1 0 5.6M17.5 14.6c1.6.5 2.7 1.9 3 4.4" />
+    </svg>
+  )
+}
+
+export function IconoHoja({ tamano = 12 }: PropsIcono) {
+  return (
+    <svg width={tamano} height={tamano} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M5 19c0-8 5-13 14-14 0 9-5 14-13 14z" />
+      <path d="M5 19l7-7" />
+    </svg>
+  )
+}
+
+export function IconoNuevo({ tamano = 12 }: PropsIcono) {
+  return (
+    <svg width={tamano} height={tamano} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" aria-hidden="true">
+      <path d="M12 3v4M12 17v4M3 12h4M17 12h4M6.3 6.3l2.5 2.5M15.2 15.2l2.5 2.5M6.3 17.7l2.5-2.5M15.2 8.8l2.5-2.5" />
+    </svg>
+  )
+}

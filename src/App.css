@@ -128,3 +128,46 @@
     font-size: 28px;
   }
 }
+
+/* Nombre de la sección + "Frescos del mar manabita · 3 platos" */
+.seccion__cabecera {
+  margin: 24px 0 4px;
+}
+
+.seccion__cabecera .seccion__titulo {
+  margin: 0;
+}
+
+.seccion__detalle {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: var(--texto-suave);
+}
+
+/* "Mostrando Picantes · 3 platos · Quitar filtro" */
+.aviso--filtro {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.aviso--filtro strong {
+  color: var(--tinta);
+}
+
+.aviso--filtro button {
+  flex: none;
+  min-height: 44px;
+  padding: 0 4px;
+  border: 0;
+  background: none;
+  color: var(--verde);
+  font-weight: 700;
+}
+
+@media (min-width: 768px) {
+  .seccion__cabecera {
+    margin-top: 32px
+  }
+}

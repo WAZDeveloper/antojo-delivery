@@ -14,6 +14,9 @@ export interface GrupoOpciones {
   valores: ValorOpcion[]
 }
 
+// Etiquetas que se le pueden poner a un plato en menu.json
+export type EtiquetaId = 'mas-pedido' | 'picante' | 'para-compartir' | 'vegetariano' | 'nuevo'
+
 export interface Plato {
   id: string
   nombre: string
@@ -22,10 +25,12 @@ export interface Plato {
   foto: string
   disponible: boolean
   opciones?: GrupoOpciones[] // el ? significa que no todos los platos tienen complementos
+  etiquetas?: EtiquetaId[] // por ejemplo ["mas-pedido", "picante"]
 }
 
 export interface Categoria {
   nombre: string
+  descripcion?: string // frase corta debajo del nombre, por ejemplo "Frescos del mar manabita"
   platos: Plato[]
 }
 

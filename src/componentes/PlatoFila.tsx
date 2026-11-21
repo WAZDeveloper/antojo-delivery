@@ -2,6 +2,8 @@ import type { Plato } from '../tipos'
 import { precio } from '../utilidades'
 import { IconoFoto, IconoMas } from './Iconos'
 import './PlatoFila.css'
+import { etiquetasDe } from '../etiquetas'
+import { Etiqueta } from './Etiqueta'
 
 interface Props {
   plato: Plato
@@ -11,11 +13,19 @@ interface Props {
 
 export function PlatoFila({ plato, enPedido, onElegir }: Props) {
   const agotado = !plato.disponible
+    const etiquetas = etiquetasDe(plato)
 
   return (
     <article className={agotado ? 'plato plato--agotado' : 'plato'}>
       <div className="plato__info">
         <h3 className="plato__nombre">{plato.nombre}</h3>
+                {etiquetas.length > 0 && (
+          <div className="plato__etiquetas">
+            {etiquetas.map((id) => (
+              <Etiqueta key={id} id={id} />
+            ))}
+          </div>
+        )}
         {plato.detalle && <p className="plato__detalle">{plato.detalle}</p>}
         {enPedido > 0 && <span className="plato__en-pedido">{enPedido} en su pedido</span>}
 

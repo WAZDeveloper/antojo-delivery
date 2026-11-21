@@ -28,12 +28,250 @@
 
   "categorias": [
     {
-      "nombre": "Entradas",
+      "nombre": "Desayunos",
+      "descripcion": "En Antojo Manabita cada desayuno es una historia servida en el plato",
       "platos": [
-        { "id": "ent-01", "nombre": "Bolón mixto",            "detalle": "Verde majado con queso y chicharrón. Incluye huevo frito.", "precio": 4.50, "foto": "", "disponible": true },
-        { "id": "ent-02", "nombre": "Empanadas de verde (3)", "detalle": "Rellenas de queso o de pollo, a elección en la nota.",      "precio": 3.75, "foto": "", "disponible": true }
+        {
+          "id": "des-01",
+          "nombre": "Desayuno Costeño",
+          "detalle": "Delicioso desayuno y el más completo, original de la casa. Con estofado de pescado suave y fresco, arroz, majado de verde, huevos fritos. Acompañado de café, vaso de jugo de temporada, y porción de fruta picada.",
+          "precio": 8.99,
+          "foto": "",
+          "disponible": true,
+          "etiquetas": ["mas-pedido"],
+          "opciones": [
+            {
+              "nombre": "Extras",
+              "obligatorio": false,
+              "maximo": 2,
+              "valores": [
+                { "nombre": "Porción de huevos fritos", "precio": 0.99 },
+                { "nombre": "Porción de jugo de carne", "precio": 0.99 }
+              ]
+            }
+          ]
+        },
+        
+        {
+          "id": "des-02",
+          "nombre": "Tigrillo Montubio",
+          "detalle": "Ínspirado por Joel Mendoza de nuestro programa “Formador de Formadores” llega renovado, nuestro tigrillo vino más montubio que antes. Majado de verde, revuelto con queso, huevo y chicharrón, con huevo frito, carne al jugo y salsa de queso con sal prieta. Solo lo encontrarás aquí. ",
+          "precio": 7.50,
+          "foto": "",
+          "disponible": true,
+          "etiquetas": ["mas-pedido", "picante", "para-compartir", "vegetariano", "nuevo"],  
+          "opciones": [
+            {
+              "nombre": "Extras",
+              "obligatorio": false,
+              "maximo": 2,
+              "valores": [
+                { "nombre": "Porción de huevos fritos", "precio": 0.99 },
+                { "nombre": "Porción de jugo de carne", "precio": 0.99 }
+              ]
+            }
+          ]
+        },
+
+        {
+          "id": "des-03",
+          "nombre": "Tigrillo Manabita",
+          "detalle": "Nuestro tradicional tigrillo, con chicharron , queso y jugo de carne.",
+          "precio": 7.50,
+          "foto": "",
+          "disponible": true,
+          "etiquetas": ["mas-pedido"],
+          "opciones": [
+            {
+              "nombre": "Extras",
+              "obligatorio": false,
+              "maximo": 2,
+              "valores": [
+                { "nombre": "Porción de huevos fritos", "precio": 0.99 },
+                { "nombre": "Porción de jugo de carne", "precio": 0.99 }
+              ]
+            }
+          ]
+        },
+
+                {
+          "id": "des-04",
+          "nombre": "Encebollado",
+          "detalle": "El ganador por décadas. Lo dicen los premios ganados y nuestros clientes  fieles",
+          "precio": 5.50,
+          "foto": "",
+          "disponible": true,
+          "etiquetas": ["mas-pedido"],
+          "opciones": [
+            {
+              "nombre": "Extras",
+              "obligatorio": false,
+              "maximo": 2,
+              "valores": [
+                { "nombre": "Porción de huevos fritos", "precio": 0.99 },
+                { "nombre": "Porción de jugo de carne", "precio": 0.99 }
+              ]
+            }
+          ]
+        },
+
+                {
+          "id": "des-05",
+          "nombre": "Tsunami Antojo Manabita",
+          "detalle": "La versión 2.0 del encebollado. Este viene con camarón, albacora, pulpo y concha.",
+          "precio": 13.99,
+          "foto": "",
+          "disponible": true,
+          "etiquetas": ["mas-pedido"],
+          "opciones": [
+            {
+              "nombre": "Extras",
+              "obligatorio": false,
+              "maximo": 2,
+              "valores": [
+                { "nombre": "Porción de huevos fritos", "precio": 0.99 },
+                { "nombre": "Porción de jugo de carne", "precio": 0.99 }
+              ]
+            }
+          ]
+        },
+
+                {
+          "id": "des-06",
+          "nombre": "Colonche de camarón",
+          "detalle": "Crocantes y exquisitos patacones troceados revueltos con camarón en nuestra salsa estelar de maní.",
+          "precio": 6.99,
+          "foto": "",
+          "disponible": true,
+          "etiquetas": ["mas-pedido"],
+          "opciones": [
+            {
+              "nombre": "Extras",
+              "obligatorio": false,
+              "maximo": 2,
+              "valores": [
+                { "nombre": "Porción de huevos fritos", "precio": 0.99 },
+                { "nombre": "Porción de jugo de carne", "precio": 0.99 }
+              ]
+            }
+          ]
+        },
+
+                {
+          "id": "des-07",
+          "nombre": "Majarisco",
+          "detalle": "Jugoso desayuno. Majado de verde con variedad de mariscos en salsa cremosa.",
+          "precio": 6.99,
+          "foto": "",
+          "disponible": true,
+          "etiquetas": ["mas-pedido"],
+          "opciones": [
+            {
+              "nombre": "Extras",
+              "obligatorio": false,
+              "maximo": 2,
+              "valores": [
+                { "nombre": "Porción de huevos fritos", "precio": 0.99 },
+                { "nombre": "Porción de jugo de carne", "precio": 0.99 }
+              ]
+            }
+          ]
+        },
+
+                {
+          "id": "des-08",
+          "nombre": "Bolón",
+          "detalle": "Crocante y contundente, delicioso bolón con la proteína de tu elección de la más alta calidad. Puedes pedirlo solo o con nuestra exquisita carne al jugo (recomendado). ",
+          "precio": 4.99,
+          "foto": "",
+          "disponible": true,
+          "etiquetas": ["mas-pedido"],
+          "opciones": [
+            {
+              "nombre": "Elige",
+              "obligatorio": true,
+              "maximo": 1,
+              "valores": [
+                { "nombre": "Queso", "precio": 0 },
+                { "nombre": "Chicharrón", "precio": 0},
+                { "nombre": "Mixto", "precio": 0 }
+              ]
+            },
+            {
+              "nombre": "Extras",
+              "obligatorio": false,
+              "maximo": 2,
+              "valores": [
+                { "nombre": "Porción de huevos fritos", "precio": 0.99 },
+                { "nombre": "Porción de jugo de carne", "precio": 0.99 }
+              ]
+            }
+          ]
+        },
+
+                {
+          "id": "des-09",
+          "nombre": "Empanadas",
+          "detalle": "Guapa empanada de verde con relleno de tu elección y acompañada de nuestro delicioso aji de aguacate.",
+          "precio": 1.99,
+          "foto": "",
+          "disponible": true,
+          "etiquetas": ["mas-pedido"],
+          "opciones": [
+            {
+              "nombre": "Elige",
+              "obligatorio": true,
+              "maximo": 1,
+              "valores": [
+                { "nombre": "Queso", "precio": 0 },
+                { "nombre": "Camarón", "precio": 0.25},
+                { "nombre": "Cangrejo", "precio": 0.60 }
+              ]
+            },
+            {
+              "nombre": "Extras",
+              "obligatorio": false,
+              "maximo": 2,
+              "valores": [
+                { "nombre": "Porción de huevos fritos", "precio": 0.99 },
+                { "nombre": "Porción de jugo de carne", "precio": 0.99 }
+              ]
+            }
+          ]
+        },
+
+                        {
+          "id": "des-10",
+          "nombre": "Guatita clásica",
+          "detalle": "El delicioso mondongo de la más alta calidad, e higiene. Con nuestra especial base de maní y cremosidad. Acompañado de arroz, huevo duro, maduro y aguacate. ",
+          "precio": 8.99,
+          "foto": "",
+          "disponible": true,
+          "etiquetas": ["mas-pedido"],
+          "opciones": [
+            {
+              "nombre": "Extras",
+              "obligatorio": false,
+              "maximo": 2,
+              "valores": [
+                { "nombre": "Porción de huevos fritos", "precio": 0.99 },
+                { "nombre": "Porción de jugo de carne", "precio": 0.99 }
+              ]
+            }
+          ]
+        }
       ]
+
+      
     },
+    
+    
+    
+    
+    
+    
+    
+    
     {
       "nombre": "Mariscos",
       "platos": [

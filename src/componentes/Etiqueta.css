@@ -1,0 +1,37 @@
+/* Pastillas de etiquetas: cada una con su par de colores (definidos en index.css) */
+.etiqueta {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    height: 24px;
+    padding: 0 9px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.etiqueta--mas--pedido {
+    background: var(--etq-mas-pedido-fondo);
+    color: var(--etq-mas-pedido-texto);
+}
+
+.etiqueta--picante {
+    background: var(--etq-mas-pedido-fondo);
+    color: var(--etq-mas-pedido-texto);
+}
+
+.etiqueta--para-compartir {
+    background: var(--etq-mas-pedido-fondo);
+    color: var(--etq-mas-pedido-texto);
+}
+
+.etiqueta--vegetariano {
+    background: var(--etq-mas-pedido-fondo);
+    color: var(--etq-mas-pedido-texto);
+}
+
+.etiquetas--nuevo {
+    background: var(--etq-mas-pedido-fondo);
+    color: var(--etq-mas-pedido-texto);
+}
