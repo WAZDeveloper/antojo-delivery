@@ -1,0 +1,52 @@
+/* Caja de búsqueda dentro de la franja verde */
+.buscador {
+    margin-top: 18px;
+    max-width: 520px;
+    height: 52px;
+    padding: 0 6px 0 14px;
+    border-radius: 16px;
+    background: #ffffff;
+    color: var(--verde);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.buscador:focus-within {
+    outline: 3px solid var(--mani);
+    outline-offset: 2px;
+}
+
+.buscador input {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    border: 0;
+    background: none;
+    color: var(--tinta);
+    font: inherit;
+    font-size: 16px; /* 16px: así el iPhone no hace zoom al escribir */
+    outline: none;
+}
+
+.buscador input::placeholder {
+    color: #5f6e64;
+}
+
+/* Quita la "x" que algunos navegadores ponen solos: usamos la nuestra */
+.buscador input::-webkit-search-cancel-button {
+    display: none;
+}
+
+.buscador button {
+    flex: none;
+    width: 40px;
+    height: 40px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--fondo-suave);
+    color: var(--tinta);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

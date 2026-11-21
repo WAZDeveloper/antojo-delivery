@@ -156,3 +156,13 @@ export function IconoNuevo({ tamano = 12 }: PropsIcono) {
     </svg>
   )
 }
+
+
+export function IconoBuscar({ tamano = 20 }: PropsIcono) {
+  return (
+    <svg width={tamano} height={tamano} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" aria-hidden="true">
+      <circle cx="11" cy="11" r="7" />
+      <path d="M20 20l-4-4" />
+    </svg>
+  )
+}

@@ -12,3 +12,13 @@ export const idCategoria = (nombre: string) =>
     .replace(/[\u0300-\u036f]/g, '')
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)/g, '')
+
+    
+// "Camarón" → "camaron": para buscar sin importar tildes ni mayúsculas
+export const normalizar = (texto: string) =>
+  texto
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+
+    

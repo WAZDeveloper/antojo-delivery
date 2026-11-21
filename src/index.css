@@ -65,3 +65,13 @@ button {
     transition: none !important;
   }
 }
+
+/* Texto que solo leen los lectores de pantalla (por ejemplo, etiquetas de campos con ícono) */
+.visualmente-oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

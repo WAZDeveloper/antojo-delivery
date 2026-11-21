@@ -25,7 +25,7 @@
   letter-spacing: -0.01em;
 }
 
-.etiqueta {
+.hero__etiqueta {
   font-size: 13px;
   font-weight: 600;
   background: rgba(255, 255, 255, 0.16);
@@ -170,4 +170,16 @@
   .seccion__cabecera {
     margin-top: 32px
   }
+}
+
+/* Cuando la búsqueda o el filtro no encuentran nada */
+.sin-resultados {
+  padding: 20px 8px 8px;
+  text-align: center;
+  color: var(--texto-suave)
+}
+
+.sin-resultados p {
+  margin: 0 0 14px;
+  line-height: 1.5;
 }
