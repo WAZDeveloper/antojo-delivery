@@ -76,6 +76,11 @@ export interface Menu {
   webhook: string
   aviso_envio: string
   cierre_pedidos_min?: number // se dejan de tomar pedidos estos minutos antes del cierre
+    programacion?: {
+    preparacion_min: number // tiempo mínimo para preparar un pedido
+    intervalo_min: number // cada cuántos minutos hay una hora de entrega
+    dias_adelante: number // hasta cuántos días después de hoy se puede programar
+  }
   marca?: Marca
   limite_consumidor_final: number // sobre este total, la factura debe llevar datos (SRI)
   pagos: string[]

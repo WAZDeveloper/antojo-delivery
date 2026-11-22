@@ -99,3 +99,20 @@
   margin: 0 0 14px;
   line-height: 1.5;
 }
+/* Aviso cuando el pedido llega armado desde WhatsApp */
+.aviso--enlace {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--fondo-suave);
+  color: var(--tinta);
+}
+
+.aviso--enlace p {
+  margin: 0;
+}
+
+.aviso--enlace .boton-agregar {
+  flex: none;
+}

@@ -1,0 +1,126 @@
+/* Pantalla "Pedido enviado": fondo verde de la marca, ocupa toda la pantalla */
+.confirmado {
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 72px 24px 32px;
+  background: var(--verde);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+
+/* En pantallas grandes, el contenido queda centrado y angosto */
+.confirmado__contenido {
+  flex: 1;
+  width: 100%;
+  max-width: 440px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.confirmado__icono {
+  width: 88px;
+  height: 88px;
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--verde);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.confirmado__titulo {
+  margin-top: 28px;
+  font-weight: 800;
+  font-size: 44px;
+  line-height: 1;
+  letter-spacing: -0.025em;
+}
+
+.confirmado__titulo:focus {
+  outline: none;
+}
+
+.confirmado__texto {
+  margin: 14px 0 0;
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--verde-claro);
+}
+
+.confirmado__tarjeta {
+  margin: 30px 0 0;
+  padding: 20px;
+  border-radius: 22px;
+  background: #ffffff;
+  color: var(--tinta);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.confirmado__fila {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  font-size: 15px;
+}
+
+.confirmado__fila dt {
+  color: var(--texto-suave);
+  flex: none;
+}
+
+.confirmado__fila dd {
+  margin: 0;
+  font-weight: 600;
+  text-align: right;
+}
+
+.confirmado__fila--codigo {
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--borde);
+}
+
+.confirmado__fila--codigo dd,
+.confirmado__total {
+  font-family: var(--letra-titulos);
+  font-weight: 800;
+  font-size: 20px;
+}
+
+.confirmado__acciones {
+  margin-top: auto;
+  padding-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.confirmado__whatsapp {
+  height: 58px;
+  border-radius: 18px;
+  background: #ffffff;
+  color: var(--verde);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--letra-titulos);
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.confirmado__otro {
+  height: 48px;
+  border: 0;
+  background: none;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

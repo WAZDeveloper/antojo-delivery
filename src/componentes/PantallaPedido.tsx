@@ -1,11 +1,14 @@
 import { useRef, useState, type FormEvent } from 'react'
 import { NOMBRES_IDENTIFICACION, type TipoIdentificacion } from '../identificacion'
 import { calcularEntrega, textoKm, type Punto } from '../entrega'
+import { diasDeEntrega, estadoLocal, textoHora } from '../horario'
+import { useAhora } from '../useAhora'
 import { entregaVacia, validarEntrega, type DatosEntrega, type PedidoListo } from '../pedido'
 import type { Menu } from '../tipos'
 import type { LineaPedido } from '../useCarrito'
 import { precio } from '../utilidades'
 import { Contador } from './Contador'
+import { CuandoEntrega } from './CuandoEntrega'
 import {
   IconoAtras,
   IconoBanco,
@@ -27,12 +30,13 @@ interface Props {
   onAgregar: (clave: string) => void
   onQuitar: (clave: string) => void
   onVolver: () => void
-  onEnviar: (pedido: PedidoListo) => void
+  onEnviar: (pedido: PedidoListo) => Promise<void> // si falla, lanza un Error con el mensaje para el cliente
 }
 
 // Orden en que revisamos los campos para llevar al cliente al primer error
 const ORDEN_CAMPOS: (keyof DatosEntrega)[] = [
   'lat',
+  'horaEntrega',
   'direccion',
   'nombre',
   'apellido',
@@ -72,6 +76,8 @@ export function PantallaPedido({
 }: Props) {
   const [entrega, setEntrega] = useState<DatosEntrega>(entregaVacia)
   const [intentoEnviar, setIntentoEnviar] = useState(false)
+  const [enviando, setEnviando] = useState(false)
+  const [errorEnvio, setErrorEnvio] = useState('')
   const direccionAuto = useRef('') // última dirección que escribió el mapa (no el cliente)
 
   // Local, distancia y envío según el pin del mapa
@@ -79,6 +85,28 @@ export function PantallaPedido({
   const resultado = punto ? calcularEntrega(menu, punto) : null
   const enRango = resultado?.enRango ?? false
   const envio = resultado?.enRango ? resultado.envio : 0
+
+  // ¿Está abierto el local que le toca? Si no, el cliente programa día y hora
+  const ahora = useAhora()
+  const cierreMin = menu.cierre_pedidos_min ?? 30
+  const prog = menu.programacion ?? { preparacion_min: 45, intervalo_min: 30, dias_adelante: 2 }
+  const localAsignado = resultado?.local ?? null
+  const abiertoAhora = localAsignado?.horario ? estadoLocal(localAsignado, cierreMin, ahora).abierto : true
+  const dias = localAsignado?.horario
+    ? diasDeEntrega(
+        localAsignado,
+        { preparacionMin: prog.preparacion_min, intervaloMin: prog.intervalo_min, diasAdelante: prog.dias_adelante, cierreMin },
+        ahora,
+      )
+    : []
+  const programado = !abiertoAhora // si el local está cerrado, el pedido se programa
+  const fechaActiva = dias.some((d) => d.fecha === entrega.fechaEntrega) ? entrega.fechaEntrega : (dias[0]?.fecha ?? '')
+  const diaElegido = dias.find((d) => d.fecha === fechaActiva)
+  const horaElegida =
+    !programado ||
+    (entrega.horaEntrega !== null &&
+      entrega.fechaEntrega === fechaActiva &&
+      Boolean(diaElegido?.franjas.includes(entrega.horaEntrega)))
   const total = Math.round((subtotal + envio) * 100) / 100
 
   // Regla del SRI: sobre el límite, la factura debe llevar los datos del cliente
@@ -86,7 +114,7 @@ export function PantallaPedido({
   const conDatos = facturaObligatoria || entrega.factura === 'datos'
 
   // Los errores se calculan solos en cada cambio, pero solo se muestran después del primer intento
-  const errores = intentoEnviar ? validarEntrega(entrega, facturaObligatoria, enRango) : {}
+  const errores = intentoEnviar ? validarEntrega(entrega, facturaObligatoria, enRango, horaElegida) : {}
 
   // <K extends keyof DatosEntrega>: "campo" es uno de los nombres y "valor" tiene el tipo de ese campo
   const cambiar = <K extends keyof DatosEntrega>(campo: K, valor: DatosEntrega[K]) =>
@@ -118,10 +146,11 @@ export function PantallaPedido({
       </p>
     )
 
-  const enviar = (evento: FormEvent<HTMLFormElement>) => {
+  const enviar = async (evento: FormEvent<HTMLFormElement>) => {
     evento.preventDefault()
+    if (enviando) return // evita mandar el pedido dos veces
     setIntentoEnviar(true)
-    const encontrados = validarEntrega(entrega, facturaObligatoria, enRango)
+    const encontrados = validarEntrega(entrega, facturaObligatoria, enRango, horaElegida)
 
     const primero = ORDEN_CAMPOS.find((campo) => encontrados[campo])
     if (primero || !resultado?.enRango) {
@@ -129,13 +158,30 @@ export function PantallaPedido({
       document.getElementById(id)?.focus()
       return
     }
-    onEnviar({
-      entrega: { ...entrega, factura: conDatos ? 'datos' : 'consumidor' },
-      local: resultado.local.nombre,
-      distanciaKm: Math.round(resultado.distancia * 10) / 10,
-      envio: resultado.envio,
-      total,
-    })
+    setEnviando(true)
+    setErrorEnvio('')
+    try {
+      await onEnviar({
+        entrega: { ...entrega, factura: conDatos ? 'datos' : 'consumidor' },
+        local: resultado.local.nombre,
+        distanciaKm: Math.round(resultado.distancia * 10) / 10,
+        envio: resultado.envio,
+        total,
+        programado:
+          programado && diaElegido && entrega.horaEntrega !== null
+            ? {
+                fecha: diaElegido.fecha,
+                desde: textoHora(entrega.horaEntrega),
+                hasta: textoHora(entrega.horaEntrega + prog.intervalo_min),
+                texto: `${diaElegido.largo}, ${textoHora(entrega.horaEntrega)}–${textoHora(entrega.horaEntrega + prog.intervalo_min)}`,
+              }
+            : null,
+      })
+      // Si salió bien, App cambia a la pantalla "Pedido enviado"
+    } catch (error) {
+      setErrorEnvio(error instanceof Error ? error.message : 'No pudimos enviar su pedido. Intente de nuevo.')
+      setEnviando(false)
+    }
   }
 
   const cabecera = (
@@ -219,6 +265,18 @@ export function PantallaPedido({
             <input {...propsCampo('referencia')} placeholder="Ej.: casa esquinera, portón verde, 2.º piso" />
           </div>
         </section>
+
+        {/* Solo si el local está cerrado: programar día y hora */}
+        {resultado?.enRango && programado && dias.length > 0 && (
+          <CuandoEntrega
+            dias={dias}
+            fechaActiva={fechaActiva}
+            hora={entrega.horaEntrega}
+            intervaloMin={prog.intervalo_min}
+            error={errores.horaEntrega}
+            onCambiar={(cambios) => setEntrega((antes) => ({ ...antes, ...cambios }))}
+          />
+        )}
 
         {/* 2. Platos */}
         <section className="pedido__seccion" aria-labelledby="titulo-platos">
@@ -412,12 +470,21 @@ export function PantallaPedido({
         </section>
 
         <div className="pedido__acciones">
-          <button type="submit" className="boton-principal" disabled={resultado !== null && !resultado.enRango}>
-            Enviar pedido · {precio(total)}
+          {errorEnvio && (
+            <p className="pedido__error-envio" role="alert">
+              {errorEnvio}
+            </p>
+          )}
+          <button
+            type="submit"
+            className="boton-principal"
+            disabled={enviando || (resultado !== null && !resultado.enRango)}
+          >
+            {enviando ? 'Enviando su pedido…' : `${programado ? 'Programar pedido' : 'Enviar pedido'} · ${precio(total)}`}
           </button>
           <p>
             {resultado?.enRango ? `El local ${resultado.local.nombre}` : 'El local'} revisará su pedido y le escribirá por WhatsApp para
-            confirmarlo.
+            confirmarlo{!abiertoAhora ? ' cuando abra' : ''}.
           </p>
         </div>
       </form>

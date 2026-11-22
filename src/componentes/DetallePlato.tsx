@@ -10,6 +10,9 @@ interface Props {
   plato: Plato
   onCerrar: () => void
   onAgregar: (elegidas: Elegidas, nota: string, cantidad: number) => void
+  cantidadInicial?: number // cuando el plato viene del pedido de WhatsApp
+  elegidasIniciales?: Elegidas // complementos que ya venían en ese pedido
+  aviso?: string // mensaje arriba del nombre del plato
 }
 
 const textoReglas = (grupo: GrupoOpciones) => {
@@ -17,11 +20,11 @@ const textoReglas = (grupo: GrupoOpciones) => {
   return `${grupo.obligatorio ? 'Obligatorio' : 'Opcional'} · ${cuantas}`
 }
 
-export function DetallePlato({ plato, onCerrar, onAgregar }: Props) {
+export function DetallePlato({ plato, onCerrar, onAgregar, cantidadInicial = 1, elegidasIniciales, aviso }: Props) {
   const ventana = useRef<HTMLDialogElement>(null)
-  const [elegidas, setElegidas] = useState<Elegidas>({})
+  const [elegidas, setElegidas] = useState<Elegidas>(elegidasIniciales ?? {})
   const [nota, setNota] = useState('')
-  const [cantidad, setCantidad] = useState(1)
+  const [cantidad, setCantidad] = useState(cantidadInicial)
 
   // Abrir la ventana como "modal": oscurece el fondo, atrapa el teclado y se cierra con Esc
   useEffect(() => {
@@ -76,6 +79,7 @@ export function DetallePlato({ plato, onCerrar, onAgregar }: Props) {
         </div>
 
         <div className="detalle__cuerpo">
+          {aviso && <p className="detalle__aviso">{aviso}</p>}
           <div className="detalle__encabezado">
             <h2 id="detalle-titulo">{plato.nombre}</h2>
             {plato.detalle && <p>{plato.detalle}</p>}

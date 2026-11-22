@@ -20,6 +20,9 @@ export interface DatosEntrega {
   correo: string
   mismaDireccion: boolean // usar la dirección de entrega en la factura
   direccionFactura: string
+  // Pedido programado (solo cuando el local está cerrado)
+  fechaEntrega: string // "2026-11-21"
+  horaEntrega: number | null // minutos del día: 750 = 12:30
   // Pago
   pago: string
 }
@@ -38,6 +41,8 @@ export const entregaVacia: DatosEntrega = {
   correo: '',
   mismaDireccion: true,
   direccionFactura: '',
+  fechaEntrega: '',
+  horaEntrega: null,
   pago: '',
 }
 
@@ -46,7 +51,12 @@ export type Errores = Partial<Record<keyof DatosEntrega, string>>
 
 const correoValido = (correo: string) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(correo.trim())
 
-export function validarEntrega(datos: DatosEntrega, facturaObligatoria: boolean, enRango: boolean): Errores {
+export function validarEntrega(
+  datos: DatosEntrega,
+  facturaObligatoria: boolean,
+  enRango: boolean,
+  horaElegida = true, // false si el local está cerrado y todavía no eligió una hora
+): Errores {
   const errores: Errores = {}
 
   if (datos.lat === null || datos.lng === null) {
@@ -54,6 +64,7 @@ export function validarEntrega(datos: DatosEntrega, facturaObligatoria: boolean,
   } else if (!enRango) {
     errores.lat = 'Su dirección está fuera de rango de entrega.'
   }
+  if (enRango && !horaElegida) errores.horaEntrega = 'Elija el día y la hora de entrega.'
   if (datos.direccion.trim().length < 5) errores.direccion = 'Escriba la dirección de entrega.'
   if (!datos.nombre.trim()) errores.nombre = 'Escriba su nombre.'
   if (!datos.apellido.trim()) errores.apellido = 'Escriba su apellido.'
@@ -87,4 +98,5 @@ export interface PedidoListo {
   distanciaKm: number
   envio: number
   total: number
+  programado: { fecha: string; desde: string; hasta: string; texto: string } | null // null = local abierto, se prepara ya
 }

@@ -3,57 +3,76 @@
   "negocio": "Antojo Manabita",
   "titulo": "¿Qué se le antoja hoy?",
   "subtitulo": "Arme su pedido a domicilio y vea el total antes de enviarlo.",
-    "marca": {
+  "marca": {
     "lema": "Sabor manabita a domicilio",
     "logo": "",
     "historia": "En Manabí la comida se hace con calma: verde recién majado, maní tostado y mariscos del día. Así cocinamos cada plato, al momento, para que llegue a su mesa con todo su sabor.",
     "descripcion": "Comida manabita de verdad, preparada al momento y llevada hasta su puerta.",
-    "redes": { "instagram": "", "facebook": "", "tiktok": "" },
+    "redes": {
+      "instagram": "",
+      "facebook": "",
+      "tiktok": ""
+    },
     "terminos": "",
     "privacidad": ""
   },
   "cierre_pedidos_min": 30,
+  "programacion": {
+    "preparacion_min": 45,
+    "intervalo_min": 30,
+    "dias_adelante": 2
+  },
   "whatsapp": "",
   "webhook": "https://itantojomanabita.app.n8n.cloud/webhook/delivery-pedido",
   "aviso_envio": "El recargo por envío depende de la ruta hasta su dirección.",
   "limite_consumidor_final": 50,
-
   "pagos": [
     "Transferencia bancaria",
     "Tarjeta de crédito/débito",
     "Efectivo al recibir",
     "DeUna / Payphone"
   ],
-
   "locales": [
     {
       "nombre": "Valle de los Chillos",
-      "lat": -0.3010565, "lng": -78.4481827, "radio_km": 8,
+      "lat": -0.3010565,
+      "lng": -78.4481827,
+      "radio_km": 8,
       "direccion": "San Juan de Dios S/N",
       "telefono": "098 190 7986",
       "horario": {
-        "lun": ["08:30", "17:30"], "mar": ["08:30", "17:30"], "mie": ["08:30", "17:30"], "jue": ["08:30", "17:30"],
-        "vie": ["08:30", "19:00"], "sab": ["07:30", "19:00"], "dom": ["07:30", "18:00"]
+        "lun": ["08:30", "17:30"],
+        "mar": ["08:30", "17:30"],
+        "mie": ["08:30", "17:30"],
+        "jue": ["08:30", "17:30"],
+        "vie": ["08:30", "19:00"],
+        "sab": ["07:30", "19:00"],
+        "dom": ["07:30", "18:00"]
       }
     },
     {
       "nombre": "Polonia",
-      "lat": -0.191499, "lng": -78.489912, "radio_km": 8,
+      "lat": -0.191499,
+      "lng": -78.489912,
+      "radio_km": 8,
       "direccion": "Polonia y N31-26, Quito",
       "telefono": "02 252 1821",
       "horario": {
-        "lun": ["08:30", "17:30"], "mar": ["08:30", "17:30"], "mie": ["08:30", "17:30"], "jue": ["08:30", "17:30"],
-        "vie": ["07:30", "17:30"], "sab": ["07:30", "17:30"], "dom": ["07:30", "17:30"]
+        "lun": ["08:30", "17:30"],
+        "mar": ["08:30", "17:30"],
+        "mie": ["08:30", "17:30"],
+        "jue": ["08:30", "17:30"],
+        "vie": ["07:30", "17:30"],
+        "sab": ["07:30", "17:30"],
+        "dom": ["07:30", "17:30"]
       }
     }
   ],
-
-"tarifas_envio": [
-  { "hasta_km": 3, "precio": 1.50 },
-  { "hasta_km": 6, "precio": 2.50 },
-  { "hasta_km": 8, "precio": 3.50 }
-],
-
+  "tarifas_envio": [
+    { "hasta_km": 3, "precio": 1.5 },
+    { "hasta_km": 6, "precio": 2.5 },
+    { "hasta_km": 8, "precio": 3.5 }
+  ],
   "categorias": [
     {
       "nombre": "Desayunos",
@@ -79,15 +98,14 @@
             }
           ]
         },
-        
         {
           "id": "des-02",
           "nombre": "Tigrillo Montubio",
-          "detalle": "Ínspirado por Joel Mendoza de nuestro programa “Formador de Formadores” llega renovado, nuestro tigrillo vino más montubio que antes. Majado de verde, revuelto con queso, huevo y chicharrón, con huevo frito, carne al jugo y salsa de queso con sal prieta. Solo lo encontrarás aquí. ",
-          "precio": 7.50,
+          "detalle": "Inspirado por Joel Mendoza de nuestro programa “Formador de Formadores” llega renovado, nuestro tigrillo vino más montubio que antes. Majado de verde, revuelto con queso, huevo y chicharrón, con huevo frito, carne al jugo y salsa de queso con sal prieta. Solo lo encontrarás aquí.",
+          "precio": 7.5,
           "foto": "",
           "disponible": true,
-          "etiquetas": ["mas-pedido", "picante", "para-compartir", "vegetariano", "nuevo"],  
+          "etiquetas": ["nuevo"],
           "opciones": [
             {
               "nombre": "Extras",
@@ -100,15 +118,13 @@
             }
           ]
         },
-
         {
           "id": "des-03",
           "nombre": "Tigrillo Manabita",
           "detalle": "Nuestro tradicional tigrillo, con chicharron , queso y jugo de carne.",
-          "precio": 7.50,
+          "precio": 7.5,
           "foto": "",
           "disponible": true,
-          "etiquetas": ["mas-pedido"],
           "opciones": [
             {
               "nombre": "Extras",
@@ -121,12 +137,11 @@
             }
           ]
         },
-
-                {
+        {
           "id": "des-04",
           "nombre": "Encebollado",
-          "detalle": "El ganador por décadas. Lo dicen los premios ganados y nuestros clientes  fieles",
-          "precio": 5.50,
+          "detalle": "El ganador por décadas. Lo dicen los premios ganados y nuestros clientes fieles",
+          "precio": 5.5,
           "foto": "",
           "disponible": true,
           "etiquetas": ["mas-pedido"],
@@ -142,15 +157,13 @@
             }
           ]
         },
-
-                {
+        {
           "id": "des-05",
           "nombre": "Tsunami Antojo Manabita",
           "detalle": "La versión 2.0 del encebollado. Este viene con camarón, albacora, pulpo y concha.",
           "precio": 13.99,
           "foto": "",
           "disponible": true,
-          "etiquetas": ["mas-pedido"],
           "opciones": [
             {
               "nombre": "Extras",
@@ -163,15 +176,13 @@
             }
           ]
         },
-
-                {
+        {
           "id": "des-06",
           "nombre": "Colonche de camarón",
           "detalle": "Crocantes y exquisitos patacones troceados revueltos con camarón en nuestra salsa estelar de maní.",
           "precio": 6.99,
           "foto": "",
           "disponible": true,
-          "etiquetas": ["mas-pedido"],
           "opciones": [
             {
               "nombre": "Extras",
@@ -184,15 +195,13 @@
             }
           ]
         },
-
-                {
+        {
           "id": "des-07",
           "nombre": "Majarisco",
           "detalle": "Jugoso desayuno. Majado de verde con variedad de mariscos en salsa cremosa.",
           "precio": 6.99,
           "foto": "",
           "disponible": true,
-          "etiquetas": ["mas-pedido"],
           "opciones": [
             {
               "nombre": "Extras",
@@ -205,23 +214,22 @@
             }
           ]
         },
-
-                {
+        {
           "id": "des-08",
           "nombre": "Bolón",
-          "detalle": "Crocante y contundente, delicioso bolón con la proteína de tu elección de la más alta calidad. Puedes pedirlo solo o con nuestra exquisita carne al jugo (recomendado). ",
+          "detalle": "Crocante y contundente, delicioso bolón con la proteína de tu elección de la más alta calidad. Puedes pedirlo solo o con nuestra exquisita carne al jugo (recomendado).",
           "precio": 4.99,
           "foto": "",
           "disponible": true,
           "etiquetas": ["mas-pedido"],
           "opciones": [
             {
-              "nombre": "Elige",
+              "nombre": "Proteína",
               "obligatorio": true,
               "maximo": 1,
               "valores": [
                 { "nombre": "Queso", "precio": 0 },
-                { "nombre": "Chicharrón", "precio": 0},
+                { "nombre": "Chicharrón", "precio": 0 },
                 { "nombre": "Mixto", "precio": 0 }
               ]
             },
@@ -236,24 +244,22 @@
             }
           ]
         },
-
-                {
+        {
           "id": "des-09",
           "nombre": "Empanadas",
           "detalle": "Guapa empanada de verde con relleno de tu elección y acompañada de nuestro delicioso aji de aguacate.",
           "precio": 1.99,
           "foto": "",
           "disponible": true,
-          "etiquetas": ["mas-pedido"],
           "opciones": [
             {
-              "nombre": "Elige",
+              "nombre": "Relleno",
               "obligatorio": true,
               "maximo": 1,
               "valores": [
                 { "nombre": "Queso", "precio": 0 },
-                { "nombre": "Camarón", "precio": 0.25},
-                { "nombre": "Cangrejo", "precio": 0.60 }
+                { "nombre": "Camarón", "precio": 0.25 },
+                { "nombre": "Cangrejo", "precio": 0.6 }
               ]
             },
             {
@@ -267,15 +273,13 @@
             }
           ]
         },
-
-                        {
+        {
           "id": "des-10",
           "nombre": "Guatita clásica",
-          "detalle": "El delicioso mondongo de la más alta calidad, e higiene. Con nuestra especial base de maní y cremosidad. Acompañado de arroz, huevo duro, maduro y aguacate. ",
+          "detalle": "El delicioso mondongo de la más alta calidad, e higiene. Con nuestra especial base de maní y cremosidad. Acompañado de arroz, huevo duro, maduro y aguacate.",
           "precio": 8.99,
           "foto": "",
           "disponible": true,
-          "etiquetas": ["mas-pedido"],
           "opciones": [
             {
               "nombre": "Extras",
@@ -289,63 +293,1112 @@
           ]
         }
       ]
-
-      
     },
-    
-    
-    
-    
-    
-    
-    
-    
     {
-      "nombre": "Mariscos",
+      "nombre": "Entradas",
       "platos": [
-        { "id": "mar-01", "nombre": "Ceviche de camarón",     "detalle": "Con chifles y canguil. Porción personal.",                 "precio": 9.90,  "foto": "", "disponible": true },
-        { "id": "mar-02", "nombre": "Viche de pescado",       "detalle": "Sopa manabita de maní con verde, choclo y pescado.",       "precio": 10.50, "foto": "", "disponible": true },
-        { "id": "mar-03", "nombre": "Encocado de camarón",    "detalle": "En salsa de coco, con arroz y patacones.",                 "precio": 12.00, "foto": "", "disponible": false }
+        {
+          "id": "ent-01",
+          "nombre": "Empanada de verde",
+          "detalle": "Guapa empanada de verde manaba con el relleno que prefiera, acompañada de nuestro delicioso ají de aguacate.",
+          "precio": 1.99,
+          "foto": "",
+          "disponible": true,
+          "opciones": [
+            {
+              "nombre": "Relleno",
+              "obligatorio": true,
+              "maximo": 1,
+              "valores": [
+                { "nombre": "Queso", "precio": 0 },
+                { "nombre": "Camarón", "precio": 0.25 },
+                { "nombre": "Cangrejo", "precio": 0.6 }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ent-02",
+          "nombre": "Combo de empanadas de verde (6)",
+          "detalle": "6 ricas empanadas de verde con relleno a su elección: queso manaba, camarón o pulpa de cangrejo, acompañadas de nuestro ají de aguacate.",
+          "precio": 11.99,
+          "foto": "",
+          "disponible": true,
+          "etiquetas": ["para-compartir"],
+          "opciones": [
+            {
+              "nombre": "Rellenos",
+              "obligatorio": true,
+              "maximo": 3,
+              "valores": [
+                { "nombre": "Queso manaba", "precio": 0 },
+                { "nombre": "Camarón", "precio": 0 },
+                { "nombre": "Cangrejo", "precio": 0 }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ent-03",
+          "nombre": "Trío de empanadas",
+          "detalle": "Una exquisita combinación de empanadas: elija una de cada variedad o a su manera.",
+          "precio": 5.99,
+          "foto": "",
+          "disponible": true,
+          "opciones": [
+            {
+              "nombre": "Rellenos",
+              "obligatorio": true,
+              "maximo": 3,
+              "valores": [
+                { "nombre": "Queso manaba", "precio": 0 },
+                { "nombre": "Camarón", "precio": 0 },
+                { "nombre": "Cangrejo", "precio": 0 }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ent-04",
+          "nombre": "Maduros fritos crocantes",
+          "detalle": "Dulces, traídos de Manabí. Pídalos solos o con todo, como recomendamos: con queso manaba, sal prieta y maní quebrado.",
+          "precio": 3.99,
+          "foto": "",
+          "disponible": true,
+          "etiquetas": ["vegetariano"],
+          "opciones": [
+            {
+              "nombre": "Preparación",
+              "obligatorio": true,
+              "maximo": 1,
+              "valores": [
+                { "nombre": "Con todo (recomendado)", "precio": 0 },
+                { "nombre": "Solos", "precio": 0 }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ent-05",
+          "nombre": "Maduros asados como en mi tierra",
+          "detalle": "Saludables y exquisitos: maduros asados con queso manaba, sal prieta y maní quebrado.",
+          "precio": 3.99,
+          "foto": "",
+          "disponible": true,
+          "etiquetas": ["vegetariano"]
+        },
+        {
+          "id": "ent-06",
+          "nombre": "Patacones a lo manaba",
+          "detalle": "Crocantes y calientitos patacones con sal prieta, queso manaba y/o maní quebrado.",
+          "precio": 3.99,
+          "foto": "",
+          "disponible": true,
+          "etiquetas": ["vegetariano"],
+          "opciones": [
+            {
+              "nombre": "Para acompañar",
+              "obligatorio": false,
+              "maximo": 3,
+              "valores": [
+                { "nombre": "Sal prieta", "precio": 0 },
+                { "nombre": "Queso manaba", "precio": 0 },
+                { "nombre": "Maní quebrado", "precio": 0 }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ent-07",
+          "nombre": "Conchas asadas",
+          "detalle": "Frescas conchas traídas desde el manglar, preparadas con delicioso chimichurri para que se chupe hasta los dedos.",
+          "precio": 14.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "ent-08",
+          "nombre": "Bandeja de chicharrón de mariscos",
+          "detalle": "Perfecta para compartir en grupo: camarón, pescado y calamar, con salsita golf y patacones.",
+          "precio": 24.99,
+          "foto": "",
+          "disponible": true,
+          "etiquetas": ["para-compartir"]
+        }
       ]
     },
     {
-      "nombre": "Platos fuertes",
+      "nombre": "Cajas de regalo",
+      "descripcion": "Nada dice amor como la comida.",
       "platos": [
-        { "id": "fue-01", 
-          "nombre": "Seco de gallina criolla", 
-          "detalle": "Con arroz amarillo, maduro y ensalada.",                  
-          "precio": 8.75, "foto": "", 
-          "disponible": true, 
+        {
+          "id": "caj-01",
+          "nombre": "Caja regalo 6 empanadas",
+          "detalle": "Obsequie nuestra caja de regalo de 6 empanadas. Elija la combinación que desee.",
+          "precio": 15.99,
+          "foto": "",
+          "disponible": true,
           "opciones": [
             {
-              "nombre":"Guarnición",
+              "nombre": "Rellenos",
+              "obligatorio": true,
+              "maximo": 3,
+              "valores": [
+                { "nombre": "Queso manaba", "precio": 0 },
+                { "nombre": "Camarón", "precio": 0 },
+                { "nombre": "Cangrejo", "precio": 0 }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "caj-02",
+          "nombre": "Caja regalo 12 empanadas",
+          "detalle": "Obsequie amor en docena: elija su combinación de empanadas entre queso, camarón y cangrejo.",
+          "precio": 29.99,
+          "foto": "",
+          "disponible": true,
+          "opciones": [
+            {
+              "nombre": "Rellenos",
+              "obligatorio": true,
+              "maximo": 3,
+              "valores": [
+                { "nombre": "Queso manaba", "precio": 0 },
+                { "nombre": "Camarón", "precio": 0 },
+                { "nombre": "Cangrejo", "precio": 0 }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nombre": "Ceviches",
+      "descripcion": "Recomendado: agréguele porción de cangrejo o pulpo por solo $3.99.",
+      "platos": [
+        {
+          "id": "cev-01",
+          "nombre": "Ceviche de camarón",
+          "detalle": "Los más grandes y frescos, preparados con la receta tradicional a base de tomate.",
+          "precio": 9.99,
+          "foto": "",
+          "disponible": true,
+          "opciones": [
+            {
+              "nombre": "Agréguele",
+              "obligatorio": false,
+              "maximo": 2,
+              "valores": [
+                { "nombre": "Porción de cangrejo", "precio": 3.99 },
+                { "nombre": "Porción de pulpo", "precio": 3.99 }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "cev-02",
+          "nombre": "Ceviche de pescado",
+          "detalle": "Dados de pescado preparados al natural.",
+          "precio": 10.99,
+          "foto": "",
+          "disponible": true,
+          "opciones": [
+            {
+              "nombre": "Agréguele",
+              "obligatorio": false,
+              "maximo": 2,
+              "valores": [
+                { "nombre": "Porción de cangrejo", "precio": 3.99 },
+                { "nombre": "Porción de pulpo", "precio": 3.99 }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "cev-03",
+          "nombre": "Ceviche de concha",
+          "detalle": "Grandes y jugosas, servidas al natural.",
+          "precio": 13.5,
+          "foto": "",
+          "disponible": true,
+          "opciones": [
+            {
+              "nombre": "Agréguele",
+              "obligatorio": false,
+              "maximo": 2,
+              "valores": [
+                { "nombre": "Porción de cangrejo", "precio": 3.99 },
+                { "nombre": "Porción de pulpo", "precio": 3.99 }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "cev-04",
+          "nombre": "Ceviche mixto",
+          "detalle": "Elija 2 proteínas de su preferencia.",
+          "precio": 11.99,
+          "foto": "",
+          "disponible": true,
+          "opciones": [
+            {
+              "nombre": "Proteínas",
+              "obligatorio": true,
+              "maximo": 2,
+              "valores": [
+                { "nombre": "Camarón", "precio": 0 },
+                { "nombre": "Pescado", "precio": 0 },
+                { "nombre": "Pulpo", "precio": 0 },
+                { "nombre": "Concha", "precio": 0 }
+              ]
+            },
+            {
+              "nombre": "Agréguele",
+              "obligatorio": false,
+              "maximo": 2,
+              "valores": [
+                { "nombre": "Porción de cangrejo", "precio": 3.99 },
+                { "nombre": "Porción de pulpo", "precio": 3.99 }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "cev-05",
+          "nombre": "Ceviche múltiple",
+          "detalle": "4 deliciosos mariscos combinados: camarón, pescado, concha y pulpo.",
+          "precio": 13.99,
+          "foto": "",
+          "disponible": true,
+          "opciones": [
+            {
+              "nombre": "Agréguele",
+              "obligatorio": false,
+              "maximo": 2,
+              "valores": [
+                { "nombre": "Porción de cangrejo", "precio": 3.99 },
+                { "nombre": "Porción de pulpo", "precio": 3.99 }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "cev-06",
+          "nombre": "Ceviche Jipijapa camarón",
+          "detalle": "Nuestra base de Jipijapa ganadora y amada por todos, a base de maní con aguacate, con los más grandes camarones.",
+          "precio": 13.99,
+          "foto": "",
+          "disponible": true,
+          "etiquetas": ["mas-pedido"],
+          "opciones": [
+            {
+              "nombre": "Agréguele",
+              "obligatorio": false,
+              "maximo": 2,
+              "valores": [
+                { "nombre": "Porción de cangrejo", "precio": 3.99 },
+                { "nombre": "Porción de pulpo", "precio": 3.99 }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "cev-07",
+          "nombre": "Ceviche Jipijapa pescado",
+          "detalle": "Nuestra base de Jipijapa ganadora, a base de maní con aguacate, con cubitos frescos de pescado.",
+          "precio": 13.99,
+          "foto": "",
+          "disponible": true,
+          "opciones": [
+            {
+              "nombre": "Agréguele",
+              "obligatorio": false,
+              "maximo": 2,
+              "valores": [
+                { "nombre": "Porción de cangrejo", "precio": 3.99 },
+                { "nombre": "Porción de pulpo", "precio": 3.99 }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "cev-08",
+          "nombre": "Ceviche Jipijapa antojado",
+          "detalle": "Camarón, pescado y pulpo en una mezcla exquisita con nuestra base cremosa de maní con aguacate.",
+          "precio": 15.99,
+          "foto": "",
+          "disponible": true,
+          "opciones": [
+            {
+              "nombre": "Agréguele",
+              "obligatorio": false,
+              "maximo": 2,
+              "valores": [
+                { "nombre": "Porción de cangrejo", "precio": 3.99 },
+                { "nombre": "Porción de pulpo", "precio": 3.99 }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nombre": "Sopas",
+      "platos": [
+        {
+          "id": "sop-01",
+          "nombre": "Parihuela",
+          "detalle": "Exquisita sopa con variedad de mariscos, aromática y con un toque picantito.",
+          "precio": 16.99,
+          "foto": "",
+          "disponible": true,
+          "etiquetas": ["picante"],
+          "opciones": [
+            {
+              "nombre": "Marisco",
+              "obligatorio": true,
+              "maximo": 1,
+              "valores": [
+                { "nombre": "Cangrejo", "precio": 0 },
+                { "nombre": "Langostino", "precio": 0 }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sop-02",
+          "nombre": "Cazuela de mariscos",
+          "detalle": "Sopa a base de verde y maní, con variedad de mariscos.",
+          "precio": 14.99,
+          "foto": "",
+          "disponible": true,
+          "opciones": [
+            {
+              "nombre": "Acompañante",
+              "obligatorio": true,
+              "maximo": 1,
+              "valores": [
+                { "nombre": "Arroz", "precio": 0 },
+                { "nombre": "Patacones", "precio": 0 }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sop-03",
+          "nombre": "Sopa endiablada de mariscos",
+          "detalle": "La más recomendada por la cantidad de mariscos: camarón, pescado, calamar, concha, almeja, mejillón, cangrejo y langostino. Elija el nivel de picante.",
+          "precio": 17.99,
+          "foto": "",
+          "disponible": true,
+          "etiquetas": ["mas-pedido", "picante"],
+          "opciones": [
+            {
+              "nombre": "Nivel de picante",
+              "obligatorio": true,
+              "maximo": 1,
+              "valores": [
+                { "nombre": "Suave", "precio": 0 },
+                { "nombre": "Medio", "precio": 0 },
+                { "nombre": "Endiablado", "precio": 0 }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sop-04",
+          "nombre": "Encebollado manabita",
+          "detalle": "El ganador por décadas. Lo dicen los premios ganados y nuestros clientes fieles.",
+          "precio": 5.5,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "sop-05",
+          "nombre": "Encebollado con camarón",
+          "detalle": "Exquisito, con camarones grandes.",
+          "precio": 6.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "sop-06",
+          "nombre": "Tsunami Antojo Manabita",
+          "detalle": "La versión 2.0 del encebollado: camarón, albacora, pulpo y concha, lo que le hace un caldo afrodisíaco.",
+          "precio": 13.5,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "sop-07",
+          "nombre": "Biche",
+          "detalle": "Plato típico de la tierrita. El maní, el choclo y el camote le dan un sabor único. (Solo fines de semana y feriados)",
+          "precio": 14.99,
+          "foto": "",
+          "disponible": true
+        }
+      ]
+    },
+    {
+      "nombre": "Especiales Antojo Manabita",
+      "platos": [
+        {
+          "id": "esp-01",
+          "nombre": "Bistec de mariscos",
+          "detalle": "Deliciosos mariscos estofados en una salsa cremosa de tomate, con arroz y maduro.",
+          "precio": 13.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "esp-02",
+          "nombre": "Conchas asadas",
+          "detalle": "Las más frescas y jugosas conchas asadas en nuestra base especial con chimichurri.",
+          "precio": 14.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "esp-03",
+          "nombre": "Conchas asadas Jr.",
+          "detalle": "Una porción más pequeña de nuestras deliciosas conchas asadas.",
+          "precio": 8.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "esp-04",
+          "nombre": "Bandera",
+          "detalle": "Nuestra exquisita guatita de siempre, acompañada de deliciosos ceviches.",
+          "precio": 13.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "esp-05",
+          "nombre": "Mar y tierra",
+          "detalle": "Para los que quieren los 2 mundos: langostinos, filete de pescado y chuleta a la parrilla, con papa frita y ensalada.",
+          "precio": 16.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "esp-06",
+          "nombre": "Camarón apanado",
+          "detalle": "Grandes camarones apanados, con arroz, patacones y ensalada.",
+          "precio": 11.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "esp-07",
+          "nombre": "Camarón apanado con menestra",
+          "detalle": "Grandes camarones apanados, con arroz, patacones, ensalada y menestra. (Solo fines de semana y feriados)",
+          "precio": 13.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "esp-08",
+          "nombre": "Cangrejo criollo",
+          "detalle": "Delicioso cangrejo cocinado en su jugo, con encurtido y maduro.",
+          "precio": 6.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "esp-09",
+          "nombre": "Cangrejada",
+          "detalle": "4 cangrejos con su sopa, encurtido y patacón o cocolón.",
+          "precio": 27.99,
+          "foto": "",
+          "disponible": true,
+          "etiquetas": ["para-compartir"],
+          "opciones": [
+            {
+              "nombre": "Acompañante",
               "obligatorio": true,
               "maximo": 1,
               "valores": [
                 { "nombre": "Patacón", "precio": 0 },
-                { "nombre": "Arroz Amarrillo", "precio": 0 },
-                { "nombre": "Maduro Frito", "precio": 0}
+                { "nombre": "Cocolón", "precio": 0 }
               ]
-            },
+            }
+          ]
+        },
+        {
+          "id": "esp-10",
+          "nombre": "Camarones al ajillo",
+          "detalle": "Grandes y sabrosos. Usted decide cómo los quiere.",
+          "precio": 15.99,
+          "foto": "",
+          "disponible": true,
+          "opciones": [
             {
-              "nombre": "Extras",
-              "obligatorio": false,
-              "maximo": 2,
+              "nombre": "Presentación",
+              "obligatorio": true,
+              "maximo": 1,
               "valores": [
-                { "nombre": "Huevo Frito", "precio": 0.75 },
-                { "nombre": "Porción de aguacate", "precio": 1.00 }
+                { "nombre": "En piedra volcánica", "precio": 0 },
+                { "nombre": "En salsa cremosa", "precio": 0 }
               ]
-            } 
-          ] 
-          },
-        { "id": "fue-02", "nombre": "Corviche (2)",            "detalle": "Masa de verde rellena de pescado, con salsa de maní.",     "precio": 5.50, "foto": "", "disponible": true }
+            }
+          ]
+        },
+        {
+          "id": "esp-11",
+          "nombre": "Langostinos al ajillo",
+          "detalle": "Los más grandes y sabrosos langostinos. Usted decide cómo los quiere.",
+          "precio": 20.99,
+          "foto": "",
+          "disponible": true,
+          "opciones": [
+            {
+              "nombre": "Presentación",
+              "obligatorio": true,
+              "maximo": 1,
+              "valores": [
+                { "nombre": "En piedra volcánica", "precio": 0 },
+                { "nombre": "En salsa cremosa", "precio": 0 }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "esp-12",
+          "nombre": "Pulpo al ajillo",
+          "detalle": "Traído directo desde el mar.",
+          "precio": 24.99,
+          "foto": "",
+          "disponible": true,
+          "opciones": [
+            {
+              "nombre": "Presentación",
+              "obligatorio": true,
+              "maximo": 1,
+              "valores": [
+                { "nombre": "A la parrilla", "precio": 0 },
+                { "nombre": "En salsa cremosa", "precio": 0 }
+              ]
+            }
+          ]
+        }
       ]
     },
     {
-      "nombre": "Bebidas",
+      "nombre": "Fogón Manabita",
       "platos": [
-        { "id": "beb-01", "nombre": "Jugo natural",           "detalle": "Naranjilla, maracuyá o mora. 500 ml.",                     "precio": 2.25, "foto": "", "disponible": true },
-        { "id": "beb-02", "nombre": "Cola personal",          "detalle": "500 ml.",                                                  "precio": 1.25, "foto": "", "disponible": true }
+        {
+          "id": "fog-01",
+          "nombre": "Guatita clásica",
+          "detalle": "La receta de mi madre. Un clásico por más de 30 años en Antojo Manabita, porción contundente y sabor inigualable. Con arroz, maduro, huevo cocinado y aguacate.",
+          "precio": 8.99,
+          "foto": "",
+          "disponible": true,
+          "etiquetas": ["mas-pedido"]
+        },
+        {
+          "id": "fog-02",
+          "nombre": "Guatita especial",
+          "detalle": "La guatita clásica más una chuleta a la parrilla.",
+          "precio": 10.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "fog-03",
+          "nombre": "Tonga de gallina",
+          "detalle": "La lonchera manaba: arroz, gallina al jugo, maduro y salsa de maní, envuelta en hoja de plátano y cocinada al horno. (Solo fines de semana y feriados)",
+          "precio": 9.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "fog-04",
+          "nombre": "Tonga de mariscos",
+          "detalle": "La lonchera manaba: arroz, almeja, mejillón, pescado, calamar, camarón, concha y langostino, maduro y salsa de maní, envuelta en hoja de plátano y cocinada al horno. (Solo fines de semana y feriados)",
+          "precio": 14.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "fog-05",
+          "nombre": "Chuleta a la parrilla",
+          "detalle": "Dos exquisitas y jugosas chuletas con arroz, papas fritas y ensalada.",
+          "precio": 9.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "fog-06",
+          "nombre": "Chuleta a la parrilla con menestra",
+          "detalle": "Dos jugosas chuletas con arroz, papas fritas, ensalada y menestra. (Solo fines de semana y feriados)",
+          "precio": 11.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "fog-07",
+          "nombre": "Seco de gallina",
+          "detalle": "Deliciosa receta con gallina de campo. (Solo fines de semana y feriados)",
+          "precio": 9.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "fog-08",
+          "nombre": "Caldo de gallina",
+          "detalle": "Exquisito caldo cocinado en olla de barro, con gallina de campo. (Solo fines de semana y feriados)",
+          "precio": 6.99,
+          "foto": "",
+          "disponible": true
+        }
+      ]
+    },
+    {
+      "nombre": "Encocados",
+      "platos": [
+        {
+          "id": "enc-01",
+          "nombre": "Encocado de pescado",
+          "detalle": "Sabroso encocado con pescado suave, con arroz, maduro y chiflecitos.",
+          "precio": 12.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "enc-02",
+          "nombre": "Encocado de camarón",
+          "detalle": "Exquisito encocado con camarón, almeja y mejillón, con arroz, maduro y chiflecitos.",
+          "precio": 12.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "enc-03",
+          "nombre": "Encocado marinero",
+          "detalle": "5 mariscos en la deliciosa salsa encocada: almeja, mejillón, camarón, calamar y pescado.",
+          "precio": 15.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "enc-04",
+          "nombre": "Encocado oceánico",
+          "detalle": "6 mariscos exquisitos: camarón, pescado, calamar, almeja, mejillón y pulpa de cangrejo.",
+          "precio": 17.99,
+          "foto": "",
+          "disponible": true
+        }
+      ]
+    },
+    {
+      "nombre": "Filetes",
+      "platos": [
+        {
+          "id": "fil-01",
+          "nombre": "Filete arrecho",
+          "detalle": "Filete frito bañado en nuestra salsa de la casa, cremosa, con mariscos y un picantito sabroso.",
+          "precio": 14.99,
+          "foto": "",
+          "disponible": true,
+          "etiquetas": ["picante"]
+        },
+        {
+          "id": "fil-02",
+          "nombre": "Filete apanado",
+          "detalle": "El clásico que nunca falla, fresco y crujiente, con papas fritas.",
+          "precio": 10.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "fil-03",
+          "nombre": "Filete a lo macho",
+          "detalle": "Suave pescado cocinado en una salsa cremosa de la casa con camarón, calamar, almeja y mejillón.",
+          "precio": 14.5,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "fil-04",
+          "nombre": "Filete a la parrilla",
+          "detalle": "Para los que quieren el toque ahumado, hecho con chimichurri de la casa.",
+          "precio": 12.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "fil-05",
+          "nombre": "Filete marinero",
+          "detalle": "Delicioso filete frito con una porción de ceviche múltiple (concha, camarón, pescado y pulpo).",
+          "precio": 14.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "fil-06",
+          "nombre": "Filete con menestra",
+          "detalle": "Delicioso filete frito con arroz, maduro, menestra y ensalada. (Solo fines de semana y feriados)",
+          "precio": 12.99,
+          "foto": "",
+          "disponible": true
+        }
+      ]
+    },
+    {
+      "nombre": "Arroces",
+      "platos": [
+        {
+          "id": "arr-01",
+          "nombre": "Arroz con concha",
+          "detalle": "Deliciosas y frescas conchas negras en arroz, con maduro.",
+          "precio": 12.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "arr-02",
+          "nombre": "Arroz con camarón",
+          "detalle": "Grandes camarones revueltos en un delicioso arroz con vegetales, con maduro.",
+          "precio": 9.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "arr-03",
+          "nombre": "Arroz Antojo Manabita",
+          "detalle": "¡Recomendado! Un arroz como ningún otro: camarón, pescado, almeja, mejillón, calamar y cangrejo. Con maduro.",
+          "precio": 17.99,
+          "foto": "",
+          "disponible": true,
+          "etiquetas": ["mas-pedido"]
+        },
+        {
+          "id": "arr-04",
+          "nombre": "Arroz múltiple",
+          "detalle": "La versión de todo un poquito: camarón, pescado, almeja, mejillón y calamar.",
+          "precio": 14.99,
+          "foto": "",
+          "disponible": true
+        }
+      ]
+    },
+    {
+      "nombre": "Picadas y bandejas",
+      "platos": [
+        {
+          "id": "pic-01",
+          "nombre": "Parrillada de mariscos",
+          "detalle": "Una irresistible selección de mariscos a la parrilla (filetes de pescado, langostinos, camarones, conchas y calamar), con ensalada fresca y patacones.",
+          "precio": 39.99,
+          "foto": "",
+          "disponible": true,
+          "etiquetas": ["para-compartir"]
+        },
+        {
+          "id": "pic-02",
+          "nombre": "Parrillada personal",
+          "detalle": "Camarones, conchas asadas, filete de pescado, langostino, patacones y maduro.",
+          "precio": 14.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "pic-03",
+          "nombre": "Bandeja Traigo de Todo",
+          "detalle": "Para probar de todo un poco (2 a 3 personas): langostinos, dedos de pescado, camarón apanado, ceviche de pescado en 2 presentaciones, conchas asadas, arroz múltiple, patacón y maduro.",
+          "precio": 54.99,
+          "foto": "",
+          "disponible": true,
+          "etiquetas": ["para-compartir"]
+        },
+        {
+          "id": "pic-04",
+          "nombre": "Traigo de Todo personal",
+          "detalle": "Para probar de todo un poquito usted solito: camarones apanados, conchas asadas, dedos de pescado, mini ceviche Jipijapa mixto, patacones y maduro.",
+          "precio": 14.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "pic-05",
+          "nombre": "Bandeja chicharrón de mariscos",
+          "detalle": "Exquisito calamar, pescado y camarón frito, con patacones y salsas.",
+          "precio": 24.99,
+          "foto": "",
+          "disponible": true,
+          "etiquetas": ["para-compartir"]
+        },
+        {
+          "id": "pic-06",
+          "nombre": "Marejada",
+          "detalle": "Arroz múltiple, camarón apanado y ceviche de pulpo Jipijapa.",
+          "precio": 14.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "pic-07",
+          "nombre": "Velero Marinero",
+          "detalle": "El más grande de todos (4 a 6 personas): langostinos, filete de pescado y pulpo a la parrilla, 3 ceviches (múltiple, Jipijapa y tropical con base de michelada), 2 arroces (con coco y múltiple), conchas asadas y chicharrón de mariscos (pescado, camarón y calamar).",
+          "precio": 97.99,
+          "foto": "",
+          "disponible": true,
+          "etiquetas": ["para-compartir"]
+        }
+      ]
+    },
+    {
+      "nombre": "Menú infantil",
+      "platos": [
+        {
+          "id": "inf-01",
+          "nombre": "Baby camarón",
+          "detalle": "Crujientes camarones empanizados, con papas fritas y salsa de la casa. Viene con sorpresa infantil.",
+          "precio": 8.5,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "inf-02",
+          "nombre": "Pescado baby",
+          "detalle": "Deliciosos dedos de pescado empanizados, con papas fritas y salsa de la casa. Viene con sorpresa infantil.",
+          "precio": 8.5,
+          "foto": "",
+          "disponible": true
+        }
+      ]
+    },
+    {
+      "nombre": "Menú vegetariano",
+      "platos": [
+        {
+          "id": "veg-01",
+          "nombre": "Arroz mixto de verduras",
+          "detalle": "Zanahoria, cebolla y pimientos en arroz. Opcional: huevo revuelto o frito.",
+          "precio": 9.99,
+          "foto": "",
+          "disponible": true,
+          "etiquetas": ["vegetariano"],
+          "opciones": [
+            {
+              "nombre": "Huevo",
+              "obligatorio": false,
+              "maximo": 1,
+              "valores": [
+                { "nombre": "Revuelto", "precio": 0 },
+                { "nombre": "Frito", "precio": 0 }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nombre": "Extras",
+      "descripcion": "Porciones para acompañar su pedido.",
+      "platos": [
+        {
+          "id": "ext-01",
+          "nombre": "Porción de arroz",
+          "detalle": "",
+          "precio": 2.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "ext-02",
+          "nombre": "Porción de chifles",
+          "detalle": "",
+          "precio": 1.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "ext-03",
+          "nombre": "Porción de papas fritas",
+          "detalle": "",
+          "precio": 3.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "ext-04",
+          "nombre": "Porción de patacones",
+          "detalle": "",
+          "precio": 3.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "ext-05",
+          "nombre": "Porción de ensalada",
+          "detalle": "",
+          "precio": 2.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "ext-06",
+          "nombre": "Porción de huevo",
+          "detalle": "",
+          "precio": 2.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "ext-07",
+          "nombre": "Porción de cocolón",
+          "detalle": "",
+          "precio": 2.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "ext-08",
+          "nombre": "Porción de menestra",
+          "detalle": "",
+          "precio": 2.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "ext-09",
+          "nombre": "Porción de aguacate",
+          "detalle": "",
+          "precio": 1.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "ext-10",
+          "nombre": "Porción de limón",
+          "detalle": "",
+          "precio": 0.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "ext-11",
+          "nombre": "Porción de majado",
+          "detalle": "",
+          "precio": 2.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "ext-12",
+          "nombre": "Porción de queso",
+          "detalle": "",
+          "precio": 2.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "ext-13",
+          "nombre": "Porción de maduros",
+          "detalle": "",
+          "precio": 3.99,
+          "foto": "",
+          "disponible": true
+        }
+      ]
+    },
+    {
+      "nombre": "Postres",
+      "platos": [
+        {
+          "id": "pos-01",
+          "nombre": "Antojo en los Labios",
+          "detalle": "Postre original: macarrones franceses al estilo de Antojo Manabita, rellenos de queso, maduro y sal prieta, con bola de helado.",
+          "precio": 6.99,
+          "foto": "",
+          "disponible": true,
+          "etiquetas": ["mas-pedido"]
+        },
+        {
+          "id": "pos-02",
+          "nombre": "Trilogía de postres",
+          "detalle": "Para los que quieren todo: brownie, cheesecake de frutos rojos y macarrones.",
+          "precio": 9.99,
+          "foto": "",
+          "disponible": true,
+          "etiquetas": ["para-compartir"]
+        },
+        {
+          "id": "pos-03",
+          "nombre": "Cheesecake de frutos rojos",
+          "detalle": "El que nunca falla: delicioso, dulce y con un toque cítrico.",
+          "precio": 4.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "pos-04",
+          "nombre": "Cheesecake de maracuyá",
+          "detalle": "Con la fruta de la pasión: tropical, dulce, exquisito.",
+          "precio": 4.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "pos-05",
+          "nombre": "Cheesecake Oreo",
+          "detalle": "La galleta que todos amamos de niños, en un exquisito cheesecake.",
+          "precio": 4.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "pos-06",
+          "nombre": "Tiramisú",
+          "detalle": "Cremoso y hecho con aromático café.",
+          "precio": 4.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "pos-07",
+          "nombre": "Tiramisú de fresa",
+          "detalle": "La receta clásica reinventada con un toque dulce de fresa.",
+          "precio": 4.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "pos-08",
+          "nombre": "Selva negra",
+          "detalle": "El chocolate y la cereza unidos, bordeados por una crocante muralla de chocolate.",
+          "precio": 4.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "pos-09",
+          "nombre": "Brownie",
+          "detalle": "Para los amantes del chocolate, una versión diferente del brownie.",
+          "precio": 4.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "pos-10",
+          "nombre": "Ópera de chocolate",
+          "detalle": "Café, chocolate y almendras, creando un postre único.",
+          "precio": 4.99,
+          "foto": "",
+          "disponible": true
+        },
+        {
+          "id": "pos-11",
+          "nombre": "Copa de helado",
+          "detalle": "Helado hecho en casa, cremoso, dulce y refrescante. Escriba en la nota el sabor que prefiere.",
+          "precio": 4.99,
+          "foto": "",
+          "disponible": true
+        }
       ]
     }
   ]

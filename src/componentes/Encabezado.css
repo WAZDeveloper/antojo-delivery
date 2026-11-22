@@ -1,124 +1,239 @@
-/* Franja verde de arriba. El círculo claro de la derecha es un "sol" que hace juego con el logo. */
-.encabezado {
-  position: relative;
-  background:
-    radial-gradient(circle at 108% 30%, rgba(255, 255, 255, 0.08) 0 130px, transparent 131px),
-    var(--verde);
-  color: #ffffff;
+/* Ventana del plato: sube desde abajo en el celular, centrada en computadora */
+.detalle {
+  width: 100%;
+  max-width: 560px;
+  max-height: calc(100dvh - 40px);
+  margin: auto auto 0;
+  padding: 0;
+  border: 0;
+  border-radius: 26px 26px 0 0;
+  background: #ffffff;
+  color: var(--tinta);
+  overflow: hidden;
 }
 
-.encabezado__contenido {
-  max-width: var(--ancho-max);
-  margin: 0 auto;
-  padding: 14px 20px 58px;
+.detalle[open] {
+  animation: subir 0.25s ease-out;
 }
 
-.encabezado__barra {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+.detalle::backdrop {
+  background: rgba(24, 40, 30, 0.55);
 }
 
-.encabezado__marca {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+/* Mientras está abierta, la página de atrás no se mueve */
+body:has(.detalle[open]) {
+  overflow: hidden;
 }
 
-.encabezado__nombres {
+.detalle__hoja {
+  max-height: calc(100dvh - 40px);
   display: flex;
   flex-direction: column;
 }
 
-.encabezado__nombre {
-  font-family: var(--letra-titulos);
-  font-weight: 800;
-  font-size: 19px;
-  line-height: 1.1;
-  letter-spacing: -0.01em;
+.detalle__foto {
+  position: relative;
+  flex: none;
+  height: 200px;
+  background: var(--fondo-suave);
 }
 
-.encabezado__lema {
-  font-size: 12px;
-  color: var(--verde-claro);
-}
-
-/* Letrero "Abierto · pedidos hasta 17:00" */
-.estado {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  margin: 18px 0 0;
-  min-height: 30px;
-  padding: 0 12px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.14);
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.estado__punto {
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  background: #7ee2a2; /* verde: abierto */
-}
-
-.estado--pronto .estado__punto {
-  background: var(--mani); /* dorado: cierra pronto */
-}
-
-.estado--cerrado .estado__punto {
-  background: #c9d3cc; /* gris: cerrado */
-}
-
-.encabezado h1 {
-  margin-top: 16px;
-  font-weight: 800;
-  font-size: clamp(40px, 6vw, 72px);
-  line-height: 1;
-  letter-spacing: -0.025em;
-  max-width: 680px;
-}
-
-.encabezado__historia {
-  margin: 12px 0 0;
-  max-width: 560px;
-  font-size: 15px;
-  line-height: 1.55;
-  color: var(--verde-claro);
-}
-
-.encabezado__onda {
-  position: absolute;
-  left: 0;
-  bottom: -1px;
+.detalle__foto img {
   width: 100%;
-  height: 28px;
+  height: 100%;
+  object-fit: cover;
   display: block;
 }
 
+.detalle__sin-foto {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--texto-suave);
+}
+
+.detalle__sin-foto svg {
+  color: var(--verde);
+}
+
+.detalle__cerrar {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--tinta);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(24, 40, 30, 0.18);
+}
+
+.detalle__cuerpo {
+  flex: 1;
+  overflow-y: auto; /* si hay muchas opciones, se desliza solo esta parte */
+  padding: 20px 20px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.detalle__encabezado {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detalle__encabezado h2 {
+  font-weight: 800;
+  font-size: 28px;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.detalle__encabezado p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--texto-suave);
+}
+
+.detalle__encabezado .plato__precio {
+  align-self: flex-start;
+}
+
+/* Grupos de complementos */
+.grupo {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.grupo legend {
+  float: left;
+  width: 100%;
+  padding: 0;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.grupo__nombre {
+  font-family: var(--letra-titulos);
+  font-weight: 600;
+  font-size: 19px;
+}
+
+.grupo__regla {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--texto-suave);
+  background: #eef1ed;
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.grupo__regla--obligatoria {
+  color: #ffffff;
+  background: var(--verde);
+}
+
+.opcion {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 52px;
+  padding: 0 14px;
+  border: 1.5px solid #d5e0d7;
+  border-radius: 14px;
+  cursor: pointer;
+}
+
+.opcion--marcada {
+  border: 2px solid var(--verde);
+  background: var(--fondo-suave);
+}
+
+.opcion:has(input:disabled) {
+  cursor: not-allowed;
+  color: var(--texto-suave);
+}
+
+.opcion input {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--verde);
+}
+
+.opcion__nombre {
+  flex: 1;
+  font-weight: 600;
+}
+
+.opcion__precio {
+  font-weight: 600;
+  color: var(--texto-suave);
+}
+
+/* Pie fijo: cantidad + botón */
+.detalle__pie {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px calc(16px + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--borde);
+}
+
+.detalle__pie .boton-principal {
+  flex: 1;
+  height: 56px;
+  font-size: 18px;
+}
+
+.boton-principal:disabled {
+  background: #e3e8e4;
+  color: #5f6e64;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* En computadora: ventana centrada con todas las esquinas redondeadas */
 @media (min-width: 768px) {
-  .encabezado {
-    background:
-      radial-gradient(circle at 94% 18%, rgba(255, 255, 255, 0.07) 0 220px, transparent 221px),
-      var(--verde);
+  .detalle {
+    margin: auto;
+    border-radius: 26px;
   }
+}
 
-  .encabezado__contenido {
-    padding: 22px 24px 84px;
+@keyframes subir {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
   }
-
-  .encabezado__nombre {
-    font-size: 22px;
-  }
-
-  .encabezado__lema {
-    font-size: 13px;
-  }
-
-  .encabezado__historia {
-    font-size: 17px;
-  }
+}
+/* Aviso cuando el plato viene del pedido escrito por WhatsApp */
+.detalle__aviso {
+  margin: 0 0 14px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: var(--fondo-suave);
+  color: var(--verde);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
 }

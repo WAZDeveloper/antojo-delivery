@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import { Categorias } from './componentes/Categorias'
 import { PlatoFila } from './componentes/PlatoFila'
@@ -18,6 +18,9 @@ import { estadoGeneral } from './horario'
 import { useAhora } from './useAhora'
 import { ORDEN_ETIQUETAS, ETIQUETAS, tieneEtiqueta } from './etiquetas'
 import type { EtiquetaId, Plato } from './tipos'
+import { enviarPedido, type Confirmacion } from './enviarPedido'
+import { PantallaConfirmado } from './componentes/PantallaConfirmado'
+import { leerPedidoEnlace, necesitaElegir, quitarPedidoDelEnlace, type ItemEnlace } from './pedidoEnlace'
 
 function App() {
   const datos = useMenu()
@@ -25,6 +28,12 @@ function App() {
   const [platoAbierto, setPlatoAbierto] = useState<Plato | null>(null)
   const [filtro, setFiltro] = useState<EtiquetaId | null>(null)
   const [busqueda, setBusqueda] = useState('')
+  const [confirmado, setConfirmado] = useState<Confirmacion | null>(null) // pedido recién enviado
+  // Pedido que llega armado desde WhatsApp en el enlace (?pedido=...)
+  const [enlaceLeido, setEnlaceLeido] = useState(false)
+  const [cola, setCola] = useState<ItemEnlace[]>([]) // platos del enlace a los que les falta elegir algo
+  const [avisoEnlace, setAvisoEnlace] = useState<{ platos: number; noEncontrados: number } | null>(null)
+  const [omitidos, setOmitidos] = useState<string[]>([]) // platos de la cola que el cliente cerró sin elegir
   const carrito = useCarrito()
   const ahora = useAhora() // se actualiza cada minuto
 
@@ -33,6 +42,30 @@ function App() {
 
   // Etiquetas que usa al menos un plato (solo esas aparecen como filtro)
   const menu = datos.estado === 'listo' ? datos.menu : null
+
+  // Pedido armado desde WhatsApp: se lee una sola vez, apenas carga el menú.
+  // (Cambiar el estado mientras se dibuja está permitido si es del mismo componente y con una condición que corta)
+  if (menu && !enlaceLeido) {
+    setEnlaceLeido(true)
+    const leido = leerPedidoEnlace(menu)
+    if (leido) {
+      if (leido.items.length > 0) {
+        carrito.vaciar() // el pedido de WhatsApp reemplaza lo que hubiera en el carrito
+        for (const item of leido.items) {
+          if (!necesitaElegir(item.plato, item.elegidas)) carrito.agregar(item.plato.id, item.elegidas, '', item.cantidad)
+        }
+        setCola(leido.items.filter((item) => necesitaElegir(item.plato, item.elegidas)))
+      }
+      setAvisoEnlace({
+        platos: leido.items.reduce((suma, item) => suma + item.cantidad, 0),
+        noEncontrados: leido.noEncontrados,
+      })
+    }
+  }
+  // Ya leído, se quita ?pedido= de la dirección para que al recargar no se agregue otra vez
+  useEffect(() => {
+    if (enlaceLeido) quitarPedidoDelEnlace()
+  }, [enlaceLeido])
 
   // Letrero del encabezado: Abierto / Cierra pronto / Cerrado
   const estado = menu ? estadoGeneral(menu.locales, menu.cierre_pedidos_min ?? 30, ahora) : null
@@ -68,6 +101,35 @@ function App() {
 
     const { vista, abrirPedido, volverAlMenu } = useVista()
 
+  // Ventana del plato: la que abrió el cliente, o la siguiente de la cola del pedido de WhatsApp
+  const enCola = platoAbierto ? undefined : cola[0]
+  const platoEnPantalla = platoAbierto ?? enCola?.plato ?? null
+  const cerrarDetalle = (agregado: boolean) => {
+    if (platoAbierto) return setPlatoAbierto(null)
+    if (!agregado && enCola) setOmitidos((antes) => [...antes, enCola.plato.nombre])
+    setCola((antes) => antes.slice(1)) // pasa al siguiente plato de la cola
+  }
+  const avisoCola = (item: ItemEnlace) => {
+    const faltan = (item.plato.opciones ?? [])
+      .filter((g) => g.obligatorio && !item.elegidas[g.nombre]?.length)
+      .map((g) => g.nombre.toLowerCase())
+    return `De su pedido por WhatsApp: elija ${faltan.join(' y ')} para agregarlo.`
+  }
+
+  // Pantalla "Pedido enviado"
+  if (confirmado) {
+    return (
+      <PantallaConfirmado
+        confirmacion={confirmado}
+        whatsapp={menu?.whatsapp ?? ''}
+        onOtroPedido={() => {
+          setConfirmado(null)
+          window.scrollTo(0, 0)
+        }}
+      />
+    )
+  }
+
   // Pantalla "Su pedido"
   if (vista === 'pedido' && datos.estado === 'listo' && pedido) {
     return (
@@ -79,7 +141,21 @@ function App() {
         onAgregar={carrito.sumar}
         onQuitar={carrito.restar}
         onVolver={volverAlMenu}
-        onEnviar={(datosPedido) => console.log('Pedido listo para enviar (paso 8)', { lineas: pedido.lineas, ...datosPedido })}
+        onEnviar={async (datosPedido) => {
+          // Si n8n no lo recibe, enviarPedido lanza un error y PantallaPedido lo muestra
+          const codigo = await enviarPedido(datos.menu.webhook, pedido.lineas, datosPedido)
+          setConfirmado({
+            codigo,
+            local: datosPedido.local,
+            total: datosPedido.total,
+            totalPlatos: pedido.totalPlatos,
+            pago: datosPedido.entrega.pago,
+            direccion: datosPedido.entrega.direccion,
+            programado: datosPedido.programado,
+          })
+          carrito.vaciar()
+          volverAlMenu() // quita #pedido de la dirección: "atrás" ya no vuelve a un pedido vacío
+        }}
       />
     )
   }
@@ -101,6 +177,37 @@ function App() {
 
         {datos.estado === 'listo' && (
           <>
+            {avisoEnlace && cola.length === 0 && (
+              <div className="aviso aviso--enlace" role="status">
+                <p>
+                  {pedido && pedido.totalPlatos > 0 ? (
+                    <>
+                      <strong>Su pedido de WhatsApp ya está en el carrito.</strong> Revíselo y ponga su dirección.
+                    </>
+                  ) : (
+                    <strong>No encontramos los platos de su pedido en el menú.</strong>
+                  )}
+                  {omitidos.length > 0 && ` Falta agregar: ${omitidos.join(', ')}.`}
+                  {avisoEnlace.noEncontrados > 0 &&
+                    pedido &&
+                    pedido.totalPlatos > 0 &&
+                    ` ${avisoEnlace.noEncontrados === 1 ? 'Un plato no lo encontramos' : `${avisoEnlace.noEncontrados} platos no los encontramos`} en el menú.`}
+                </p>
+                {pedido && pedido.totalPlatos > 0 && (
+                  <button
+                    type="button"
+                    className="boton-agregar"
+                    onClick={() => {
+                      setAvisoEnlace(null)
+                      abrirPedido()
+                    }}
+                  >
+                    Ver pedido
+                  </button>
+                )}
+              </div>
+            )}
+
             <FiltrosEtiquetas disponibles={etiquetasUsadas} activo={filtro} onCambiar={setFiltro} />
 
             {filtrando && (
@@ -191,14 +298,17 @@ function App() {
                 onAbrir={abrirPedido}
               />
             )}
-            {platoAbierto && (
+            {platoEnPantalla && (
               <DetallePlato
-                key={platoAbierto.id}
-                plato={platoAbierto}
-                onCerrar={() => setPlatoAbierto(null)}
+                key={enCola ? `cola-${platoEnPantalla.id}` : platoEnPantalla.id}
+                plato={platoEnPantalla}
+                cantidadInicial={enCola?.cantidad}
+                elegidasIniciales={enCola?.elegidas}
+                aviso={enCola ? avisoCola(enCola) : undefined}
+                onCerrar={() => cerrarDetalle(false)}
                 onAgregar={(elegidas, nota, cantidad) => {
-                  carrito.agregar(platoAbierto.id, elegidas, nota, cantidad)
-                  setPlatoAbierto(null)
+                  carrito.agregar(platoEnPantalla.id, elegidas, nota, cantidad)
+                  cerrarDetalle(true)
                 }}
               />
             )}

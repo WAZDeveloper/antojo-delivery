@@ -1,0 +1,122 @@
+/* "¿Cuándo lo quiere?": lo antes posible o programado */
+.cuando {
+    margin: 8px 16px;
+    padding: 20px 18px;
+    border-radius: 22px;
+    background: var(--fondo-suave);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.cuando h2 {
+    font-weight: 600;
+    font-size: 19px;
+}
+
+.cuando__cerrado {
+    margin: 0;
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: #fff6e0;
+    color: #5c4300;
+    font-size: 14px;
+    line-height: 1.45;
+}
+
+.dia:has(input:focus-visible),
+.hora:has(input:focus-visible) {
+    outline: 3px solid var(--mani);
+    outline-offset: 2px;
+}
+
+/* Día y hora */
+
+.cuando__grupo {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.cuando__grupo legend {
+    float: left;
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 0;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.cuando__dias,
+.cuando__horas {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.dia {
+    min-height: 60px;
+    border: 1.5px solid #b9cbbe;
+    border-radius: 14px;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    cursor: pointer;
+}
+
+.dia__titulo {
+    font-size: 13px;
+    color: var(--texto-suave);
+}
+
+.dia__fecha {
+    font-family: var(--letra-titulos);
+    font-weight: 800;
+    font-size: 17px;
+}
+
+.hora {
+    height: 44px;
+    border: 1.5px solid #b9cbbe;
+    border-radius: 12px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Va después de .dia y .hora para que el estado elegido gane */
+.dia--activo,
+.dia--activa {
+    border-color: var(--verde);
+    background: var(--verde);
+    color: #ffffff;
+}
+
+.dia--activo .dia__titulo {
+    color: #ffffff;
+}
+
+.cuando__resumen {
+    margin: 0;
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: #ffffff;
+    font-size: 15px;
+    line-height: 1.45;
+}
+
+@media (min-width: 560px) {
+  .cuando__horas {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

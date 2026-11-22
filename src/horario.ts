@@ -115,3 +115,55 @@ export function resumenHorario(horario: Horario): string {
     })
     .join(' · ')
 }
+// ---------- Pedidos programados ----------
+
+export interface DiaEntrega {
+  fecha: string // "2026-11-21"
+  titulo: string // "Hoy", "Mañana", "Lunes"
+  corto: string // "Sáb 21"
+  largo: string // "sábado 21"
+  franjas: number[] // horas de entrega disponibles, en minutos del día (750 = 12:30)
+}
+
+interface OpcionesProgramacion {
+  preparacionMin: number
+  intervaloMin: number
+  diasAdelante: number
+  cierreMin: number
+}
+
+const capitalizar = (texto: string) => texto.charAt(0).toUpperCase() + texto.slice(1)
+
+// Días y horas en que este local puede entregar, desde hoy hasta "diasAdelante" días después
+export function diasDeEntrega(local: Local, opciones: OpcionesProgramacion, fecha = new Date()): DiaEntrega[] {
+  const ec = new Date(fecha.getTime() - 5 * 3600 * 1000) // "ahora" en Ecuador
+  const ahora = ec.getUTCHours() * 60 + ec.getUTCMinutes()
+  const dias: DiaEntrega[] = []
+
+  for (let i = 0; i <= opciones.diasAdelante; i++) {
+    const d = new Date(ec.getTime() + i * 24 * 3600 * 1000)
+    const dia = DIAS[d.getUTCDay()]
+    const rango = local.horario?.[dia]
+    if (!rango) continue // ese día no abre
+
+    // Primera hora: apertura + preparación (y si es hoy, desde ahora + preparación),
+    // redondeada hacia arriba a la media hora. Última: el cierre de pedidos de ese día.
+    let desde = aMinutos(rango[0]) + opciones.preparacionMin
+    if (i === 0) desde = Math.max(desde, ahora + opciones.preparacionMin)
+    desde = Math.ceil(desde / opciones.intervaloMin) * opciones.intervaloMin
+    const hasta = aMinutos(rango[1]) - opciones.cierreMin
+
+    const franjas: number[] = []
+    for (let m = desde; m <= hasta; m += opciones.intervaloMin) franjas.push(m)
+    if (franjas.length === 0) continue // ya no quedan horas ese día
+
+    dias.push({
+      fecha: d.toISOString().slice(0, 10),
+      titulo: i === 0 ? 'Hoy' : i === 1 ? 'Mañana' : capitalizar(NOMBRE_DIA[dia]),
+      corto: `${DIA_CORTO[dia]} ${d.getUTCDate()}`,
+      largo: `${NOMBRE_DIA[dia]} ${d.getUTCDate()}`,
+      franjas,
+    })
+  }
+  return dias
+}

@@ -337,6 +337,24 @@
   background: #c01f1f;
 }
 
+.boton-principal:disabled {
+  background: #9aa59d;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* Si n8n no recibió el pedido: mensaje sobre el botón */
+.pedido__acciones .pedido__error-envio {
+  margin: 0 0 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #fdecec;
+  color: #9b1c1c;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: left;
+}
+
 .pedido__vacio {
   padding: 40px 20px;
   text-align: center;
