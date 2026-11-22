@@ -226,3 +226,14 @@ body:has(.detalle[open]) {
     opacity: 0;
   }
 }
+/* Aviso cuando el plato viene del pedido escrito por WhatsApp */
+.detalle__aviso {
+  margin: 0 0 14px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: var(--fondo-suave);
+  color: var(--verde);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+}
