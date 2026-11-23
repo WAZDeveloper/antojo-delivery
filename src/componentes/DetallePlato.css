@@ -151,6 +151,23 @@ body:has(.detalle[open]) {
   background: var(--verde);
 }
 
+.grupo__regla--lista {
+  color: var(--verde);
+  background: var(--fondo-suave);
+}
+
+.grupo__ayuda {
+  margin: -4px 0 2px;
+  font-size: 14px;
+  color: var(--texto-suave);
+}
+
+/* Opción con − y + (reparto): no es un label, así que no lleva cursor de mano */
+.opcion--reparto {
+  cursor: default;
+  padding-right: 8px;
+}
+
 .opcion {
   display: flex;
   align-items: center;

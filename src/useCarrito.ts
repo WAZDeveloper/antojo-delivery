@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { agrupar, contar } from './reparto'
 import type { Menu, Plato } from './tipos'
 
 // Lo que el cliente eligió en cada grupo: { "Guarnición": ["Patacón"], "Extras": ["Huevo frito"] }
@@ -71,18 +72,19 @@ export function useCarrito() {
 const centavos = (valor: number) => Math.round(valor * 100) / 100
 
 // Precio de un plato con sus extras: base + lo que sumen las opciones elegidas
+// (en un combo con reparto, cada unidad suma: 2 de cangrejo = 2 × el recargo)
 export function precioUnitario(plato: Plato, elegidas: Elegidas) {
   let total = plato.precio
   for (const grupo of plato.opciones ?? []) {
     for (const valor of grupo.valores) {
-      if (elegidas[grupo.nombre]?.includes(valor.nombre)) total += valor.precio
+      total += valor.precio * contar(elegidas[grupo.nombre], valor.nombre)
     }
   }
   return centavos(total)
 }
 
-// "Patacón · Huevo frito"
-export const textoOpciones = (elegidas: Elegidas) => Object.values(elegidas).flat().join(' · ')
+// "Patacón · Huevo frito" · en combos: "2× Queso manaba · 4× Camarón"
+export const textoOpciones = (elegidas: Elegidas) => Object.values(elegidas).flatMap(agrupar).join(' · ')
 
 export interface LineaPedido {
   clave: string

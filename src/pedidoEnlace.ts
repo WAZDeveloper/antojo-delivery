@@ -1,4 +1,5 @@
 import type { Menu, Plato } from './tipos'
+import { grupoIncompleto } from './reparto'
 import type { Elegidas } from './useCarrito'
 
 // Un pedido que llega armado en el enlace, por ejemplo desde el bot de WhatsApp:
@@ -111,7 +112,7 @@ export function leerPedidoEnlace(menu: Menu, busqueda = window.location.search):
 
 // ¿Falta elegir algo obligatorio antes de agregarlo? (p. ej. la proteína del bolón)
 export const necesitaElegir = (plato: Plato, elegidas: Elegidas = {}) =>
-  (plato.opciones ?? []).some((grupo) => grupo.obligatorio && !elegidas[grupo.nombre]?.length)
+  (plato.opciones ?? []).some((grupo) => grupoIncompleto(grupo, elegidas))
 
 // Quita ?pedido= de la dirección para que al recargar no se agregue otra vez (deja ?c=)
 export function quitarPedidoDelEnlace() {

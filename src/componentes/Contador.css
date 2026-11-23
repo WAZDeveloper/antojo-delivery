@@ -30,3 +30,22 @@
   font-weight: 700;
   color: var(--tinta);
 }
+.contador button:disabled {
+  color: #b8c4bb;
+  cursor: not-allowed;
+  background: none;
+}
+
+/* Versión pequeña: dentro de las opciones de un plato (reparto) */
+.contador--compacto {
+  height: 38px;
+  flex: none;
+}
+
+.contador--compacto button {
+  width: 38px;
+}
+
+.contador--compacto span {
+  min-width: 22px;
+}

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { contar, separarLineas, unidadesReparto } from '../reparto'
 import type { GrupoOpciones, Plato } from '../tipos'
 import { precioUnitario, type Elegidas } from '../useCarrito'
 import { precio } from '../utilidades'
@@ -6,10 +7,16 @@ import { Contador } from './Contador'
 import { IconoCerrar, IconoFoto } from './Iconos'
 import './DetallePlato.css'
 
+// Lo que se agrega al carrito. Con reparto puede ser más de una línea (2× queso y 1× mixto).
+export interface LineaNueva {
+  elegidas: Elegidas
+  cantidad: number
+}
+
 interface Props {
   plato: Plato
   onCerrar: () => void
-  onAgregar: (elegidas: Elegidas, nota: string, cantidad: number) => void
+  onAgregar: (lineas: LineaNueva[], nota: string) => void
   cantidadInicial?: number // cuando el plato viene del pedido de WhatsApp
   elegidasIniciales?: Elegidas // complementos que ya venían en ese pedido
   aviso?: string // mensaje arriba del nombre del plato
@@ -20,9 +27,19 @@ const textoReglas = (grupo: GrupoOpciones) => {
   return `${grupo.obligatorio ? 'Obligatorio' : 'Opcional'} · ${cuantas}`
 }
 
+// Si llega "3 bolones mixtos" desde WhatsApp, el reparto empieza con los 3 en mixto
+function elegidasDeInicio(plato: Plato, cantidad: number, iniciales: Elegidas = {}): Elegidas {
+  const elegidas = { ...iniciales }
+  for (const grupo of plato.opciones ?? []) {
+    const lista = elegidas[grupo.nombre] ?? []
+    if (grupo.reparto === 1 && lista.length === 1 && cantidad > 1) elegidas[grupo.nombre] = Array(cantidad).fill(lista[0])
+  }
+  return elegidas
+}
+
 export function DetallePlato({ plato, onCerrar, onAgregar, cantidadInicial = 1, elegidasIniciales, aviso }: Props) {
   const ventana = useRef<HTMLDialogElement>(null)
-  const [elegidas, setElegidas] = useState<Elegidas>(elegidasIniciales ?? {})
+  const [elegidas, setElegidas] = useState<Elegidas>(() => elegidasDeInicio(plato, cantidadInicial, elegidasIniciales))
   const [nota, setNota] = useState('')
   const [cantidad, setCantidad] = useState(cantidadInicial)
 
@@ -32,8 +49,12 @@ export function DetallePlato({ plato, onCerrar, onAgregar, cantidadInicial = 1, 
   }, [])
 
   const grupos = plato.opciones ?? []
-  const falta = grupos.find((grupo) => grupo.obligatorio && !(elegidas[grupo.nombre]?.length))
-  const total = precioUnitario(plato, elegidas) * cantidad
+  const faltanEn = (grupo: GrupoOpciones) => unidadesReparto(grupo, cantidad) - (elegidas[grupo.nombre]?.length ?? 0)
+  const falta = grupos.find((grupo) =>
+    grupo.reparto ? faltanEn(grupo) !== 0 : grupo.obligatorio && !elegidas[grupo.nombre]?.length,
+  )
+  const lineas = separarLineas(plato, elegidas, cantidad)
+  const total = lineas.reduce((suma, linea) => suma + precioUnitario(plato, linea.elegidas) * linea.cantidad, 0)
 
   const elegirUna = (grupo: string, valor: string) => setElegidas({ ...elegidas, [grupo]: [valor] })
 
@@ -43,6 +64,35 @@ export function DetallePlato({ plato, onCerrar, onAgregar, cantidadInicial = 1, 
     setElegidas({ ...elegidas, [grupo.nombre]: nuevas })
   }
 
+  // Reparto: cambia cuántas unidades lleva una opción (la lista queda en el orden del menú)
+  const ponerVeces = (grupo: GrupoOpciones, valor: string, veces: number) => {
+    const actuales = elegidas[grupo.nombre] ?? []
+    const nuevas = grupo.valores.flatMap((v) =>
+      Array<string>(v.nombre === valor ? veces : contar(actuales, v.nombre)).fill(v.nombre),
+    )
+    setElegidas({ ...elegidas, [grupo.nombre]: nuevas })
+  }
+
+  const sumarUnidad = (grupo: GrupoOpciones, valor: string) => {
+    const actuales = elegidas[grupo.nombre] ?? []
+    if (faltanEn(grupo) <= 0) {
+      if (grupo.reparto !== 1) return // el combo ya tiene todas sus unidades
+      setCantidad(cantidad + 1) // un plato más: 2 bolones → 3 bolones
+    }
+    ponerVeces(grupo, valor, contar(actuales, valor) + 1)
+  }
+
+  // Al bajar la cantidad, también se quitan las unidades que sobran del reparto
+  const bajarCantidad = () => {
+    const nueva = Math.max(1, cantidad - 1)
+    setCantidad(nueva)
+    const recortadas = { ...elegidas }
+    for (const grupo of grupos) {
+      if (grupo.reparto === 1) recortadas[grupo.nombre] = (elegidas[grupo.nombre] ?? []).slice(0, nueva)
+    }
+    setElegidas(recortadas)
+  }
+
   // Quita los grupos vacíos antes de guardar
   const confirmar = () => {
     const limpias: Elegidas = {}
@@ -50,7 +100,14 @@ export function DetallePlato({ plato, onCerrar, onAgregar, cantidadInicial = 1, 
       const valores = elegidas[grupo.nombre] ?? []
       if (valores.length) limpias[grupo.nombre] = valores
     }
-    onAgregar(limpias, nota, cantidad)
+    onAgregar(separarLineas(plato, limpias, cantidad), nota)
+  }
+
+  const textoBoton = () => {
+    if (!falta) return `Agregar · ${precio(total)}`
+    if (!falta.reparto) return `Elija ${falta.nombre.toLowerCase()}`
+    const faltan = faltanEn(falta)
+    return faltan > 0 ? `Faltan ${faltan} por elegir` : `Sobran ${-faltan}: quite algunas`
   }
 
   return (
@@ -88,6 +145,46 @@ export function DetallePlato({ plato, onCerrar, onAgregar, cantidadInicial = 1, 
 
           {grupos.map((grupo) => {
             const actuales = elegidas[grupo.nombre] ?? []
+
+            // Reparto: cada opción con su − y + (3 bolones = 2 de queso y 1 mixto)
+            if (grupo.reparto) {
+              const necesarias = unidadesReparto(grupo, cantidad)
+              const faltan = necesarias - actuales.length
+              return (
+                <fieldset key={grupo.nombre} className="grupo">
+                  <legend>
+                    <span className="grupo__nombre">{grupo.nombre}</span>
+                    <span className={faltan === 0 ? 'grupo__regla grupo__regla--lista' : 'grupo__regla grupo__regla--obligatoria'}>
+                      {faltan === 0 ? `Listo · ${necesarias} de ${necesarias}` : `Elija ${necesarias} · faltan ${Math.max(faltan, 0)}`}
+                    </span>
+                  </legend>
+                  <p className="grupo__ayuda">
+                    {grupo.reparto === 1
+                      ? 'Si pide varios, puede combinarlos. Ej.: 2 de una y 1 de otra.'
+                      : `Reparta las ${grupo.reparto} unidades como quiera${cantidad > 1 ? ' (igual en cada uno)' : ''}.`}
+                  </p>
+                  {grupo.valores.map((valor) => {
+                    const veces = contar(actuales, valor.nombre)
+                    return (
+                      <div key={valor.nombre} className={veces > 0 ? 'opcion opcion--reparto opcion--marcada' : 'opcion opcion--reparto'}>
+                        <span className="opcion__nombre">{valor.nombre}</span>
+                        {valor.precio > 0 && <span className="opcion__precio">+{precio(valor.precio)}</span>}
+                        <Contador
+                          compacto
+                          nombre={valor.nombre}
+                          cantidad={veces}
+                          onAgregar={() => sumarUnidad(grupo, valor.nombre)}
+                          onQuitar={() => ponerVeces(grupo, valor.nombre, Math.max(0, veces - 1))}
+                          sinQuitar={veces === 0}
+                          sinAgregar={grupo.reparto !== 1 && faltan <= 0}
+                        />
+                      </div>
+                    )
+                  })}
+                </fieldset>
+              )
+            }
+
             const lleno = grupo.maximo > 1 && actuales.length >= grupo.maximo
             return (
               <fieldset key={grupo.nombre} className="grupo">
@@ -140,10 +237,10 @@ export function DetallePlato({ plato, onCerrar, onAgregar, cantidadInicial = 1, 
             nombre={plato.nombre}
             cantidad={cantidad}
             onAgregar={() => setCantidad(cantidad + 1)}
-            onQuitar={() => setCantidad(Math.max(1, cantidad - 1))}
+            onQuitar={bajarCantidad}
           />
           <button type="button" className="boton-principal" disabled={Boolean(falta)} onClick={confirmar}>
-            {falta ? `Elija ${falta.nombre.toLowerCase()}` : `Agregar · ${precio(total)}`}
+            {textoBoton()}
           </button>
         </div>
       </div>

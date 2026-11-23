@@ -5,11 +5,11 @@
   "subtitulo": "Arme su pedido a domicilio y vea el total antes de enviarlo.",
   "marca": {
     "lema": "Pasión por la cocina - Desde 1990",
-    "logo": "",
+    "logo": "./img/icons/logo.png",
     "historia": "En Manabí la comida se hace con calma: verde recién majado, maní tostado y mariscos del día. Así cocinamos cada plato, al momento, para que llegue a su mesa con todo su sabor.",
     "descripcion": "Comida manabita de verdad, preparada al momento y llevada hasta su puerta.",
     "redes": {
-      "instagram": "t",
+      "instagram": "",
       "facebook": "",
       "tiktok": ""
     },
@@ -91,7 +91,7 @@
           "nombre": "Desayuno Costeño",
           "detalle": "Delicioso desayuno y el más completo, original de la casa. Con estofado de pescado suave y fresco, arroz, majado de verde, huevos fritos. Acompañado de café, vaso de jugo de temporada, y porción de fruta picada.",
           "precio": 8.99,
-          "foto": "",
+          "foto": "./img/images/desayuno_costeno.jpg",
           "disponible": true,
           "etiquetas": ["mas-pedido"],
           "opciones": [
@@ -212,6 +212,7 @@
               "nombre": "Proteína",
               "obligatorio": true,
               "maximo": 1,
+              "reparto": 1,
               "valores": [
                 { "nombre": "Queso", "precio": 0 },
                 { "nombre": "Chicharrón", "precio": 0 },
@@ -268,6 +269,7 @@
               "nombre": "Relleno",
               "obligatorio": true,
               "maximo": 1,
+              "reparto": 1,
               "valores": [
                 { "nombre": "Queso", "precio": 0 },
                 { "nombre": "Camarón", "precio": 0.25 },
@@ -289,6 +291,7 @@
               "nombre": "Rellenos",
               "obligatorio": true,
               "maximo": 3,
+              "reparto": 6,
               "valores": [
                 { "nombre": "Queso manaba", "precio": 0 },
                 { "nombre": "Camarón", "precio": 0 },
@@ -309,6 +312,7 @@
               "nombre": "Rellenos",
               "obligatorio": true,
               "maximo": 3,
+              "reparto": 3,
               "valores": [
                 { "nombre": "Queso manaba", "precio": 0 },
                 { "nombre": "Camarón", "precio": 0 },
@@ -441,6 +445,7 @@
               "nombre": "Rellenos",
               "obligatorio": true,
               "maximo": 3,
+              "reparto": 6,
               "valores": [
                 { "nombre": "Queso manaba", "precio": 0 },
                 { "nombre": "Camarón", "precio": 0 },
@@ -461,6 +466,7 @@
               "nombre": "Rellenos",
               "obligatorio": true,
               "maximo": 3,
+              "reparto": 12,
               "valores": [
                 { "nombre": "Queso manaba", "precio": 0 },
                 { "nombre": "Camarón", "precio": 0 },

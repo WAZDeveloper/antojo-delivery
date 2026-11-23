@@ -21,6 +21,7 @@ import type { EtiquetaId, Plato } from './tipos'
 import { enviarPedido, type Confirmacion } from './enviarPedido'
 import { PantallaConfirmado } from './componentes/PantallaConfirmado'
 import { leerPedidoEnlace, necesitaElegir, quitarPedidoDelEnlace, type ItemEnlace } from './pedidoEnlace'
+import { grupoIncompleto } from './reparto'
 
 function App() {
   const datos = useMenu()
@@ -111,7 +112,7 @@ function App() {
   }
   const avisoCola = (item: ItemEnlace) => {
     const faltan = (item.plato.opciones ?? [])
-      .filter((g) => g.obligatorio && !item.elegidas[g.nombre]?.length)
+      .filter((g) => grupoIncompleto(g, item.elegidas))
       .map((g) => g.nombre.toLowerCase())
     return `De su pedido por WhatsApp: elija ${faltan.join(' y ')} para agregarlo.`
   }
@@ -309,8 +310,9 @@ function App() {
                 elegidasIniciales={enCola?.elegidas}
                 aviso={enCola ? avisoCola(enCola) : undefined}
                 onCerrar={() => cerrarDetalle(false)}
-                onAgregar={(elegidas, nota, cantidad) => {
-                  carrito.agregar(platoEnPantalla.id, elegidas, nota, cantidad)
+                onAgregar={(lineas, nota) => {
+                  // Con reparto puede venir más de una línea: 2× Bolón (Queso) y 1× Bolón (Mixto)
+                  for (const linea of lineas) carrito.agregar(platoEnPantalla.id, linea.elegidas, nota, linea.cantidad)
                   cerrarDetalle(true)
                 }}
               />

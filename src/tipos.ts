@@ -11,6 +11,10 @@ export interface GrupoOpciones {
   nombre: string
   obligatorio: boolean
   maximo: number // 1 = elegir una sola; 2 o más = casillas
+  // Reparto: el cliente dice cuántas unidades de cada opción quiere (con − y +).
+  //   1 → una por plato: 3 bolones = 2 de queso y 1 mixto
+  //   6 → el combo trae 6 para repartir: 2 queso, 2 camarón y 2 cangrejo
+  reparto?: number
   valores: ValorOpcion[]
 }
 
