@@ -62,6 +62,15 @@ export function estadoLocal(local: Local, cierreMin: number, fecha = new Date())
   return { abierto: false, proxima: null }
 }
 
+// Si el local no está tomando pedidos: "mañana a las 8:30" (null si está abierto o nunca abre)
+export function proximaApertura(local: Local, cierreMin: number, fecha = new Date()): string | null {
+  const estado = estadoLocal(local, cierreMin, fecha)
+  if (estado.abierto || !estado.proxima) return null
+  const p = estado.proxima
+  const cuando = p.diasDespues === 0 ? 'hoy' : p.diasDespues === 1 ? 'mañana' : `el ${NOMBRE_DIA[p.dia]}`
+  return `${cuando} a las ${textoHora(p.minutos)}`
+}
+
 export interface EstadoGeneral {
   tipo: 'abierto' | 'pronto' | 'cerrado'
   texto: string

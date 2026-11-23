@@ -25,6 +25,7 @@ export interface DatosEntrega {
   horaEntrega: number | null // minutos del día: 750 = 12:30
   // Pago
   pago: string
+  comprobante: string // captura de la transferencia ya reducida, como "data:image/jpeg;base64,..." ('' = sin subir)
 }
 
 export const entregaVacia: DatosEntrega = {
@@ -44,10 +45,14 @@ export const entregaVacia: DatosEntrega = {
   fechaEntrega: '',
   horaEntrega: null,
   pago: '',
+  comprobante: '',
 }
 
 // Un mensaje de error por campo (solo los que fallan)
 export type Errores = Partial<Record<keyof DatosEntrega, string>>
+
+// "Transferencia bancaria" → true
+export const esTransferencia = (pago: string) => /transfer/i.test(pago)
 
 const correoValido = (correo: string) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(correo.trim())
 
@@ -56,6 +61,7 @@ export function validarEntrega(
   facturaObligatoria: boolean,
   enRango: boolean,
   horaElegida = true, // false si el local está cerrado y todavía no eligió una hora
+  pideComprobante = false, // true si hay cuenta para transferir: entonces la captura es obligatoria
 ): Errores {
   const errores: Errores = {}
 
@@ -87,6 +93,9 @@ export function validarEntrega(
   }
 
   if (!datos.pago) errores.pago = 'Elija cómo va a pagar.'
+  else if (pideComprobante && esTransferencia(datos.pago) && !datos.comprobante) {
+    errores.comprobante = 'Suba la captura de su transferencia.'
+  }
 
   return errores
 }
@@ -99,4 +108,5 @@ export interface PedidoListo {
   envio: number
   total: number
   programado: { fecha: string; desde: string; hasta: string; texto: string } | null // null = local abierto, se prepara ya
+  apertura: string | null // si el local está cerrado: cuándo abre ("mañana a las 8:30"), para confirmarlo a esa hora
 }

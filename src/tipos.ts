@@ -49,6 +49,17 @@ export interface Local {
   direccion?: string
   telefono?: string
   horario?: Horario
+  transferencia?: CuentaBancaria // si este local cobra en otra cuenta (si no, se usa la general)
+}
+
+// Cuenta para pagos por transferencia
+export interface CuentaBancaria {
+  banco: string // "Banco Pichincha"
+  tipo: string // "Ahorros" o "Corriente"
+  numero: string
+  titular: string
+  identificacion?: string // cédula o RUC del titular
+  correo?: string // a dónde puede enviar el comprobante, si el banco lo pide
 }
 
 // Textos de la marca para el encabezado y el pie de página
@@ -84,6 +95,7 @@ export interface Menu {
   marca?: Marca
   limite_consumidor_final: number // sobre este total, la factura debe llevar datos (SRI)
   pagos: string[]
+  transferencia?: CuentaBancaria // cuenta general para transferencias
   locales: Local[]
   tarifas_envio: TarifaEnvio[]
   categorias: Categoria[]

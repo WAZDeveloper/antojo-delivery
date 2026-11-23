@@ -11,7 +11,7 @@ interface Props {
 }
 
 export function PantallaConfirmado({ confirmacion, whatsapp, onOtroPedido }: Props) {
-  const { codigo, local, total, totalPlatos, pago, direccion, programado } = confirmacion
+  const { codigo, local, total, totalPlatos, pago, direccion, programado, apertura } = confirmacion
   const titulo = useRef<HTMLHeadingElement>(null)
 
   // Llevar el foco al título para que los lectores de pantalla anuncien el resultado
@@ -38,7 +38,7 @@ export function PantallaConfirmado({ confirmacion, whatsapp, onOtroPedido }: Pro
       </h1>
       <p className="confirmado__texto">
         {programado
-          ? `El local ${local} recibió su pedido para el ${programado.texto}. Le escribiremos por WhatsApp para confirmarlo cuando abra.`
+          ? `El local ${local} recibió su pedido para el ${programado.texto}. Como ahora está cerrado, lo confirmaremos a primera hora, cuando abra${apertura ? ` (${apertura})` : ''}, y le escribiremos por WhatsApp.`
           : `El local ${local} está revisando su pedido. Le escribiremos por WhatsApp para confirmarlo.`}
       </p>
 

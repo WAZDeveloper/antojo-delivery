@@ -149,9 +149,12 @@ function App() {
             local: datosPedido.local,
             total: datosPedido.total,
             totalPlatos: pedido.totalPlatos,
-            pago: datosPedido.entrega.pago,
+            pago: datosPedido.entrega.comprobante
+              ? `${datosPedido.entrega.pago} · comprobante enviado ✓`
+              : datosPedido.entrega.pago,
             direccion: datosPedido.entrega.direccion,
             programado: datosPedido.programado,
+            apertura: datosPedido.apertura,
           })
           carrito.vaciar()
           volverAlMenu() // quita #pedido de la dirección: "atrás" ya no vuelve a un pedido vacío

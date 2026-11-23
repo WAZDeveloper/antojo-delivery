@@ -1,15 +1,15 @@
 {
-  "ejemplo": true,
+  "ejemplo": false,
   "negocio": "Antojo Manabita",
-  "titulo": "¿Qué se le antoja hoy?",
+  "titulo": "¿Qué se te antoja hoy?",
   "subtitulo": "Arme su pedido a domicilio y vea el total antes de enviarlo.",
   "marca": {
-    "lema": "Sabor manabita a domicilio",
+    "lema": "Pasión por la cocina - Desde 1990",
     "logo": "",
     "historia": "En Manabí la comida se hace con calma: verde recién majado, maní tostado y mariscos del día. Así cocinamos cada plato, al momento, para que llegue a su mesa con todo su sabor.",
     "descripcion": "Comida manabita de verdad, preparada al momento y llevada hasta su puerta.",
     "redes": {
-      "instagram": "",
+      "instagram": "t",
       "facebook": "",
       "tiktok": ""
     },
@@ -32,6 +32,14 @@
     "Efectivo al recibir",
     "DeUna / Payphone"
   ],
+  "transferencia": {
+  "banco": "Banco Pichincha",
+  "tipo": "Ahorros",
+  "numero": "2200000000",
+  "titular": "NOMBRE DEL TITULAR",
+  "identificacion": "RUC o cédula",
+  "correo": ""
+},
   "locales": [
     {
       "nombre": "Valle de los Chillos",
@@ -90,10 +98,12 @@
             {
               "nombre": "Extras",
               "obligatorio": false,
-              "maximo": 2,
+              "maximo": 4,
               "valores": [
                 { "nombre": "Porción de huevos fritos", "precio": 0.99 },
-                { "nombre": "Porción de jugo de carne", "precio": 0.99 }
+                { "nombre": "Limonada", "precio": 0.99 },
+                { "nombre": "Porción de arroz", "precio": 0.99 },
+                { "nombre": "Jugo de naranja", "precio": 0.99 }
               ]
             }
           ]
@@ -105,7 +115,7 @@
           "precio": 7.5,
           "foto": "",
           "disponible": true,
-          "etiquetas": ["nuevo"],
+          "etiquetas": ["nuevo", "mas-pedido"],
           "opciones": [
             {
               "nombre": "Extras",
@@ -113,7 +123,11 @@
               "maximo": 2,
               "valores": [
                 { "nombre": "Porción de huevos fritos", "precio": 0.99 },
-                { "nombre": "Porción de jugo de carne", "precio": 0.99 }
+                { "nombre": "Porción de jugo de carne", "precio": 0.99 },
+                { "nombre": "Extra de majado", "precio": 0.99 },
+                { "nombre": "Limonada", "precio": 0.99 },
+                { "nombre": "Porción de arroz", "precio": 0.99 },
+                { "nombre": "Jugo de naranja", "precio": 0.99 }
               ]
             }
           ]
@@ -125,6 +139,7 @@
           "precio": 7.5,
           "foto": "",
           "disponible": true,
+          "etiquetas":["mas-pedido"],
           "opciones": [
             {
               "nombre": "Extras",
@@ -132,90 +147,60 @@
               "maximo": 2,
               "valores": [
                 { "nombre": "Porción de huevos fritos", "precio": 0.99 },
-                { "nombre": "Porción de jugo de carne", "precio": 0.99 }
+                { "nombre": "Porción de jugo de carne", "precio": 0.99 },
+                { "nombre": "Extra de majado", "precio": 0.99 },
+                { "nombre": "Limonada", "precio": 0.99 },
+                { "nombre": "Porción de arroz", "precio": 0.99 },
+                { "nombre": "Jugo de naranja", "precio": 0.99 }
               ]
             }
           ]
         },
         {
           "id": "des-04",
-          "nombre": "Encebollado",
-          "detalle": "El ganador por décadas. Lo dicen los premios ganados y nuestros clientes fieles",
-          "precio": 5.5,
+          "nombre": "Colonche de camarón",
+          "detalle": "Crocantes y exquisitos patacones troceados revueltos con camarón en nuestra salsa estelar de maní.",
+          "precio": 6.99,
           "foto": "",
           "disponible": true,
-          "etiquetas": ["mas-pedido"],
+          "etiquetas":["nuevo"],
           "opciones": [
             {
               "nombre": "Extras",
               "obligatorio": false,
               "maximo": 2,
               "valores": [
-                { "nombre": "Porción de huevos fritos", "precio": 0.99 },
-                { "nombre": "Porción de jugo de carne", "precio": 0.99 }
+                { "nombre": "Limonada", "precio": 0.99 },
+                { "nombre": "Porción de arroz", "precio": 0.99 },
+                { "nombre": "Jugo de naranja", "precio": 0.99 }
               ]
             }
           ]
         },
         {
           "id": "des-05",
-          "nombre": "Tsunami Antojo Manabita",
-          "detalle": "La versión 2.0 del encebollado. Este viene con camarón, albacora, pulpo y concha.",
-          "precio": 13.99,
+          "nombre": "Majarisco",
+          "detalle": "Jugoso desayuno. Majado de verde con variedad de mariscos en salsa cremosa.",
+          "precio": 6.99,
           "foto": "",
           "disponible": true,
+          "etiquetas":["nuevo"],
           "opciones": [
             {
               "nombre": "Extras",
               "obligatorio": false,
               "maximo": 2,
               "valores": [
-                { "nombre": "Porción de huevos fritos", "precio": 0.99 },
-                { "nombre": "Porción de jugo de carne", "precio": 0.99 }
+                { "nombre": "Porción de arroz", "precio": 0.99 },
+                { "nombre": "Limonada", "precio": 0.99 },
+                { "nombre": "Porción de arroz", "precio": 0.99 },
+                { "nombre": "Jugo de naranja", "precio": 0.99 }
               ]
             }
           ]
         },
         {
           "id": "des-06",
-          "nombre": "Colonche de camarón",
-          "detalle": "Crocantes y exquisitos patacones troceados revueltos con camarón en nuestra salsa estelar de maní.",
-          "precio": 6.99,
-          "foto": "",
-          "disponible": true,
-          "opciones": [
-            {
-              "nombre": "Extras",
-              "obligatorio": false,
-              "maximo": 2,
-              "valores": [
-                { "nombre": "Porción de huevos fritos", "precio": 0.99 },
-                { "nombre": "Porción de jugo de carne", "precio": 0.99 }
-              ]
-            }
-          ]
-        },
-        {
-          "id": "des-07",
-          "nombre": "Majarisco",
-          "detalle": "Jugoso desayuno. Majado de verde con variedad de mariscos en salsa cremosa.",
-          "precio": 6.99,
-          "foto": "",
-          "disponible": true,
-          "opciones": [
-            {
-              "nombre": "Extras",
-              "obligatorio": false,
-              "maximo": 2,
-              "valores": [
-                { "nombre": "Porción de huevos fritos", "precio": 0.99 },
-                { "nombre": "Porción de jugo de carne", "precio": 0.99 }
-              ]
-            }
-          ]
-        },
-        {
-          "id": "des-08",
           "nombre": "Bolón",
           "detalle": "Crocante y contundente, delicioso bolón con la proteína de tu elección de la más alta calidad. Puedes pedirlo solo o con nuestra exquisita carne al jugo (recomendado).",
           "precio": 4.99,
@@ -239,42 +224,16 @@
               "maximo": 2,
               "valores": [
                 { "nombre": "Porción de huevos fritos", "precio": 0.99 },
-                { "nombre": "Porción de jugo de carne", "precio": 0.99 }
+                { "nombre": "Porción de jugo de carne", "precio": 0.99 },
+                { "nombre": "Taza de café", "precio": 0.99 },
+                { "nombre": "Limonada", "precio": 0.99 },
+                { "nombre": "Jugo de naranja", "precio": 0.99 }
               ]
             }
           ]
         },
         {
-          "id": "des-09",
-          "nombre": "Empanadas",
-          "detalle": "Guapa empanada de verde con relleno de tu elección y acompañada de nuestro delicioso aji de aguacate.",
-          "precio": 1.99,
-          "foto": "",
-          "disponible": true,
-          "opciones": [
-            {
-              "nombre": "Relleno",
-              "obligatorio": true,
-              "maximo": 1,
-              "valores": [
-                { "nombre": "Queso", "precio": 0 },
-                { "nombre": "Camarón", "precio": 0.25 },
-                { "nombre": "Cangrejo", "precio": 0.6 }
-              ]
-            },
-            {
-              "nombre": "Extras",
-              "obligatorio": false,
-              "maximo": 2,
-              "valores": [
-                { "nombre": "Porción de huevos fritos", "precio": 0.99 },
-                { "nombre": "Porción de jugo de carne", "precio": 0.99 }
-              ]
-            }
-          ]
-        },
-        {
-          "id": "des-10",
+          "id": "des-07",
           "nombre": "Guatita clásica",
           "detalle": "El delicioso mondongo de la más alta calidad, e higiene. Con nuestra especial base de maní y cremosidad. Acompañado de arroz, huevo duro, maduro y aguacate.",
           "precio": 8.99,
@@ -286,8 +245,8 @@
               "obligatorio": false,
               "maximo": 2,
               "valores": [
-                { "nombre": "Porción de huevos fritos", "precio": 0.99 },
-                { "nombre": "Porción de jugo de carne", "precio": 0.99 }
+                { "nombre": "Limonada", "precio": 0.99 },
+                { "nombre": "Jugo de naranja", "precio": 0.99 }
               ]
             }
           ]
@@ -360,12 +319,12 @@
         },
         {
           "id": "ent-04",
-          "nombre": "Maduros fritos crocantes",
+          "nombre": "Maduros Fritos",
           "detalle": "Dulces, traídos de Manabí. Pídalos solos o con todo, como recomendamos: con queso manaba, sal prieta y maní quebrado.",
           "precio": 3.99,
           "foto": "",
           "disponible": true,
-          "etiquetas": ["vegetariano"],
+          "etiquetas": ["vegetariano", "para-compartir", "mas-pedido"],
           "opciones": [
             {
               "nombre": "Preparación",
@@ -373,6 +332,8 @@
               "maximo": 1,
               "valores": [
                 { "nombre": "Con todo (recomendado)", "precio": 0 },
+                { "nombre": "Solo Queso", "precio": 0 },
+                { "nombre": "Solo Salprieta", "precio": 0 },
                 { "nombre": "Solos", "precio": 0 }
               ]
             }
@@ -380,30 +341,44 @@
         },
         {
           "id": "ent-05",
-          "nombre": "Maduros asados como en mi tierra",
-          "detalle": "Saludables y exquisitos: maduros asados con queso manaba, sal prieta y maní quebrado.",
+          "nombre": "Maduros Asados",
+          "detalle": "Saludables y exquisitos.",
           "precio": 3.99,
           "foto": "",
           "disponible": true,
-          "etiquetas": ["vegetariano"]
+          "etiquetas": ["vegetariano", "para-compartir", "mas-pedido"],
+          "opciones": [
+            {
+              "nombre": "Preparación",
+              "obligatorio": true,
+              "maximo": 1,
+              "valores": [
+                { "nombre": "Con todo (recomendado)", "precio": 0 },
+                { "nombre": "Solo Queso", "precio": 0 },
+                { "nombre": "Solo Salprieta", "precio": 0 },
+                { "nombre": "Solos", "precio": 0 }
+              ]
+            }
+          ]
         },
         {
           "id": "ent-06",
           "nombre": "Patacones a lo manaba",
-          "detalle": "Crocantes y calientitos patacones con sal prieta, queso manaba y/o maní quebrado.",
+          "detalle": "Crocantes y calientitos patacones.",
           "precio": 3.99,
           "foto": "",
           "disponible": true,
-          "etiquetas": ["vegetariano"],
+          "etiquetas": ["vegetariano", "para-compartir", "mas-pedido"],
           "opciones": [
             {
               "nombre": "Para acompañar",
               "obligatorio": false,
-              "maximo": 3,
+              "maximo": 1,
               "valores": [
-                { "nombre": "Sal prieta", "precio": 0 },
-                { "nombre": "Queso manaba", "precio": 0 },
-                { "nombre": "Maní quebrado", "precio": 0 }
+                { "nombre": "Con todo (recomendado)", "precio": 0 },
+                { "nombre": "Solo Queso", "precio": 0 },
+                { "nombre": "Solo Salprieta", "precio": 0 },
+                { "nombre": "Solos", "precio": 0 }
               ]
             }
           ]
@@ -414,7 +389,20 @@
           "detalle": "Frescas conchas traídas desde el manglar, preparadas con delicioso chimichurri para que se chupe hasta los dedos.",
           "precio": 14.99,
           "foto": "",
-          "disponible": true
+          "disponible": true,
+          "etiquetas": ["para-compartir", "mas-pedido"],
+          "opciones": [
+            {
+              "nombre": "Extra",
+              "obligatorio": false,
+              "maximo": 1,
+              "valores": [
+                { "nombre": "Porción de chimichurri", "precio": 0 },
+                { "nombre": "Extra Patacones", "precio": 0 },
+                { "nombre": "Extra Ensalada", "precio": 0 }
+              ]
+            }
+          ]
         },
         {
           "id": "ent-08",
@@ -423,7 +411,17 @@
           "precio": 24.99,
           "foto": "",
           "disponible": true,
-          "etiquetas": ["para-compartir"]
+          "etiquetas": ["para-compartir"],
+          "opciones": [
+            {
+              "nombre": "Extra",
+              "obligatorio": false,
+              "maximo": 1,
+              "valores": [
+                { "nombre": "Extra Patacones", "precio": 0 }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -491,7 +489,9 @@
               "maximo": 2,
               "valores": [
                 { "nombre": "Porción de cangrejo", "precio": 3.99 },
-                { "nombre": "Porción de pulpo", "precio": 3.99 }
+                { "nombre": "Porción de pulpo", "precio": 3.99 },
+                { "nombre": "Porción de chifles", "precio": 3.99 },
+                { "nombre": "Porción de aguacate", "precio": 3.99 }
               ]
             }
           ]
@@ -510,7 +510,9 @@
               "maximo": 2,
               "valores": [
                 { "nombre": "Porción de cangrejo", "precio": 3.99 },
-                { "nombre": "Porción de pulpo", "precio": 3.99 }
+                { "nombre": "Porción de pulpo", "precio": 3.99 },
+                { "nombre": "Porción de chifles", "precio": 3.99 },
+                { "nombre": "Porción de aguacate", "precio": 3.99 }
               ]
             }
           ]
@@ -529,7 +531,9 @@
               "maximo": 2,
               "valores": [
                 { "nombre": "Porción de cangrejo", "precio": 3.99 },
-                { "nombre": "Porción de pulpo", "precio": 3.99 }
+                { "nombre": "Porción de pulpo", "precio": 3.99 },
+                { "nombre": "Porción de chifles", "precio": 3.99 },
+                { "nombre": "Porción de aguacate", "precio": 3.99 }
               ]
             }
           ]
@@ -559,7 +563,9 @@
               "maximo": 2,
               "valores": [
                 { "nombre": "Porción de cangrejo", "precio": 3.99 },
-                { "nombre": "Porción de pulpo", "precio": 3.99 }
+                { "nombre": "Porción de pulpo", "precio": 3.99 },
+                { "nombre": "Porción de chifles", "precio": 3.99 },
+                { "nombre": "Porción de aguacate", "precio": 3.99 }
               ]
             }
           ]
@@ -578,7 +584,9 @@
               "maximo": 2,
               "valores": [
                 { "nombre": "Porción de cangrejo", "precio": 3.99 },
-                { "nombre": "Porción de pulpo", "precio": 3.99 }
+                { "nombre": "Porción de pulpo", "precio": 3.99 },
+                { "nombre": "Porción de chifles", "precio": 3.99 },
+                { "nombre": "Porción de aguacate", "precio": 3.99 }
               ]
             }
           ]
@@ -598,7 +606,9 @@
               "maximo": 2,
               "valores": [
                 { "nombre": "Porción de cangrejo", "precio": 3.99 },
-                { "nombre": "Porción de pulpo", "precio": 3.99 }
+                { "nombre": "Porción de pulpo", "precio": 3.99 },
+                { "nombre": "Porción de chifles", "precio": 3.99 },
+                { "nombre": "Porción de aguacate", "precio": 3.99 }
               ]
             }
           ]
@@ -736,7 +746,26 @@
           "detalle": "Plato típico de la tierrita. El maní, el choclo y el camote le dan un sabor único. (Solo fines de semana y feriados)",
           "precio": 14.99,
           "foto": "",
-          "disponible": true
+          "disponible": false
+        },
+                {
+          "id": "sop-07",
+          "nombre": "Tsunami Antojo Manabita",
+          "detalle": "La versión 2.0 del encebollado. Este viene con camarón, albacora, pulpo y concha.",
+          "precio": 13.99,
+          "foto": "",
+          "disponible": true,
+          "opciones": [
+            {
+              "nombre": "Extras",
+              "obligatorio": false,
+              "maximo": 2,
+              "valores": [
+                { "nombre": "Porción de huevos fritos", "precio": 0.99 },
+                { "nombre": "Porción de jugo de carne", "precio": 0.99 }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -797,7 +826,7 @@
           "detalle": "Grandes camarones apanados, con arroz, patacones, ensalada y menestra. (Solo fines de semana y feriados)",
           "precio": 13.99,
           "foto": "",
-          "disponible": true
+          "disponible": false
         },
         {
           "id": "esp-08",
@@ -912,7 +941,7 @@
           "detalle": "La lonchera manaba: arroz, gallina al jugo, maduro y salsa de maní, envuelta en hoja de plátano y cocinada al horno. (Solo fines de semana y feriados)",
           "precio": 9.99,
           "foto": "",
-          "disponible": true
+          "disponible": false
         },
         {
           "id": "fog-04",
@@ -920,7 +949,7 @@
           "detalle": "La lonchera manaba: arroz, almeja, mejillón, pescado, calamar, camarón, concha y langostino, maduro y salsa de maní, envuelta en hoja de plátano y cocinada al horno. (Solo fines de semana y feriados)",
           "precio": 14.99,
           "foto": "",
-          "disponible": true
+          "disponible": false
         },
         {
           "id": "fog-05",
@@ -936,7 +965,7 @@
           "detalle": "Dos jugosas chuletas con arroz, papas fritas, ensalada y menestra. (Solo fines de semana y feriados)",
           "precio": 11.99,
           "foto": "",
-          "disponible": true
+          "disponible": false
         },
         {
           "id": "fog-07",
@@ -944,7 +973,7 @@
           "detalle": "Deliciosa receta con gallina de campo. (Solo fines de semana y feriados)",
           "precio": 9.99,
           "foto": "",
-          "disponible": true
+          "disponible": false
         },
         {
           "id": "fog-08",
@@ -952,7 +981,7 @@
           "detalle": "Exquisito caldo cocinado en olla de barro, con gallina de campo. (Solo fines de semana y feriados)",
           "precio": 6.99,
           "foto": "",
-          "disponible": true
+          "disponible": false
         }
       ]
     },

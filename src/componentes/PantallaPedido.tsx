@@ -1,9 +1,9 @@
 import { useRef, useState, type FormEvent } from 'react'
 import { NOMBRES_IDENTIFICACION, type TipoIdentificacion } from '../identificacion'
 import { calcularEntrega, textoKm, type Punto } from '../entrega'
-import { diasDeEntrega, estadoLocal, textoHora } from '../horario'
+import { diasDeEntrega, estadoLocal, proximaApertura, textoHora } from '../horario'
 import { useAhora } from '../useAhora'
-import { entregaVacia, validarEntrega, type DatosEntrega, type PedidoListo } from '../pedido'
+import { entregaVacia, esTransferencia, validarEntrega, type DatosEntrega, type PedidoListo } from '../pedido'
 import type { Menu } from '../tipos'
 import type { LineaPedido } from '../useCarrito'
 import { precio } from '../utilidades'
@@ -20,6 +20,7 @@ import {
   IconoUbicacion,
 } from './Iconos'
 import { MapaEntrega } from './MapaEntrega'
+import { PagoTransferencia } from './PagoTransferencia'
 import './PantallaPedido.css'
 
 interface Props {
@@ -45,6 +46,7 @@ const ORDEN_CAMPOS: (keyof DatosEntrega)[] = [
   'correo',
   'direccionFactura',
   'pago',
+  'comprobante',
 ]
 
 const TIPOS_ID: TipoIdentificacion[] = ['cedula', 'ruc', 'pasaporte']
@@ -59,7 +61,7 @@ function iconoPago(metodo: string) {
 
 function ayudaPago(metodo: string) {
   const m = metodo.toLowerCase()
-  if (m.includes('transfer')) return 'El local le enviará los datos de la cuenta al confirmar.'
+  if (m.includes('transfer')) return 'El local le enviará los datos de la cuenta al confirmar.' // solo si no hay cuenta en menu.json
   if (m.includes('efectivo')) return 'Si necesita cambio, indíquelo en la nota de un plato o en la referencia.'
   return ''
 }
@@ -113,8 +115,14 @@ export function PantallaPedido({
   const facturaObligatoria = total > menu.limite_consumidor_final
   const conDatos = facturaObligatoria || entrega.factura === 'datos'
 
+  // Cuenta para transferir: la del local que le toca o, si no tiene, la general
+  const cuenta = resultado?.local.transferencia ?? menu.transferencia
+  const pideComprobante = Boolean(cuenta)
+
   // Los errores se calculan solos en cada cambio, pero solo se muestran después del primer intento
-  const errores = intentoEnviar ? validarEntrega(entrega, facturaObligatoria, enRango, horaElegida) : {}
+  const errores = intentoEnviar
+    ? validarEntrega(entrega, facturaObligatoria, enRango, horaElegida, pideComprobante)
+    : {}
 
   // <K extends keyof DatosEntrega>: "campo" es uno de los nombres y "valor" tiene el tipo de ese campo
   const cambiar = <K extends keyof DatosEntrega>(campo: K, valor: DatosEntrega[K]) =>
@@ -150,7 +158,7 @@ export function PantallaPedido({
     evento.preventDefault()
     if (enviando) return // evita mandar el pedido dos veces
     setIntentoEnviar(true)
-    const encontrados = validarEntrega(entrega, facturaObligatoria, enRango, horaElegida)
+    const encontrados = validarEntrega(entrega, facturaObligatoria, enRango, horaElegida, pideComprobante)
 
     const primero = ORDEN_CAMPOS.find((campo) => encontrados[campo])
     if (primero || !resultado?.enRango) {
@@ -162,7 +170,11 @@ export function PantallaPedido({
     setErrorEnvio('')
     try {
       await onEnviar({
-        entrega: { ...entrega, factura: conDatos ? 'datos' : 'consumidor' },
+        entrega: {
+          ...entrega,
+          factura: conDatos ? 'datos' : 'consumidor',
+          comprobante: pideComprobante && esTransferencia(entrega.pago) ? entrega.comprobante : '',
+        },
         local: resultado.local.nombre,
         distanciaKm: Math.round(resultado.distancia * 10) / 10,
         envio: resultado.envio,
@@ -176,6 +188,7 @@ export function PantallaPedido({
                 texto: `${diaElegido.largo}, ${textoHora(entrega.horaEntrega)}–${textoHora(entrega.horaEntrega + prog.intervalo_min)}`,
               }
             : null,
+        apertura: programado ? proximaApertura(resultado.local, cierreMin, ahora) : null,
       })
       // Si salió bien, App cambia a la pantalla "Pedido enviado"
     } catch (error) {
@@ -429,23 +442,36 @@ export function PantallaPedido({
           <legend>Método de pago</legend>
           {menu.pagos.map((metodo, indice) => {
             const elegido = entrega.pago === metodo
-            const ayuda = ayudaPago(metodo)
+            const conCuenta = cuenta && esTransferencia(metodo)
+            const ayuda = conCuenta ? '' : ayudaPago(metodo)
             return (
-              <label key={metodo} className={elegido ? 'pago pago--elegido' : 'pago'}>
-                <span className="pago__fila">
-                  <input
-                    id={`pago-${indice}`}
-                    type="radio"
-                    name="pago"
-                    value={metodo}
-                    checked={elegido}
-                    onChange={() => cambiar('pago', metodo)}
+              <div key={metodo} className="pago__bloque">
+                <label className={elegido ? 'pago pago--elegido' : 'pago'}>
+                  <span className="pago__fila">
+                    <input
+                      id={`pago-${indice}`}
+                      type="radio"
+                      name="pago"
+                      value={metodo}
+                      checked={elegido}
+                      onChange={() => cambiar('pago', metodo)}
+                    />
+                    {iconoPago(metodo)}
+                    <span className="pago__nombre">{metodo}</span>
+                  </span>
+                  {elegido && ayuda && <span className="pago__ayuda">{ayuda}</span>}
+                </label>
+                {elegido && conCuenta && (
+                  <PagoTransferencia
+                    cuenta={cuenta}
+                    total={total}
+                    totalListo={enRango}
+                    comprobante={entrega.comprobante}
+                    error={errores.comprobante}
+                    onCambiar={(imagen) => cambiar('comprobante', imagen)}
                   />
-                  {iconoPago(metodo)}
-                  <span className="pago__nombre">{metodo}</span>
-                </span>
-                {elegido && ayuda && <span className="pago__ayuda">{ayuda}</span>}
-              </label>
+                )}
+              </div>
             )
           })}
           {mensajeError('pago')}

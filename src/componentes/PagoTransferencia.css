@@ -1,0 +1,183 @@
+/* Datos de la cuenta y comprobante (aparece al elegir "Transferencia bancaria") */
+.transferencia {
+  padding: 16px;
+  border-radius: 16px;
+  background: var(--fondo-suave);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.transferencia__monto {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.transferencia__monto strong {
+  font-size: 18px;
+  color: var(--verde);
+}
+
+.transferencia__monto span {
+  color: var(--texto-suave);
+  font-size: 13px;
+}
+
+.transferencia__datos {
+  margin: 0;
+  padding: 4px 14px;
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+.transferencia__fila {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2px 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--borde);
+}
+
+.transferencia__fila:last-child {
+  border-bottom: 0;
+}
+
+.transferencia__fila dt {
+  font-size: 13px;
+  color: var(--texto-suave);
+}
+
+.transferencia__fila dd {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+  text-align: right;
+}
+
+.transferencia__copiar,
+.transferencia__copiar-todo {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1.5px solid var(--verde);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--verde);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.transferencia__copiar {
+  min-height: 34px;
+  padding: 0 12px;
+  font-size: 13px;
+}
+
+.transferencia__copiar-todo {
+  align-self: flex-start;
+  min-height: 40px;
+  padding: 0 16px;
+  font-size: 14px;
+}
+
+/* Subir comprobante */
+.comprobante {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 4px;
+}
+
+.comprobante__titulo {
+  margin: 0;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+/* El input de archivo queda invisible encima del botón: así se ve como botón pero funciona con teclado */
+.comprobante__subir,
+.comprobante__cambiar {
+  position: relative;
+  cursor: pointer;
+}
+
+.comprobante__subir input,
+.comprobante__cambiar input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.comprobante__subir {
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 2px dashed var(--verde);
+  border-radius: 16px;
+  background: #ffffff;
+  color: var(--verde);
+  font-weight: 700;
+}
+
+.comprobante__subir--error {
+  border-color: var(--rojo);
+}
+
+.comprobante__subir:has(input:focus-visible),
+.comprobante__cambiar:has(input:focus-visible),
+.transferencia__copiar:focus-visible,
+.transferencia__copiar-todo:focus-visible {
+  outline: 3px solid var(--mani);
+  outline-offset: 2px;
+}
+
+.comprobante__listo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px;
+  border-radius: 16px;
+  background: #ffffff;
+}
+
+.comprobante__listo img {
+  width: 72px;
+  height: 96px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid var(--borde);
+  flex: none;
+}
+
+.comprobante__ok {
+  margin: 0 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  color: var(--verde);
+}
+
+.comprobante__cambiar {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1.5px solid var(--verde);
+  border-radius: 999px;
+  color: var(--verde);
+  font-size: 14px;
+  font-weight: 600;
+}
