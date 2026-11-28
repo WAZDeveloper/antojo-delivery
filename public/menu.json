@@ -27,18 +27,15 @@
   "aviso_envio": "El recargo por envío depende de la ruta hasta su dirección.",
   "limite_consumidor_final": 50,
   "pagos": [
-    "Transferencia bancaria",
-    "Tarjeta de crédito/débito",
-    "Efectivo al recibir",
-    "DeUna / Payphone"
+    "Transferencia bancaria"
   ],
   "transferencia": {
   "banco": "Banco Pichincha",
-  "tipo": "Ahorros",
-  "numero": "2200000000",
-  "titular": "NOMBRE DEL TITULAR",
-  "identificacion": "RUC o cédula",
-  "correo": ""
+  "tipo": "Corriente",
+  "numero": "2100343865",
+  "titular": "EXPERIENCIAS GASTRONOMICAS S.A.S",
+  "identificacion": "1793219878001",
+  "correo": "tesoreria@elantojomanabita.com"
 },
   "locales": [
     {
@@ -96,6 +93,38 @@
           "etiquetas": ["mas-pedido"],
           "opciones": [
             {
+              "nombre": "Elija su bebida caliente",
+              "obligatorio": true,
+              "maximo": 1,
+              "reparto": 1,
+              "valores": [
+                { "nombre": "Café Americano", "precio": 0 },
+                { "nombre": "Agua Aromática", "precio": 0 }
+              ]
+            },
+            {
+              "nombre": "Elija su fruta",
+              "obligatorio": true,
+              "maximo": 1,
+              "reparto": 1,
+              "valores": [
+                { "nombre": "Porción de Fruta Picada", "precio": 0 },
+                { "nombre": "Porción de Sandia Picada", "precio": 0 }
+              ]
+            },
+              {
+              "nombre": "Elija su jugo natural",
+              "obligatorio": true,
+              "maximo": 1,
+              "reparto": 1,
+              "valores": [
+                { "nombre": "Jugo Tomate de arbol vaso", "precio": 0 },
+                { "nombre": "Jugo de naranja baso", "precio": 0 },
+                { "nombre": "Limonada Vaso", "precio": 0 }
+              ]
+            },
+            {
+              
               "nombre": "Extras",
               "obligatorio": false,
               "maximo": 4,
@@ -115,22 +144,7 @@
           "precio": 7.5,
           "foto": "",
           "disponible": true,
-          "etiquetas": ["nuevo", "mas-pedido"],
-          "opciones": [
-            {
-              "nombre": "Extras",
-              "obligatorio": false,
-              "maximo": 2,
-              "valores": [
-                { "nombre": "Porción de huevos fritos", "precio": 0.99 },
-                { "nombre": "Porción de jugo de carne", "precio": 0.99 },
-                { "nombre": "Extra de majado", "precio": 0.99 },
-                { "nombre": "Limonada", "precio": 0.99 },
-                { "nombre": "Porción de arroz", "precio": 0.99 },
-                { "nombre": "Jugo de naranja", "precio": 0.99 }
-              ]
-            }
-          ]
+          "etiquetas": ["nuevo", "mas-pedido"]
         },
         {
           "id": "des-03",
@@ -139,22 +153,7 @@
           "precio": 7.5,
           "foto": "",
           "disponible": true,
-          "etiquetas":["mas-pedido"],
-          "opciones": [
-            {
-              "nombre": "Extras",
-              "obligatorio": false,
-              "maximo": 2,
-              "valores": [
-                { "nombre": "Porción de huevos fritos", "precio": 0.99 },
-                { "nombre": "Porción de jugo de carne", "precio": 0.99 },
-                { "nombre": "Extra de majado", "precio": 0.99 },
-                { "nombre": "Limonada", "precio": 0.99 },
-                { "nombre": "Porción de arroz", "precio": 0.99 },
-                { "nombre": "Jugo de naranja", "precio": 0.99 }
-              ]
-            }
-          ]
+          "etiquetas":["mas-pedido"]
         },
         {
           "id": "des-04",
@@ -163,19 +162,7 @@
           "precio": 6.99,
           "foto": "",
           "disponible": true,
-          "etiquetas":["nuevo"],
-          "opciones": [
-            {
-              "nombre": "Extras",
-              "obligatorio": false,
-              "maximo": 2,
-              "valores": [
-                { "nombre": "Limonada", "precio": 0.99 },
-                { "nombre": "Porción de arroz", "precio": 0.99 },
-                { "nombre": "Jugo de naranja", "precio": 0.99 }
-              ]
-            }
-          ]
+          "etiquetas":["nuevo"]
         },
         {
           "id": "des-05",
@@ -184,20 +171,7 @@
           "precio": 6.99,
           "foto": "",
           "disponible": true,
-          "etiquetas":["nuevo"],
-          "opciones": [
-            {
-              "nombre": "Extras",
-              "obligatorio": false,
-              "maximo": 2,
-              "valores": [
-                { "nombre": "Porción de arroz", "precio": 0.99 },
-                { "nombre": "Limonada", "precio": 0.99 },
-                { "nombre": "Porción de arroz", "precio": 0.99 },
-                { "nombre": "Jugo de naranja", "precio": 0.99 }
-              ]
-            }
-          ]
+          "etiquetas":["nuevo"]
         },
         {
           "id": "des-06",
@@ -218,18 +192,6 @@
                 { "nombre": "Chicharrón", "precio": 0 },
                 { "nombre": "Mixto", "precio": 0 }
               ]
-            },
-            {
-              "nombre": "Extras",
-              "obligatorio": false,
-              "maximo": 2,
-              "valores": [
-                { "nombre": "Porción de huevos fritos", "precio": 0.99 },
-                { "nombre": "Porción de jugo de carne", "precio": 0.99 },
-                { "nombre": "Taza de café", "precio": 0.99 },
-                { "nombre": "Limonada", "precio": 0.99 },
-                { "nombre": "Jugo de naranja", "precio": 0.99 }
-              ]
             }
           ]
         },
@@ -239,18 +201,7 @@
           "detalle": "El delicioso mondongo de la más alta calidad, e higiene. Con nuestra especial base de maní y cremosidad. Acompañado de arroz, huevo duro, maduro y aguacate.",
           "precio": 8.99,
           "foto": "",
-          "disponible": true,
-          "opciones": [
-            {
-              "nombre": "Extras",
-              "obligatorio": false,
-              "maximo": 2,
-              "valores": [
-                { "nombre": "Limonada", "precio": 0.99 },
-                { "nombre": "Jugo de naranja", "precio": 0.99 }
-              ]
-            }
-          ]
+          "disponible": true
         }
       ]
     },
@@ -272,8 +223,8 @@
               "reparto": 1,
               "valores": [
                 { "nombre": "Queso", "precio": 0 },
-                { "nombre": "Camarón", "precio": 0.25 },
-                { "nombre": "Cangrejo", "precio": 0.6 }
+                { "nombre": "Camarón", "precio": 0.26 },
+                { "nombre": "Cangrejo", "precio": 0.61 }
               ]
             }
           ]
@@ -283,7 +234,7 @@
           "nombre": "Combo de empanadas de verde (6)",
           "detalle": "6 ricas empanadas de verde con relleno a su elección: queso manaba, camarón o pulpa de cangrejo, acompañadas de nuestro ají de aguacate.",
           "precio": 11.99,
-          "foto": "",
+          "foto": "./img/images/combo_empanadas.jpg",
           "disponible": true,
           "etiquetas": ["para-compartir"],
           "opciones": [
@@ -295,7 +246,8 @@
               "valores": [
                 { "nombre": "Queso manaba", "precio": 0 },
                 { "nombre": "Camarón", "precio": 0 },
-                { "nombre": "Cangrejo", "precio": 0 }
+                { "nombre": "Cangrejo", "precio": 0 },
+                { "nombre": "Pulpo", "precio": 0 }
               ]
             }
           ]
@@ -316,7 +268,8 @@
               "valores": [
                 { "nombre": "Queso manaba", "precio": 0 },
                 { "nombre": "Camarón", "precio": 0 },
-                { "nombre": "Cangrejo", "precio": 0 }
+                { "nombre": "Cangrejo", "precio": 0 },
+                { "nombre": "Pulpo", "precio": 0 }
               ]
             }
           ]
@@ -334,6 +287,7 @@
               "nombre": "Preparación",
               "obligatorio": true,
               "maximo": 1,
+              "reparto": 1,
               "valores": [
                 { "nombre": "Con todo (recomendado)", "precio": 0 },
                 { "nombre": "Solo Queso", "precio": 0 },
@@ -356,6 +310,7 @@
               "nombre": "Preparación",
               "obligatorio": true,
               "maximo": 1,
+              "reparto": 1,
               "valores": [
                 { "nombre": "Con todo (recomendado)", "precio": 0 },
                 { "nombre": "Solo Queso", "precio": 0 },
@@ -376,8 +331,9 @@
           "opciones": [
             {
               "nombre": "Para acompañar",
-              "obligatorio": false,
+              "obligatorio": true,
               "maximo": 1,
+              "reparto": 1,
               "valores": [
                 { "nombre": "Con todo (recomendado)", "precio": 0 },
                 { "nombre": "Solo Queso", "precio": 0 },
@@ -394,19 +350,7 @@
           "precio": 14.99,
           "foto": "",
           "disponible": true,
-          "etiquetas": ["para-compartir", "mas-pedido"],
-          "opciones": [
-            {
-              "nombre": "Extra",
-              "obligatorio": false,
-              "maximo": 1,
-              "valores": [
-                { "nombre": "Porción de chimichurri", "precio": 0 },
-                { "nombre": "Extra Patacones", "precio": 0 },
-                { "nombre": "Extra Ensalada", "precio": 0 }
-              ]
-            }
-          ]
+          "etiquetas": ["para-compartir", "mas-pedido"]
         },
         {
           "id": "ent-08",
@@ -415,17 +359,7 @@
           "precio": 24.99,
           "foto": "",
           "disponible": true,
-          "etiquetas": ["para-compartir"],
-          "opciones": [
-            {
-              "nombre": "Extra",
-              "obligatorio": false,
-              "maximo": 1,
-              "valores": [
-                { "nombre": "Extra Patacones", "precio": 0 }
-              ]
-            }
-          ]
+          "etiquetas": ["para-compartir"]
         }
       ]
     },
@@ -449,7 +383,8 @@
               "valores": [
                 { "nombre": "Queso manaba", "precio": 0 },
                 { "nombre": "Camarón", "precio": 0 },
-                { "nombre": "Cangrejo", "precio": 0 }
+                { "nombre": "Cangrejo", "precio": 0 },
+                { "nombre": "Pulpo", "precio": 0 }
               ]
             }
           ]
@@ -470,7 +405,8 @@
               "valores": [
                 { "nombre": "Queso manaba", "precio": 0 },
                 { "nombre": "Camarón", "precio": 0 },
-                { "nombre": "Cangrejo", "precio": 0 }
+                { "nombre": "Cangrejo", "precio": 0 },
+                { "nombre": "Pulpo", "precio": 0 }
               ]
             }
           ]
@@ -495,9 +431,7 @@
               "maximo": 2,
               "valores": [
                 { "nombre": "Porción de cangrejo", "precio": 3.99 },
-                { "nombre": "Porción de pulpo", "precio": 3.99 },
-                { "nombre": "Porción de chifles", "precio": 3.99 },
-                { "nombre": "Porción de aguacate", "precio": 3.99 }
+                { "nombre": "Porción de pulpo", "precio": 3.99 }
               ]
             }
           ]
@@ -516,9 +450,7 @@
               "maximo": 2,
               "valores": [
                 { "nombre": "Porción de cangrejo", "precio": 3.99 },
-                { "nombre": "Porción de pulpo", "precio": 3.99 },
-                { "nombre": "Porción de chifles", "precio": 3.99 },
-                { "nombre": "Porción de aguacate", "precio": 3.99 }
+                { "nombre": "Porción de pulpo", "precio": 3.99 }
               ]
             }
           ]
@@ -537,9 +469,7 @@
               "maximo": 2,
               "valores": [
                 { "nombre": "Porción de cangrejo", "precio": 3.99 },
-                { "nombre": "Porción de pulpo", "precio": 3.99 },
-                { "nombre": "Porción de chifles", "precio": 3.99 },
-                { "nombre": "Porción de aguacate", "precio": 3.99 }
+                { "nombre": "Porción de pulpo", "precio": 3.99 }
               ]
             }
           ]
@@ -549,7 +479,7 @@
           "nombre": "Ceviche mixto",
           "detalle": "Elija 2 proteínas de su preferencia.",
           "precio": 11.99,
-          "foto": "",
+          "foto": "./img/images/ceviche_mixto.jpg",
           "disponible": true,
           "opciones": [
             {
@@ -569,9 +499,7 @@
               "maximo": 2,
               "valores": [
                 { "nombre": "Porción de cangrejo", "precio": 3.99 },
-                { "nombre": "Porción de pulpo", "precio": 3.99 },
-                { "nombre": "Porción de chifles", "precio": 3.99 },
-                { "nombre": "Porción de aguacate", "precio": 3.99 }
+                { "nombre": "Porción de pulpo", "precio": 3.99 }
               ]
             }
           ]
@@ -590,9 +518,7 @@
               "maximo": 2,
               "valores": [
                 { "nombre": "Porción de cangrejo", "precio": 3.99 },
-                { "nombre": "Porción de pulpo", "precio": 3.99 },
-                { "nombre": "Porción de chifles", "precio": 3.99 },
-                { "nombre": "Porción de aguacate", "precio": 3.99 }
+                { "nombre": "Porción de pulpo", "precio": 3.99 }
               ]
             }
           ]
@@ -612,9 +538,7 @@
               "maximo": 2,
               "valores": [
                 { "nombre": "Porción de cangrejo", "precio": 3.99 },
-                { "nombre": "Porción de pulpo", "precio": 3.99 },
-                { "nombre": "Porción de chifles", "precio": 3.99 },
-                { "nombre": "Porción de aguacate", "precio": 3.99 }
+                { "nombre": "Porción de pulpo", "precio": 3.99 }
               ]
             }
           ]
@@ -669,15 +593,34 @@
           "precio": 16.99,
           "foto": "",
           "disponible": true,
-          "etiquetas": ["picante"],
+          "etiquetas": ["picante", "mas-pedido"],
           "opciones": [
             {
+              "nombre": "Nivel de picante",
+              "obligatorio": true,
+              "maximo": 1,
+              "valores": [
+                { "nombre": "Suave", "precio": 0 },
+                { "nombre": "Medio", "precio": 0 },
+                { "nombre": "Muy Picante", "precio": 0 }
+              ]
+            },
+              {
               "nombre": "Marisco",
               "obligatorio": true,
               "maximo": 1,
               "valores": [
                 { "nombre": "Cangrejo", "precio": 0 },
                 { "nombre": "Langostino", "precio": 0 }
+              ]
+            },
+            {
+              "nombre": "Elija su guarnición",
+              "obligatorio": true,
+              "maximo": 1,
+              "valores": [
+                { "nombre": "Porción de arroz", "precio": 0 },
+                { "nombre": "Porción de patacones", "precio": 0 }
               ]
             }
           ]
@@ -686,12 +629,13 @@
           "id": "sop-02",
           "nombre": "Cazuela de mariscos",
           "detalle": "Sopa a base de verde y maní, con variedad de mariscos.",
-          "precio": 14.99,
-          "foto": "",
+          "precio": 12.99,
+          "foto": "./img/images/cazuela.jpg",
           "disponible": true,
+          "etiquetas": ["mas-pedido"],
           "opciones": [
             {
-              "nombre": "Acompañante",
+              "nombre": "Elija su guarnición",
               "obligatorio": true,
               "maximo": 1,
               "valores": [
@@ -719,6 +663,15 @@
                 { "nombre": "Medio", "precio": 0 },
                 { "nombre": "Endiablado", "precio": 0 }
               ]
+            },
+            {
+              "nombre": "Elija su guarnición",
+              "obligatorio": true,
+              "maximo": 1,
+              "valores": [
+                { "nombre": "Arroz", "precio": 0 },
+                { "nombre": "Patacones", "precio": 0 }
+              ]
             }
           ]
         },
@@ -727,22 +680,23 @@
           "nombre": "Encebollado manabita",
           "detalle": "El ganador por décadas. Lo dicen los premios ganados y nuestros clientes fieles.",
           "precio": 5.5,
-          "foto": "",
-          "disponible": true
+          "foto": "./img/images/encebollado.jpg",
+          "disponible": true,
+          "etiquetas": ["mas-pedido"]
         },
         {
           "id": "sop-05",
           "nombre": "Encebollado con camarón",
           "detalle": "Exquisito, con camarones grandes.",
           "precio": 6.99,
-          "foto": "",
+          "foto": "./img/images/encebollado_camaron.jpg",
           "disponible": true
         },
         {
           "id": "sop-06",
           "nombre": "Tsunami Antojo Manabita",
           "detalle": "La versión 2.0 del encebollado: camarón, albacora, pulpo y concha, lo que le hace un caldo afrodisíaco.",
-          "precio": 13.5,
+          "precio": 13.99,
           "foto": "",
           "disponible": true
         },
@@ -752,7 +706,19 @@
           "detalle": "Plato típico de la tierrita. El maní, el choclo y el camote le dan un sabor único. (Solo fines de semana y feriados)",
           "precio": 14.99,
           "foto": "",
-          "disponible": false
+          "disponible": true,
+          "opciones": [
+            {
+              "nombre": "Elija su guarnición",
+              "obligatorio": true,
+              "maximo": 1,
+              "valores": [
+                { "nombre": "Porción de Arroz", "precio": 0 },
+                { "nombre": "Porción de Cocolón", "precio": 0 }
+              ]
+            }
+          ]
+          
         },
                 {
           "id": "sop-07",
@@ -815,7 +781,7 @@
           "nombre": "Mar y tierra",
           "detalle": "Para los que quieren los 2 mundos: langostinos, filete de pescado y chuleta a la parrilla, con papa frita y ensalada.",
           "precio": 16.99,
-          "foto": "",
+          "foto": "./img/images/marytierra.jpg",
           "disponible": true
         },
         {
@@ -823,7 +789,7 @@
           "nombre": "Camarón apanado",
           "detalle": "Grandes camarones apanados, con arroz, patacones y ensalada.",
           "precio": 11.99,
-          "foto": "",
+          "foto": "./img/images/camaron_apanado.jpg",
           "disponible": true
         },
         {
@@ -831,7 +797,7 @@
           "nombre": "Camarón apanado con menestra",
           "detalle": "Grandes camarones apanados, con arroz, patacones, ensalada y menestra. (Solo fines de semana y feriados)",
           "precio": 13.99,
-          "foto": "",
+          "foto": "./img/images/camaron_apanado_m.jpg",
           "disponible": false
         },
         {
@@ -1015,7 +981,7 @@
           "nombre": "Encocado marinero",
           "detalle": "5 mariscos en la deliciosa salsa encocada: almeja, mejillón, camarón, calamar y pescado.",
           "precio": 15.99,
-          "foto": "",
+          "foto": "./img/images/encocado_marinero.jpg",
           "disponible": true
         },
         {
@@ -1061,7 +1027,7 @@
           "nombre": "Filete a la parrilla",
           "detalle": "Para los que quieren el toque ahumado, hecho con chimichurri de la casa.",
           "precio": 12.99,
-          "foto": "",
+          "foto": "./img/images/filete_parrilla.jpg",
           "disponible": true
         },
         {
@@ -1098,7 +1064,7 @@
           "nombre": "Arroz con camarón",
           "detalle": "Grandes camarones revueltos en un delicioso arroz con vegetales, con maduro.",
           "precio": 9.99,
-          "foto": "",
+          "foto": "./img/images/arroz_camaron.jpg",
           "disponible": true
         },
         {
@@ -1106,7 +1072,7 @@
           "nombre": "Arroz Antojo Manabita",
           "detalle": "¡Recomendado! Un arroz como ningún otro: camarón, pescado, almeja, mejillón, calamar y cangrejo. Con maduro.",
           "precio": 17.99,
-          "foto": "",
+          "foto": "./img/images/arroz_antojomanabita.jpg",
           "disponible": true,
           "etiquetas": ["mas-pedido"]
         },
@@ -1115,7 +1081,7 @@
           "nombre": "Arroz múltiple",
           "detalle": "La versión de todo un poquito: camarón, pescado, almeja, mejillón y calamar.",
           "precio": 14.99,
-          "foto": "",
+          "foto": "./img/images/arroz_mixto.jpg",
           "disponible": true
         }
       ]
@@ -1154,7 +1120,7 @@
           "nombre": "Traigo de Todo personal",
           "detalle": "Para probar de todo un poquito usted solito: camarones apanados, conchas asadas, dedos de pescado, mini ceviche Jipijapa mixto, patacones y maduro.",
           "precio": 14.99,
-          "foto": "",
+          "foto": "./img/images/bandeja_personal.jpg",
           "disponible": true
         },
         {
@@ -1173,15 +1139,6 @@
           "precio": 14.99,
           "foto": "",
           "disponible": true
-        },
-        {
-          "id": "pic-07",
-          "nombre": "Velero Marinero",
-          "detalle": "El más grande de todos (4 a 6 personas): langostinos, filete de pescado y pulpo a la parrilla, 3 ceviches (múltiple, Jipijapa y tropical con base de michelada), 2 arroces (con coco y múltiple), conchas asadas y chicharrón de mariscos (pescado, camarón y calamar).",
-          "precio": 97.99,
-          "foto": "",
-          "disponible": true,
-          "etiquetas": ["para-compartir"]
         }
       ]
     },
